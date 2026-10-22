@@ -41,14 +41,16 @@ GPU name/UUID/SM, driver, clocks/power/temperature/utilization, compute processe
 compute-sanitizer --tool memcheck ./build/sm_86/cuda_smoke
 
 # Только один прогретый kernel внутри profiler API range
-ncu --profile-from-start off --set basic -o results/cute-softmax \
+ncu --clock-control none --profile-from-start off --set basic -o results/cute-softmax \
   python -m bench.profile --language cute --task 01-softmax
-nsys profile --capture-range=cudaProfilerApi --capture-range-end=stop \
+nsys profile --trace=cuda,nvtx --sample=none --cpuctxsw=none \
+  --capture-range=cudaProfilerApi --capture-range-end=stop \
   -o results/triton-softmax python -m bench.profile --language triton --task 01-softmax
 ```
 
 Nsight Compute hardware counters могут быть закрыты администратором
 (`ERR_NVGPUCTRPERM`). Это не ошибка kernel; скрипты не меняют настройку драйвера.
+На исходном сервере это ограничение подтверждено при настройке 2026-10-22.
 Не сравнивай profiler-instrumented latency с обычным бенчмарком. Для анализа
 собирай register count, occupancy, DRAM/L2 traffic, achieved bandwidth,
 Tensor Core utilization и stall reasons, когда они релевантны задаче.

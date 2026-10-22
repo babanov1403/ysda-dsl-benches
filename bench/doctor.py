@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 
 import torch
+import cutlass
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,8 +43,11 @@ def report():
     result = {
         'python': platform.python_version(), 'platform': platform.platform(),
         'packages': packages, 'torch_cuda': torch.version.cuda,
+        'cute_compiler_cuda': str(cutlass.CUDA_VERSION),
         'cuda_available': available, 'cuda_home': os.environ.get('CUDA_HOME'),
         'cuda_visible_devices': os.environ.get('CUDA_VISIBLE_DEVICES'),
+        'compiler_overrides': {name: os.environ.get(name) for name in
+            ['CUTE_DSL_ARCH', 'TRITON_PTXAS_PATH', 'TRITON_PTXAS_BLACKWELL_PATH', 'YSDA_CUDA_ARCH']},
         'nvcc': command(['nvcc', '--version']),
         'host_compiler': command(['c++', '--version']),
         'profilers': {name: shutil.which(name) for name in ['ncu', 'nsys', 'compute-sanitizer']},
