@@ -1,0 +1,16 @@
+.venv/
+.tools/
+.cache/
+build/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+results/*
+!results/.gitkeep
+*.ncu-rep
+*.nsys-rep
+*.sqlite
+.env
+.env.*
+!.env.example

@@ -1,0 +1,24 @@
+[project]
+name = "ysda-dsl"
+version = "0.1.0"
+description = "Reproducible GPU kernel experiments: Triton, CuTe DSL, CUDA C++"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "torch==2.14.1",
+  "triton==3.8.0",
+  "nvidia-cutlass-dsl[cu13]==4.8.1",
+  "numpy==2.5.4",
+  "pytest==9.1.1",
+  "cmake==4.4.4",
+  "ninja==1.13.2",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+required-environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: requires a CUDA-capable GPU and built CUDA library"]
+
