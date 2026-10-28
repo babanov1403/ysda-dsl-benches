@@ -6,8 +6,8 @@
 
 __global__ void add(const float* a,
                     const float* b,
-                          float* c,
-                   unsigned int  n)
+                    float* c,
+                    unsigned int  n)
 {
     const int index = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -32,6 +32,6 @@ torch::Tensor cuda_add(torch::Tensor a, torch::Tensor b) {
     return out;
 }
 
-PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("add", &cuda_add);
-}
+// PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+//     m.def("add", &cuda_add);
+// }
