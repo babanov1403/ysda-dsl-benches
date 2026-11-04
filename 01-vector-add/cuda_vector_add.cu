@@ -1,6 +1,7 @@
 #include <torch/extension.h>
 #include <c10/cuda/CUDAGuard.h>
 #include <c10/cuda/CUDAStream.h>
+#include <c10/cuda/CUDAException.h>
 
 #define GROUP_SIZE 256
 
@@ -28,7 +29,8 @@ torch::Tensor cuda_add(torch::Tensor a, torch::Tensor b) {
     dim3 threadsCount(GROUP_SIZE, 1, 1);
 
     add<<<blocksCount, threadsCount, 0, stream>>>(a.data_ptr<float>(), b.data_ptr<float>(), out.data_ptr<float>(), n);
-    
+    C10_CUDA_KERNEL_LAUNCH_CHECK();
+
     return out;
 }
 
