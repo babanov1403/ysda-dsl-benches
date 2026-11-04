@@ -304,6 +304,15 @@ wheels = [
 ]
 
 [[package]]
+name = "einops"
+version = "0.8.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/2c/77/850bef8d72ffb9219f0b1aac23fbc1bf7d038ee6ea666f331fa273031aa2/einops-0.8.2.tar.gz", hash = "sha256:609da665570e5e265e27283aab09e7f279ade90c4f01bcfca111f3d3e13f2827", size = 56261, upload-time = "2026-01-26T04:13:17.638Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/09/f8d8f8f31e4483c10a906437b4ce31bdf3d6d417b73fe33f1a8b59e34228/einops-0.8.2-py3-none-any.whl", hash = "sha256:54058201ac7087911181bfec4af6091bb59380360f069276601256a76af08193", size = 65638, upload-time = "2026-01-26T04:13:18.546Z" },
+]
+
+[[package]]
 name = "executing"
 version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1283,6 +1292,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-dotenv"
+version = "1.2.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/74/26/2fbeedb218a787a5eea551c7532cac4e009f83d689dd2faa0d0353473f86/python_dotenv-1.2.4.tar.gz", hash = "sha256:f0d53e69935a851c0dcc78f3ab7aaccd8cabef0b92382b576b824212902873c0", size = 60824, upload-time = "2026-10-01T05:36:10Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/60/d1/38f3a3405989a89ac18390803e70c6ad7c7760da4f9b83cbeca0c44a0c72/python_dotenv-1.2.4-py3-none-any.whl", hash = "sha256:42269a8a5b3fd54ffa6f3d84b18abed50064717576b4ecf03dc4a55d8aa04fdc", size = 23266, upload-time = "2026-10-01T05:36:08.633Z" },
+]
+
+[[package]]
 name = "python-json-logger"
 version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1312,6 +1330,22 @@ sdist = { url = "https://files.pythonhosted.org/packages/e7/8d/5b3d5631c2f4b4b88
 wheels = [
     { url = "https://files.pythonhosted.org/packages/62/2c/d5828306f795e8d34676d266823b74e2101e0ad3760d12083de3e02abbb2/pyzmq-27.2.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:dea74fd65f1fc5f7fe167916a473ebe6ed6174e5e5d9de11ea6583661be6cf43", size = 872258, upload-time = "2026-08-20T19:06:44.627Z" },
     { url = "https://files.pythonhosted.org/packages/aa/0e/ec77f691a4aebe29ab6329f996fb0e0270c876a3016086e3ca6ef733bcae/pyzmq-27.2.0-cp312-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:f707bcf2c1d007d14d70531d4dd7b41060881c73efa845580bf6faaf9ea24d42", size = 1910457, upload-time = "2026-08-20T19:06:50.783Z" },
+]
+
+[[package]]
+name = "quack-kernels"
+version = "0.6.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "apache-tvm-ffi", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "einops", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "nvidia-cutlass-dsl", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "torch", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "torch-c-dlpack-ext", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5f/18/6c2a20d00dff254f154fb3b951f4e5a0377a60122c17385e5f08d5f5b5e1/quack_kernels-0.6.5.tar.gz", hash = "sha256:dd9405a4a6fa35fc3a5a18fe35b46a14b0bf7e3ad9fe2451903e355047ac471d", size = 846876, upload-time = "2026-09-11T05:08:20.621Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/73/d8/f5e56c38b286308d115a171e3c5c44f24e9d03980c3cfd22588df40261fa/quack_kernels-0.6.5-py3-none-any.whl", hash = "sha256:df1ddd31366c82eb9692fe087c671209189dcbde53c909c81a865d4ee66b158d", size = 729615, upload-time = "2026-09-11T05:08:19.306Z" },
 ]
 
 [[package]]
@@ -1652,6 +1686,8 @@ dependencies = [
     { name = "ninja", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "numpy", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "nvidia-cutlass-dsl", extra = ["cu13"], marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "python-dotenv", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
+    { name = "quack-kernels", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "tilelang", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "torch", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
     { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
@@ -1665,6 +1701,8 @@ requires-dist = [
     { name = "ninja", specifier = "==1.13.2" },
     { name = "numpy", specifier = "==2.5.4" },
     { name = "nvidia-cutlass-dsl", extras = ["cu13"], specifier = "==4.8.1" },
+    { name = "python-dotenv", specifier = "==1.2.4" },
+    { name = "quack-kernels", specifier = "==0.6.5" },
     { name = "tilelang", specifier = "==0.1.15" },
     { name = "torch", specifier = "==2.14.1" },
     { name = "triton", specifier = "==3.8.0" },
