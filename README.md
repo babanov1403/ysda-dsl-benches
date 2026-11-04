@@ -1,0 +1,82 @@
+# DSL benches
+
+Compares GPU kernels written with `torch`, `torch.compile`, Triton, CuTe DSL and CUDA C++.
+
+## Setup
+
+```bash
+uv sync
+cp .env.example .env   # set CUDA_HOME for your machine
+CUDA_VISIBLE_DEVICES=<free gpu> uv run --frozen jupyter lab
+```
+
+Start Jupyter with `uv run`: the CUDA build needs `ninja` from `.venv/bin` on PATH.
+
+## Layout
+
+```
+common/                 shared harness
+<NN-kernel>/<username>/ your kernels and bench.ipynb
+```
+
+Keep your work in your own subdirectory. `01-vector-add/fvelikon/` is a full example to copy.
+
+## Running a kernel
+
+`make_runner` gives every backend the same call:
+
+```python
+from common.inputs import make_inputs
+from common.run import make_runner, run_benchmark
+
+impls = {
+    "torch": make_runner("torch", torch.add),
+    "torch_compile": make_runner("torch_compile", lambda x, y: x + y),
+    "triton": make_runner(
+        "triton",
+        triton_vector_add.vector_add_kernel(autotune=False),
+        extra_args=lambda a, b, out: (a.numel(),),
+        grid=lambda meta: (triton.cdiv(meta["n"], meta["BLOCK_SIZE"]),),
+    ),
+    "cute": make_runner("cute", cute_vector_add.add(autotune=False)),
+    "cuda": make_runner("cuda", "cuda_vector_add.cu", entry="add"),
+}
+
+inputs = make_inputs((N,), (N,))
+output = impls["triton"](*inputs)
+results = run_benchmark(impls, inputs, reference=torch.add, flops=N)
+```
+
+Triton and CuTe kernels receive `(*inputs, out)`. `out` is allocated like the first input.
+
+## PTX and SASS
+
+Call a runner at least once, then:
+
+```python
+from common.asm import dump_asm
+
+impls["triton"].asm()                      # {name: {"ptx": ..., "sass": ...}}
+dump_asm(impls["triton"].asm(), "asm/triton")
+```
+
+`torch` returns `{}`, because eager ops have no per-kernel code.
+
+## Autotuning
+
+Triton uses `triton.autotune` and CuTe uses Quack's `autotune`. Declare the options on the kernel, and give tunable parameters a default in its signature:
+
+```python
+@autotunable(configs=[AutotuneConfig(threads_per_block=t) for t in (64, 128, 256, 512, 1024)])
+@cute.jit
+def add(a, b, out, threads_per_block: cutlass.Constexpr = 256): ...
+
+add(autotune=True)    # picks the fastest config for each input shape
+add(autotune=False)   # no autotuner: signature and framework defaults
+```
+
+For Triton, use `triton.Config(...)` configs and pass `key=[...]`. CuTe kernels must use `@autotunable`, even if you never tune them.
+
+## Benchmark sizes
+
+Use a large enough `N`. On a B300, `N = 1 << 20` is mostly fixed launch cost and CPU overhead, and autotune winners there are noise. `N = 1 << 24` gives meaningful comparisons.
