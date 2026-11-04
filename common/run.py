@@ -147,12 +147,15 @@ def _cute_runner(kernel, configs, key):
     from quack.autotuner import autotune
 
     cache = {}
-    last = last_config = None
+    last = last_config = held = held_wrapped = None
 
     def call(*inputs, **config):
-        nonlocal last, last_config
+        nonlocal last, last_config, held, held_wrapped
+        # from_dlpack costs ~5 us per tensor, so reuse the wrappers while the inputs stay the same.
+        if held is None or any(x is not y for x, y in zip(inputs, held)):
+            held, held_wrapped = inputs, [from_dlpack(t, assumed_align=16) for t in inputs]
         tensors = (*inputs, torch.empty_like(inputs[0]))
-        wrapped = [from_dlpack(t, assumed_align=16) for t in tensors]
+        wrapped = [*held_wrapped, from_dlpack(tensors[-1], assumed_align=16)]
         spec = (tuple((t.device, t.dtype, t.shape, t.stride()) for t in tensors), *config.items())
         if spec not in cache:
             cache[spec] = cute.compile[cute.KeepPTX, cute.KeepCUBIN](kernel, *wrapped, **config)
