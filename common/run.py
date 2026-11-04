@@ -1,4 +1,5 @@
 import gc
+import tempfile
 from functools import partial
 from pathlib import Path
 
@@ -143,6 +144,7 @@ def _cute_bench(fn, quantiles):
 
 def _cute_runner(kernel, configs, key):
     import cutlass.cute as cute
+    from cutlass.base_dsl.compiler import DumpDir
     from cutlass.cute.runtime import from_dlpack
     from quack.autotuner import autotune
 
@@ -158,7 +160,9 @@ def _cute_runner(kernel, configs, key):
         wrapped = [*held_wrapped, from_dlpack(tensors[-1], assumed_align=16)]
         spec = (tuple((t.device, t.dtype, t.shape, t.stride()) for t in tensors), *config.items())
         if spec not in cache:
-            cache[spec] = cute.compile[cute.KeepPTX, cute.KeepCUBIN](kernel, *wrapped, **config)
+            # CuTe reads the dumped PTX and cubin into memory, so the files don't need to outlive compile.
+            with tempfile.TemporaryDirectory() as dump_dir:
+                cache[spec] = cute.compile[cute.KeepPTX, cute.KeepCUBIN, DumpDir(dump_dir)](kernel, *wrapped, **config)
         last, last_config = cache[spec], config
         last(*wrapped)
         return tensors[-1]
