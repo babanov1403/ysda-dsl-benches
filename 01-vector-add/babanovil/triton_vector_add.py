@@ -3,9 +3,6 @@ import torch
 import triton
 import triton.language as tl
 
-torch.cuda.set_device(0)
-DEVICE = triton.runtime.driver.active.get_active_torch_device()
-
 @triton.jit
 def vector_add_kernel(a_ptr, b_ptr, out_ptr, n, BLOCK_SIZE: tl.constexpr):
     block_id = tl.program_id(0)
@@ -22,8 +19,7 @@ def vector_add_kernel(a_ptr, b_ptr, out_ptr, n, BLOCK_SIZE: tl.constexpr):
 
 def add(a: torch.Tensor, b: torch.Tensor):
     output = torch.empty_like(a)
-
-    assert a.device == DEVICE and b.device == DEVICE and output.device == DEVICE
+    assert a.device == b.device
 
     n = output.numel()
 
