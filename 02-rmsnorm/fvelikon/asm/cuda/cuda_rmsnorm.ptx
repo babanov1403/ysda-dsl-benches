@@ -1,0 +1,305 @@
+
+Fatbin elf code:
+================
+arch = sm_103
+code version = [1,8]
+host = linux
+compile_size = 64bit
+identifier = /home/fvelikon/projects/ysda-dsl-benches/02-rmsnorm/fvelikon/cuda_rmsnorm.cu
+
+Fatbin ptx code:
+================
+arch = sm_103
+code version = [9,2]
+host = linux
+compile_size = 64bit
+compressed
+identifier = /home/fvelikon/projects/ysda-dsl-benches/02-rmsnorm/fvelikon/cuda_rmsnorm.cu
+ptxasOptions =  --generate-line-info 
+
+
+
+
+
+
+
+
+.version 9.2
+.target sm_103
+.address_size 64
+
+
+
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo6rbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo4rendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo7crbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__45__cpo5crendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__448_GLOBAL__N__c301b4a7_15_cuda_rmsnorm_cu_a08091386ignoreE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__47nulloptE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__48in_placeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__419piecewise_constructE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std3__420unreachable_sentinelE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo9iter_moveE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo7advanceE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4nextE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4prevE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4dataE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo5cdataE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo4sizeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo5ssizeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo8distanceE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo5emptyE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3std6ranges3__45__cpo11min_elementE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091384cuda3__413in_place_fromE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_10306system3cpp3parE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_10308cuda_cub3parE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_10308cuda_cub10par_nosyncE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_1E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_2E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_3E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_4E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_5E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_6E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_7E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_8E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders2_9E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_103012placeholders3_10E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_c301b4a7_15_cuda_rmsnorm_cu_a08091386thrust17_V_300200_SM_10303seqE[1];
+
+.visible .entry _Z7rmsnormPKfS0_Pfj(
+.param .u64 .ptr .align 1 _Z7rmsnormPKfS0_Pfj_param_0,
+.param .u64 .ptr .align 1 _Z7rmsnormPKfS0_Pfj_param_1,
+.param .u64 .ptr .align 1 _Z7rmsnormPKfS0_Pfj_param_2,
+.param .u32 _Z7rmsnormPKfS0_Pfj_param_3
+)
+{
+.reg .pred %p<11>;
+.reg .b32 %r<48>;
+.reg .b64 %rd<19>;
+.loc	1 9 0	// cuda_rmsnorm.cu:9:0  __global__ void rmsnorm(const float* x, const float* w, float* out, unsigned int n)
+
+.shared .align 4 .b8 _ZZ7rmsnormPKfS0_PfjE8partials[32];
+ld.param.b64 %rd7, [_Z7rmsnormPKfS0_Pfj_param_0];
+ld.param.b64 %rd5, [_Z7rmsnormPKfS0_Pfj_param_1];
+ld.param.b64 %rd6, [_Z7rmsnormPKfS0_Pfj_param_2];
+ld.param.b32 %r5, [_Z7rmsnormPKfS0_Pfj_param_3];
+.loc	1 12 5	// cuda_rmsnorm.cu:12:5  x += blockIdx.x * n;
+cvta.to.global.u64 %rd8, %rd7;
+mov.u32 %r6, %ctaid.x;
+mul.lo.s32 %r7, %r5, %r6;
+cvt.u64.u32 %rd1, %r7;
+mul.wide.u32 %rd9, %r7, 4;
+add.s64 %rd2, %rd8, %rd9;
+.loc	1 16 5	// cuda_rmsnorm.cu:16:5  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x) {
+mov.u32 %r47, %tid.x;
+setp.ge.u32 %p1, %r47, %r5;
+mov.b32 %r46, 0f00000000;
+@%p1 bra $L__BB0_3;
+.loc	1 0 5	// cuda_rmsnorm.cu:0:5
+mov.b32 %r46, 0f00000000;
+mov.u32 %r1, %ntid.x;
+mov.b32 %r45, %r47;
+$L__BB0_2:
+.loc	1 17 9	// cuda_rmsnorm.cu:17:9  sum_sq += x[col] * x[col];
+mul.wide.u32 %rd10, %r45, 4;
+add.s64 %rd11, %rd2, %rd10;
+ld.global.b32 %r8, [%rd11];
+fma.rn.f32 %r46, %r8, %r8, %r46;
+.loc	1 16 51	// cuda_rmsnorm.cu:16:51  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x) {
+add.s32 %r45, %r45, %r1;
+.loc	1 16 5	// cuda_rmsnorm.cu:16:5  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x) {
+setp.lt.u32 %p2, %r45, %r5;
+@%p2 bra $L__BB0_2;
+$L__BB0_3:
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+.loc	2 449 9	// sm_30_intrinsics.hpp:449:9  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);
+shfl.sync.bfly.b32 %r9|%p3, %r46, 16, 31, -1;
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+add.f32 %r10, %r46, %r9;
+.loc	2 449 9	// sm_30_intrinsics.hpp:449:9  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);
+shfl.sync.bfly.b32 %r11|%p4, %r10, 8, 31, -1;
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+add.f32 %r12, %r10, %r11;
+.loc	2 449 9	// sm_30_intrinsics.hpp:449:9  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);
+shfl.sync.bfly.b32 %r13|%p5, %r12, 4, 31, -1;
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+add.f32 %r14, %r12, %r13;
+.loc	2 449 9	// sm_30_intrinsics.hpp:449:9  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);
+shfl.sync.bfly.b32 %r15|%p6, %r14, 2, 31, -1;
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+add.f32 %r16, %r14, %r15;
+.loc	2 449 9	// sm_30_intrinsics.hpp:449:9  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);
+shfl.sync.bfly.b32 %r17|%p7, %r16, 1, 31, -1;
+.loc	1 21 9	// cuda_rmsnorm.cu:21:9  sum_sq += __shfl_xor_sync(0xffffffff, sum_sq, offset);
+add.f32 %r2, %r16, %r17;
+.loc	1 24 5	// cuda_rmsnorm.cu:24:5  if (threadIdx.x % 32 == 0) {
+and.b32 %r18, %r47, 31;
+setp.ne.b32 %p8, %r18, 0;
+@%p8 bra $L__BB0_5;
+.loc	1 25 9	// cuda_rmsnorm.cu:25:9  partials[threadIdx.x / 32] = sum_sq;
+shr.u32 %r19, %r47, 3;
+mov.b32 %r20, _ZZ7rmsnormPKfS0_PfjE8partials;
+add.s32 %r21, %r20, %r19;
+st.shared.b32 [%r21], %r2;
+$L__BB0_5:
+.loc	1 16 5	// cuda_rmsnorm.cu:16:5  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x) {
+setp.ge.u32 %p9, %r47, %r5;
+.loc	1 27 5	// cuda_rmsnorm.cu:27:5  __syncthreads();
+bar.sync 0;
+.loc	1 34 5	// cuda_rmsnorm.cu:34:5  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x)
+@%p9 bra $L__BB0_8;
+.loc	1 31 9	// cuda_rmsnorm.cu:31:9  total += partials[i];
+ld.shared.b32 %r22, [_ZZ7rmsnormPKfS0_PfjE8partials];
+ld.shared.b32 %r23, [_ZZ7rmsnormPKfS0_PfjE8partials+4];
+ld.shared.b32 %r24, [_ZZ7rmsnormPKfS0_PfjE8partials+8];
+ld.shared.b32 %r25, [_ZZ7rmsnormPKfS0_PfjE8partials+12];
+ld.shared.b32 %r26, [_ZZ7rmsnormPKfS0_PfjE8partials+16];
+ld.shared.b32 %r27, [_ZZ7rmsnormPKfS0_PfjE8partials+20];
+ld.shared.b32 %r28, [_ZZ7rmsnormPKfS0_PfjE8partials+24];
+ld.shared.b32 %r29, [_ZZ7rmsnormPKfS0_PfjE8partials+28];
+mov.u32 %r3, %ntid.x;
+.loc	1 12 5	// cuda_rmsnorm.cu:12:5  x += blockIdx.x * n;
+cvta.to.global.u64 %rd3, %rd5;
+cvta.to.global.u64 %rd4, %rd6;
+.loc	1 32 5	// cuda_rmsnorm.cu:32:5  const float inv_rms = rsqrtf(total / n + EPS);
+cvt.rn.f32.u32 %r30, %r5;
+.loc	1 31 9	// cuda_rmsnorm.cu:31:9  total += partials[i];
+add.f32 %r31, %r22, 0f00000000;
+add.f32 %r32, %r31, %r23;
+add.f32 %r33, %r32, %r24;
+add.f32 %r34, %r33, %r25;
+add.f32 %r35, %r34, %r26;
+add.f32 %r36, %r35, %r27;
+add.f32 %r37, %r36, %r28;
+add.f32 %r38, %r37, %r29;
+.loc	1 32 5	// cuda_rmsnorm.cu:32:5  const float inv_rms = rsqrtf(total / n + EPS);
+div.rn.f32 %r39, %r38, %r30;
+add.f32 %r40, %r39, 0f358637BD;
+rsqrt.approx.f32 %r4, %r40;
+$L__BB0_7:
+.loc	1 35 9	// cuda_rmsnorm.cu:35:9  out[col] = x[col] * inv_rms * w[col];
+cvt.u64.u32 %rd12, %r47;
+mul.wide.u32 %rd13, %r47, 4;
+add.s64 %rd14, %rd2, %rd13;
+ld.global.b32 %r41, [%rd14];
+mul.f32 %r42, %r4, %r41;
+add.s64 %rd15, %rd3, %rd13;
+ld.global.b32 %r43, [%rd15];
+mul.f32 %r44, %r42, %r43;
+add.s64 %rd16, %rd12, %rd1;
+shl.b64 %rd17, %rd16, 2;
+add.s64 %rd18, %rd4, %rd17;
+st.global.b32 [%rd18], %r44;
+.loc	1 34 51	// cuda_rmsnorm.cu:34:51  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x)
+add.s32 %r47, %r47, %r3;
+.loc	1 34 5	// cuda_rmsnorm.cu:34:5  for (unsigned int col = threadIdx.x; col < n; col += blockDim.x)
+setp.lt.u32 %p10, %r47, %r5;
+@%p10 bra $L__BB0_7;
+$L__BB0_8:
+.loc	1 36 1	// cuda_rmsnorm.cu:36:1  }
+ret;
+
+}
+
+.visible .entry _ZN3cub17_V_300200_SM_10306detail11EmptyKernelIvEEvv()
+{
+
+.loc	3 57 0	// util_device.cuh:57:0  CUB_DETAIL_KERNEL_ATTRIBUTES void EmptyKernel()
+
+.loc	3 58 1	// util_device.cuh:58:1  {}
+ret;
+
+}
+.file	1 "/home/fvelikon/projects/ysda-dsl-benches/02-rmsnorm/fvelikon/cuda_rmsnorm.cu"
+.file	2 "/usr/local/cuda/include/sm_30_intrinsics.hpp"
+.file	3 "/usr/local/cuda-13.2/targets/x86_64-linux/include/cccl/cub/util_device.cuh"
+.section	.debug_str
+{
+$L__info_string0:
+.b8 95
+.b8 90
+.b8 78
+.b8 52
+.b8 54
+.b8 95
+.b8 73
+.b8 78
+.b8 84
+.b8 69
+.b8 82
+.b8 78
+.b8 65
+.b8 76
+.b8 95
+.b8 99
+.b8 51
+.b8 48
+.b8 49
+.b8 98
+.b8 52
+.b8 97
+.b8 55
+.b8 95
+.b8 49
+.b8 53
+.b8 95
+.b8 99
+.b8 117
+.b8 100
+.b8 97
+.b8 95
+.b8 114
+.b8 109
+.b8 115
+.b8 110
+.b8 111
+.b8 114
+.b8 109
+.b8 95
+.b8 99
+.b8 117
+.b8 95
+.b8 97
+.b8 48
+.b8 56
+.b8 48
+.b8 57
+.b8 49
+.b8 51
+.b8 56
+.b8 49
+.b8 53
+.b8 95
+.b8 95
+.b8 115
+.b8 104
+.b8 102
+.b8 108
+.b8 95
+.b8 120
+.b8 111
+.b8 114
+.b8 95
+.b8 115
+.b8 121
+.b8 110
+.b8 99
+.b8 69
+.b8 106
+.b8 102
+.b8 105
+.b8 105
+.b8 0
+}
+
