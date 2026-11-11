@@ -3,6 +3,9 @@ import torch
 import triton
 import triton.language as tl
 
+torch.cuda.set_device(0)
+DEVICE = triton.runtime.driver.active.get_active_torch_device()
+
 @triton.jit
 def vector_add_kernel(a_ptr, b_ptr, out_ptr, n, BLOCK_SIZE: tl.constexpr):
     block_id = tl.program_id(0)
@@ -20,14 +23,12 @@ def vector_add_kernel(a_ptr, b_ptr, out_ptr, n, BLOCK_SIZE: tl.constexpr):
 def add(a: torch.Tensor, b: torch.Tensor):
     output = torch.empty_like(a)
 
-    if not a.is_cuda or a.device != b.device:
-        raise ValueError("Inputs must be on the same CUDA device")
+    assert a.device == DEVICE and b.device == DEVICE and output.device == DEVICE
 
     n = output.numel()
 
     grid = lambda meta: (triton.cdiv(n, meta['BLOCK_SIZE']), )
 
-    with torch.cuda.device(a.device):
-        vector_add_kernel[grid](a, b, output, n, BLOCK_SIZE=256)
+    vector_add_kernel[grid](a, b, output, n, BLOCK_SIZE=256)
 
     return output
