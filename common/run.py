@@ -96,6 +96,8 @@ def _torch_compile(kernel):
     from torch._inductor.runtime.triton_heuristics import CachingAutotuner
 
     torch._inductor.config.force_disable_caches = True
+    # Worker processes compile kernels out of reach of the triton.compile hook below.
+    torch._inductor.config.compile_threads = 1
     triton.compile = _recording_compile
     tuners = lambda: [o for o in gc.get_objects() if type(o) is CachingAutotuner]
     known = {id(t) for t in tuners()}
@@ -161,8 +163,10 @@ def _cute_runner(kernel, configs, key):
         spec = (tuple((t.device, t.dtype, t.shape, t.stride()) for t in tensors), *config.items())
         if spec not in cache:
             # CuTe reads the dumped PTX and cubin into memory, so the files don't need to outlive compile.
+            # Line info adds .loc directives for asm() without changing the generated instructions.
             with tempfile.TemporaryDirectory() as dump_dir:
-                cache[spec] = cute.compile[cute.KeepPTX, cute.KeepCUBIN, DumpDir(dump_dir)](kernel, *wrapped, **config)
+                options = cute.KeepPTX, cute.KeepCUBIN, cute.GenerateLineInfo(True), DumpDir(dump_dir)
+                cache[spec] = cute.compile[options](kernel, *wrapped, **config)
         last, last_config = cache[spec], config
         last(*wrapped)
         return tensors[-1]
@@ -189,7 +193,7 @@ def _cuda(source, entry):
     def call(*inputs):
         nonlocal module
         if module is None:
-            module = load(name=source.stem, sources=[str(source)], extra_cuda_cflags=["-O3"])
+            module = load(name=source.stem, sources=[str(source)], extra_cuda_cflags=["-O3", "-lineinfo"])
         return getattr(module, entry)(*inputs)
 
     return call, lambda: {source.stem: so_asm(module.__file__)}

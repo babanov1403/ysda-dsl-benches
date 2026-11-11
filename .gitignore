@@ -1,7 +1,4 @@
 .*
 __pycache__
-asm/
 !.env.example
 *.cubin
-*.sass
-*.ptx
