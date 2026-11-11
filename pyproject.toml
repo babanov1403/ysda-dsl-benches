@@ -12,6 +12,7 @@ dependencies = [
     "ninja==1.13.2",
     "jupyterlab==4.6.5",
     "ipykernel==7.4.0",
+    "tilelang==0.1.15",
 ]
 
 [tool.uv]
