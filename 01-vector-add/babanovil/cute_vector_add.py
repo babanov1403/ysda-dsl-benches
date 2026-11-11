@@ -33,6 +33,6 @@ def add(
     kernel_instance = vector_add_kernel(a, b, out)
 
     kernel_instance.launch(
-        grid = (n // threads_per_block, 1, 1),
+        grid = ((n + threads_per_block - 1) // threads_per_block, 1, 1),
         block=(threads_per_block, 1, 1),
     )
