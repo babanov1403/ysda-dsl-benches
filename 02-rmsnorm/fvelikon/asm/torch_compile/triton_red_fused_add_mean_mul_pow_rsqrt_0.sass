@@ -1,0 +1,400 @@
+	.target	sm_103a
+
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.triton_red_fused_add_mean_mul_pow_rsqrt_0 --------------------------
+	.section	.text.triton_red_fused_add_mean_mul_pow_rsqrt_0,"ax",@progbits
+	.align	128
+        .global         triton_red_fused_add_mean_mul_pow_rsqrt_0
+        .type           triton_red_fused_add_mean_mul_pow_rsqrt_0,@function
+        .size           triton_red_fused_add_mean_mul_pow_rsqrt_0,(.L_x_4 - triton_red_fused_add_mean_mul_pow_rsqrt_0)
+        .other          triton_red_fused_add_mean_mul_pow_rsqrt_0,@"STO_CUDA_ENTRY STV_DEFAULT"
+triton_red_fused_add_mean_mul_pow_rsqrt_0:
+.text.triton_red_fused_add_mean_mul_pow_rsqrt_0:
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:18  def triton_red_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, out_ptr1, ks0, xnumel, r0_numel, XBLOCK : tl.constexpr, R0_BLOCK : tl.constexpr):
+        /*0000*/                   LDC R1, c[0x0][0x37c] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0010*/                   LDC.64 R2, c[0x0][0x3a0] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:24  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*0020*/                   S2R R15, SR_TID.X ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*0030*/                   LDCU.64 UR8, c[0x0][0x398] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0040*/                   CS2R R4, SRZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:21  xoffset = tl.program_id(0) * XBLOCK
+        /*0050*/                   S2UR UR6, SR_CTAID.X ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0060*/                   ISETP.GE.AND P1, PT, R3, 0x1, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*0070*/                   UIMAD.WIDE.U32 UR4, UR6, UR8, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:24  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*0080*/                   LOP3.LUT R0, R15, 0xff, RZ, 0xc0, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0090*/                   ISETP.LE.AND P0, PT, R2, UR6, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*00a0*/                   UIMAD UR10, UR6, UR9, UR5 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*00b0*/                   CS2R R2, SRZ ;
+        /*00c0*/                   USHF.L.U32 UR9, UR4, 0x2, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:24  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*00d0*/                   IMAD.SHL.U32 R0, R0, 0x4, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*00e0*/                   USHF.L.U64.HI UR10, UR4, 0x2, UR10 ;
+        /*00f0*/              @!P1 BRA `(.L_x_0) ;
+        /*0100*/                   LDCU.64 UR12, c[0x0][0x380] ;
+        /*0110*/                   VIADD R20, R0.reuse, 0x1 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:30  r0_mask = r0_index < r0_numel
+        /*0120*/                   CS2R R4, SRZ ;
+        /*0130*/                   VIADD R21, R0.reuse, 0x2 ;
+        /*0140*/                   CS2R R2, SRZ ;
+        /*0150*/                   VIADD R14, R0, 0x3 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:35  tmp1 = tmp0 * tmp0
+        /*0160*/                   UMOV UR6, 0xf0 ;
+        /*0170*/                   LDCU UR14, c[0x0][0x3a4] ;
+        /*0180*/                   USHF.R.U32 UR6, UR6, 0x4, URZ ;
+        /*0190*/                   UMOV UR7, 0x140 ;
+        /*01a0*/                   ULOP3.LUT UR7, UR7, 0xf, UR6, 0xf8, !UPT ;
+        /*01b0*/                   USHF.L.U32 UR7, UR7, 0x14, URZ ;
+        /*01c0*/                   UMOV UR6, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:30  r0_mask = r0_index < r0_numel
+        /*01d0*/                   UMOV UR4, URZ ;
+        /*01e0*/                   UIADD3 UR5, UP0, UPT, UR9, UR12, URZ ;
+        /*01f0*/                   UIADD3.X UR8, UPT, UPT, UR10, UR13, URZ, UP0, !UPT ;
+.L_x_1:
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:29  r0_index = r0_offset + r0_base
+        /*0200*/                   LOP3.LUT R11, R0, UR4, RZ, 0xfc, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*0210*/                   IMAD.MOV.U32 R10, RZ, RZ, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:29  r0_index = r0_offset + r0_base
+        /*0220*/                   LOP3.LUT R7, R20, UR4, RZ, 0xfc, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:35  tmp1 = tmp0 * tmp0
+        /*0230*/                   UMOV UR11, 0xf0 ;
+        /*0240*/                   ISETP.LT.AND P2, PT, R11, UR14, !P0 ;
+        /*0250*/                   USHF.R.U32 UR12, UR11, 0x4, URZ ;
+        /*0260*/                   UMOV UR13, 0x140 ;
+        /*0270*/                   ULOP3.LUT UR13, UR13, 0xf, UR12, 0xf8, !UPT ;
+        /*0280*/                   USHF.L.U32 UR13, UR13, 0x14, URZ ;
+        /*0290*/                   UMOV UR12, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*02a0*/                   LEA R12, P5, R11, UR5, 0x2 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:29  r0_index = r0_offset + r0_base
+        /*02b0*/                   LOP3.LUT R9, R14, UR4, RZ, 0xfc, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*02c0*/                   LEA R6, P6, R7, UR5, 0x2 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:29  r0_index = r0_offset + r0_base
+        /*02d0*/                   LOP3.LUT R17, R21, UR4, RZ, 0xfc, !PT ;
+        /*02e0*/                   ISETP.LT.AND P3, PT, R7, UR14, !P0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*02f0*/                   LEA.HI.X.SX32 R13, R11, UR8, 0x2, P5 ;
+        /*0300*/                   LEA R8, P4, R9, UR5, 0x2 ;
+        /*0310*/                   LEA.HI.X.SX32 R7, R7, UR8, 0x2, P6 ;
+        /*0320*/               @P2 LDG.E.EL R10, desc[UR6][R12.64] ;
+        /*0330*/                   ISETP.LT.AND P5, PT, R17, UR14, !P0 ;
+        /*0340*/                   ISETP.LT.AND P6, PT, R9, UR14, !P0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:35  tmp1 = tmp0 * tmp0
+        /*0350*/                   USHF.R.U32 UR6, UR11, 0x4, URZ ;
+        /*0360*/                   UMOV UR7, 0x140 ;
+        /*0370*/                   ULOP3.LUT UR7, UR7, 0xf, UR6, 0xf8, !UPT ;
+        /*0380*/                   USHF.L.U32 UR7, UR7, 0x14, URZ ;
+        /*0390*/                   UMOV UR6, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:34  tmp0 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_last', other=0.0)
+        /*03a0*/                   LEA.HI.X.SX32 R9, R9, UR8, 0x2, P4 ;
+        /*03b0*/                   LEA R16, P4, R17.reuse, UR5, 0x2 ;
+        /*03c0*/                   IMAD.MOV.U32 R11, RZ, RZ, RZ ;
+        /*03d0*/                   CS2R R18, SRZ ;
+        /*03e0*/                   LEA.HI.X.SX32 R17, R17, UR8, 0x2, P4 ;
+        /*03f0*/               @P3 LDG.E.EL R11, desc[UR12][R6.64] ;
+        /*0400*/               @P5 LDG.E.EL R18, desc[UR12][R16.64] ;
+        /*0410*/               @P6 LDG.E.EL R19, desc[UR6][R8.64] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:28  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0420*/                   UIADD3 UR4, UPT, UPT, UR4, 0x400, URZ ;
+        /*0430*/                   UISETP.GE.AND UP0, UPT, UR4, UR14, UPT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:37  tmp4 = _tmp3 + tmp2
+        /*0440*/                   FFMA2 R10, R10.F32x2.HI_LO, R10.F32x2.HI_LO, R4.F32x2.HI_LO ;
+        /*0450*/                   FFMA2 R18, R18.F32x2.HI_LO, R18.F32x2.HI_LO, R2.F32x2.HI_LO ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:38  _tmp3 = tl.where(r0_mask & xmask, tmp4, _tmp3)
+        /*0460*/                   FSEL R5, R11, R5, P3 ;
+        /*0470*/                   FSEL R4, R10, R4, P2 ;
+        /*0480*/                   FSEL R3, R19, R3, P6 ;
+        /*0490*/                   FSEL R2, R18, R2, P5 ;
+        /*04a0*/                   BRA.U !UP0, `(.L_x_1) ;
+.L_x_0:
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*04b0*/                   FADD2 R2, R4.F32x2.HI_LO, R2.F32x2.HI_LO ;
+        /*04c0*/                   S2R R9, SR_CgaCtaId ;
+        /*04d0*/                   MOV R16, 0x400 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*04e0*/                   FADD R2, R2, R3 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*04f0*/                   LOP3.LUT R11, R15, 0x7, RZ, 0xc0, !PT ;
+        /*0500*/                   SHFL.BFLY PT, R3, R2, 0x10, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0510*/                   FADD R3, R2, R3 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0520*/                   LEA R16, R9, R16, 0x18 ;
+        /*0530*/                   LOP3.LUT R9, R15, 0xe0, RZ, 0xc0, !PT ;
+        /*0540*/                   SHFL.BFLY PT, R4, R3, 0x8, 0x1f ;
+        /*0550*/                   LEA.HI R2, R9, R16, RZ, 0x1d ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0560*/                   FADD R4, R3, R4 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0570*/                   IMAD R3, R11, 0x4, R16 ;
+        /*0580*/                   SHFL.BFLY PT, R5, R4, 0x4, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0590*/                   FADD R5, R4, R5 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*05a0*/                   SHFL.BFLY PT, R6, R5, 0x2, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*05b0*/                   FADD R6, R5, R6 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*05c0*/                   SHFL.BFLY PT, R7, R6, 0x1, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*05d0*/                   FADD R7, R6, R7 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*05e0*/                   STS [R2], R7 ;
+        /*05f0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+        /*0600*/                   LDS R3, [R3] ;
+        /*0610*/                   SHFL.BFLY PT, R4, R3, 0x4, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0620*/                   FADD R4, R3, R4 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0630*/                   SHFL.BFLY PT, R5, R4, 0x2, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0640*/                   FADD R5, R4, R5 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None])
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:39  tmp3 = tl.sum(_tmp3, 1)[:, None]
+        /*0650*/                   SHFL.BFLY PT, R6, R5, 0x1, 0x1f ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:40  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0660*/              @!P1 EXIT ;
+        /*0670*/                   LDCU.64 UR4, c[0x0][0x398] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:24  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*0680*/                   S2R R13, SR_TID.X ;
+        /*0690*/                   FADD R5, R5, R6 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*06a0*/                   LDC.64 R2, c[0x0][0x388] ;
+        /*06b0*/                   LDCU.64 UR6, c[0x0][0x380] ;
+        /*06c0*/                   IMAD.SHL.U32 R6, R15.reuse, 0x80, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:40  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*06d0*/                   VIADD R15, R15, 0x300 ;
+        /*06e0*/                   LDCU.64 UR14, c[0x0][0x358] ;
+        /*06f0*/                   IMAD.MOV.U32 R17, RZ, RZ, RZ ;
+        /*0700*/                   LOP3.LUT R7, R6, 0xc00, RZ, 0xc0, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:42  r0_mask = r0_index < r0_numel
+        /*0710*/                   LDCU UR13, c[0x0][0x3a4] ;
+        /*0720*/                   IMAD.IADD R6, R16, 0x1, R7 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0730*/                   LDCU.64 UR16, c[0x0][0x388] ;
+        /*0740*/                   I2F.S64 R4, UR4 ;
+        /*0750*/                   IMAD R6, R11, 0x10, R6 ;
+        /*0760*/                   FSETP.GT.AND P1, PT, |R4|.reuse, 8.50705917302346158658e+37, PT ;
+        /*0770*/                   LDCU.64 UR4, c[0x0][0x390] ;
+        /*0780*/                   FSETP.GEU.AND P2, PT, |R4|, 1.175494350822287508e-38, PT ;
+        /*0790*/                   IMAD R14, R9, 0x4, R6 ;
+        /*07a0*/                   UIADD3 UR11, UP1, UPT, UR9, UR6, URZ ;
+        /*07b0*/                   UIADD3.X UR12, UPT, UPT, UR10, UR7, URZ, UP1, !UPT ;
+        /*07c0*/               @P1 FMUL R4, R4, 0.25 ;
+        /*07d0*/               @P1 FMUL R5, R5, 0.25 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:24  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*07e0*/                   LOP3.LUT R13, R13, 0xff, RZ, 0xc0, !PT ;
+        /*07f0*/              @!P2 FMUL R4, R4, 16777216 ;
+        /*0800*/              @!P2 FMUL R5, R5, 16777216 ;
+        /*0810*/                   UIADD3 UR8, UP0, UPT, UR9, UR4, URZ ;
+        /*0820*/                   IMAD R16, R13, 0x10, R16 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0830*/                   UMOV UR4, 0xf0 ;
+        /*0840*/                   UIADD3.X UR9, UPT, UPT, UR10, UR5, URZ, UP0, !UPT ;
+        /*0850*/                   USHF.R.U32 UR4, UR4, 0x4, URZ ;
+        /*0860*/                   UMOV UR5, 0x120 ;
+        /*0870*/                   ULOP3.LUT UR5, UR5, 0xf, UR4, 0xf8, !UPT ;
+        /*0880*/                   USHF.L.U32 UR5, UR5, 0x14, URZ ;
+        /*0890*/                   UMOV UR4, URZ ;
+        /*08a0*/                   MUFU.RCP R4, R4 ;
+        /*08b0*/                   FFMA R4, R4, R5, 9.9999999747524270788e-07 ;
+        /*08c0*/                   MUFU.RSQ R12, R4 ;
+.L_x_2:
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*08d0*/                   IMAD.IADD R21, R0, 0x1, R17 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*08e0*/                   UMOV UR6, 0xf0 ;
+        /*08f0*/                   IMAD.MOV.U32 R4, RZ, RZ, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:48  tmp6 = (ks0).to(tl.float32)
+        /*0900*/                   USHF.R.U32 UR20, UR6, 0x4, URZ ;
+        /*0910*/                   UMOV UR21, 0x140 ;
+        /*0920*/                   ULOP3.LUT UR21, UR21, 0xf, UR20, 0xf8, !UPT ;
+        /*0930*/                   USHF.L.U32 UR21, UR21, 0x14, URZ ;
+        /*0940*/                   UMOV UR20, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0950*/                   IMAD.WIDE R8, R21.reuse, 0x4, R2 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:42  r0_mask = r0_index < r0_numel
+        /*0960*/                   ISETP.GE.AND P1, PT, R21.reuse, UR13, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0970*/                   IADD3 R10, P3, PT, R0, R17, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*0980*/                   VIADD R5, R21.reuse, 0x1 ;
+        /*0990*/                   ISETP.LT.AND P5, PT, R21, UR13, !P0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*09a0*/                   IMAD.U32 R6, RZ, RZ, UR11 ;
+        /*09b0*/                   LEA.HI.X.SX32 R11, R17, RZ, 0x1, P3 ;
+        /*09c0*/                   IMAD.U32 R7, RZ, RZ, UR12 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:42  r0_mask = r0_index < r0_numel
+        /*09d0*/                   ISETP.GE.AND P2, PT, R5, UR13, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*09e0*/                   IMAD.SHL.U32 R18, R10.reuse, 0x4, RZ ;
+        /*09f0*/                   SHF.L.U64.HI R11, R10, 0x2, R11 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0a00*/              @!P1 LDG.E.EL R4, desc[UR20][R8.64] ;
+        /*0a10*/                   ISETP.LT.AND P1, PT, R5, UR13, !P0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0a20*/                   IMAD.MOV.U32 R5, RZ, RZ, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0a30*/                   USHF.R.U32 UR18, UR6, 0x4, URZ ;
+        /*0a40*/                   UMOV UR19, 0x120 ;
+        /*0a50*/                   ULOP3.LUT UR19, UR19, 0xf, UR18, 0xf8, !UPT ;
+        /*0a60*/                   USHF.L.U32 UR19, UR19, 0x14, URZ ;
+        /*0a70*/                   UMOV UR18, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0a80*/                   IMAD.WIDE R6, R21, 0x4, R6 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*0a90*/                   VIADD R20, R21.reuse, 0x2 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0aa0*/               @P5 LDG.E.EF R5, desc[UR4][R6.64] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*0ab0*/                   VIADD R10, R21, 0x3 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0ac0*/                   IADD3 R8, P3, PT, R18, UR11, RZ ;
+        /*0ad0*/                   IMAD.MOV.U32 R19, RZ, RZ, RZ ;
+        /*0ae0*/                   ISETP.LT.AND P4, PT, R20, UR13, !P0 ;
+        /*0af0*/                   ISETP.LT.AND P5, PT, R10, UR13, !P0 ;
+        /*0b00*/                   IADD3.X R9, PT, PT, R11, UR12, RZ, P3, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0b10*/                   USHF.R.U32 UR4, UR6, 0x4, URZ ;
+        /*0b20*/                   UMOV UR5, 0x120 ;
+        /*0b30*/                   ULOP3.LUT UR5, UR5, 0xf, UR4, 0xf8, !UPT ;
+        /*0b40*/                   USHF.L.U32 UR5, UR5, 0x14, URZ ;
+        /*0b50*/                   UMOV UR4, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:42  r0_mask = r0_index < r0_numel
+        /*0b60*/                   ISETP.GE.AND P3, PT, R20, UR13, PT ;
+        /*0b70*/                   ISETP.GE.AND P6, PT, R10, UR13, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0b80*/               @P1 LDG.E.EF R19, desc[UR18][R8.64+0x4] ;
+        /*0b90*/                   IMAD.MOV.U32 R21, RZ, RZ, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0ba0*/                   IADD3 R10, P1, PT, R18, UR16, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0bb0*/                   IMAD.MOV.U32 R23, RZ, RZ, RZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:48  tmp6 = (ks0).to(tl.float32)
+        /*0bc0*/                   USHF.R.U32 UR6, UR6, 0x4, URZ ;
+        /*0bd0*/                   UMOV UR7, 0x140 ;
+        /*0be0*/                   ULOP3.LUT UR7, UR7, 0xf, UR6, 0xf8, !UPT ;
+        /*0bf0*/                   USHF.L.U32 UR7, UR7, 0x14, URZ ;
+        /*0c00*/                   UMOV UR6, URZ ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0c10*/                   IMAD.MOV.U32 R18, RZ, RZ, RZ ;
+        /*0c20*/                   CS2R R6, SRZ ;
+        /*0c30*/                   IADD3.X R11, PT, PT, R11, UR17, RZ, P1, !PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:46  tmp5 = tl.load(in_ptr0 + (r0_1 + ks0*x0), r0_mask & xmask, eviction_policy='evict_first', other=0.0)
+        /*0c40*/               @P4 LDG.E.EF R21, desc[UR18][R8.64+0x8] ;
+        /*0c50*/               @P5 LDG.E.EF R23, desc[UR4][R8.64+0xc] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:47  tmp13 = tl.load(in_ptr1 + (r0_1), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0c60*/              @!P2 LDG.E.EL R18, desc[UR20][R10.64+0x4] ;
+        /*0c70*/              @!P3 LDG.E.EL R6, desc[UR6][R10.64+0x8] ;
+        /*0c80*/              @!P6 LDG.E.EL R7, desc[UR6][R10.64+0xc] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0c90*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:54  tmp12 = tmp5 * tmp11
+        /*0ca0*/                   FMUL R5, R12, R5 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:55  tmp14 = tmp12 * tmp13
+        /*0cb0*/                   FMUL R4, R5, R4 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:54  tmp12 = tmp5 * tmp11
+        /*0cc0*/                   FMUL R19, R12.reuse, R19 ;
+        /*0cd0*/                   FMUL R21, R12.reuse, R21 ;
+        /*0ce0*/                   FMUL R20, R12, R23 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:55  tmp14 = tmp12 * tmp13
+        /*0cf0*/                   FMUL R5, R19, R18 ;
+        /*0d00*/                   FMUL R6, R21, R6 ;
+        /*0d10*/                   FMUL R7, R20, R7 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0d20*/                   STS.128 [R16], R4 ;
+        /*0d30*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*0d40*/                   IMAD.IADD R20, R13, 0x1, R17 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0d50*/                   LDSM.16.M88.4 R8, [R14] ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:41  r0_index = r0_offset + r0_base
+        /*0d60*/                   VIADD R18, R20.reuse, 0x100 ;
+        /*0d70*/                   VIADD R19, R20.reuse, 0x200 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0d80*/                   LEA R6, P1, R20, UR8, 0x2 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:42  r0_mask = r0_index < r0_numel
+        /*0d90*/                   IMAD.IADD R21, R15, 0x1, R17 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:40  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0da0*/                   VIADD R17, R17, 0x400 ;
+        /*0db0*/                   ISETP.LT.AND P4, PT, R18, UR13, !P0 ;
+        /*0dc0*/                   ISETP.LT.AND P3, PT, R20, UR13, !P0 ;
+        /*0dd0*/                   ISETP.LT.AND P5, PT, R19, UR13, !P0 ;
+        /*0de0*/                   ISETP.LT.AND P6, PT, R21, UR13, !P0 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0df0*/                   LEA.HI.X.SX32 R7, R20, UR9, 0x2, P1 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:40  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0e00*/                   ISETP.GE.AND P1, PT, R17, UR13, PT ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:56  tl.store(out_ptr1 + (r0_1 + ks0*x0), tmp14, r0_mask & xmask)
+        /*0e10*/                   LEA R4, P2, R21, UR8, 0x2 ;
+        /*0e20*/                   LEA.HI.X.SX32 R5, R21, UR9, 0x2, P2 ;
+        /*0e30*/               @P3 STG.E desc[UR14][R6.64], R8 ;
+        /*0e40*/               @P4 STG.E desc[UR14][R6.64+0x400], R9 ;
+        /*0e50*/               @P5 STG.E desc[UR14][R6.64+0x800], R10 ;
+        /*0e60*/               @P6 STG.E desc[UR14][R4.64], R11 ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:40  for r0_offset in tl.range(0, r0_numel, R0_BLOCK):
+        /*0e70*/              @!P1 BRA `(.L_x_2) ;
+	// c7sut7ueyb6ohjeijxrq4qrwzju4sfwzfy7rk3pvdeqkm6s3mxr2.py:18  def triton_red_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, out_ptr1, ks0, xnumel, r0_numel, XBLOCK : tl.constexpr, R0_BLOCK : tl.constexpr):
+        /*0e80*/                   EXIT ;
+.L_x_3:
+        /*0e90*/                   BRA `(.L_x_3);
+        /*0ea0*/                   NOP;
+        /*0eb0*/                   NOP;
+        /*0ec0*/                   NOP;
+        /*0ed0*/                   NOP;
+        /*0ee0*/                   NOP;
+        /*0ef0*/                   NOP;
+        /*0f00*/                   NOP;
+        /*0f10*/                   NOP;
+        /*0f20*/                   NOP;
+        /*0f30*/                   NOP;
+        /*0f40*/                   NOP;
+        /*0f50*/                   NOP;
+        /*0f60*/                   NOP;
+        /*0f70*/                   NOP;
+.L_x_4:
+
+
+//--------------------- SYMBOLS --------------------------
+
+	.type		.nv.reservedSmem.offset0,@object
+	.size		.nv.reservedSmem.offset0,0x4
+	.type		.nv.reservedSmem.cap,@object
+	.size		.nv.reservedSmem.cap,0x4
