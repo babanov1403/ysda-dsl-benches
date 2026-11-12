@@ -1,0 +1,204 @@
+
+Fatbin elf code:
+================
+arch = sm_103
+code version = [1,8]
+host = linux
+compile_size = 64bit
+identifier = /home/dkuznedelev/ysda-dsl-benches/01-vector-add/dkuznedelev/cuda_vector_add.cu
+
+Fatbin ptx code:
+================
+arch = sm_103
+code version = [9,2]
+host = linux
+compile_size = 64bit
+compressed
+identifier = /home/dkuznedelev/ysda-dsl-benches/01-vector-add/dkuznedelev/cuda_vector_add.cu
+ptxasOptions =  --generate-line-info 
+
+
+
+
+
+
+
+
+.version 9.2
+.target sm_103
+.address_size 64
+
+
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo6rbeginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo4rendE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo7crbeginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__45__cpo5crendE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__451_GLOBAL__N__a8d1a46a_18_cuda_vector_add_cu_f33511356ignoreE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__47nulloptE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__48in_placeE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__419piecewise_constructE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std3__420unreachable_sentinelE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4swapE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo9iter_moveE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo7advanceE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4nextE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4prevE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4dataE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo5cdataE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo4sizeE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo5ssizeE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo8distanceE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo5emptyE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3std6ranges3__45__cpo11min_elementE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511354cuda3__413in_place_fromE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_10306system3cpp3parE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_10308cuda_cub3parE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_10308cuda_cub10par_nosyncE[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_1E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_2E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_3E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_4E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_5E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_6E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_7E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_8E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders2_9E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_103012placeholders3_10E[1];
+.global .align 1 .b8 _ZN49_INTERNAL_a8d1a46a_18_cuda_vector_add_cu_f33511356thrust17_V_300200_SM_10303seqE[1];
+
+.visible .entry _Z3addPKfS0_Pfm(
+.param .u64 .ptr .align 1 _Z3addPKfS0_Pfm_param_0,
+.param .u64 .ptr .align 1 _Z3addPKfS0_Pfm_param_1,
+.param .u64 .ptr .align 1 _Z3addPKfS0_Pfm_param_2,
+.param .u64 _Z3addPKfS0_Pfm_param_3
+)
+{
+.reg .pred %p<7>;
+.reg .b32 %r<33>;
+.reg .b64 %rd<26>;
+.loc	1 8 0	// cuda_vector_add.cu:8:0  __global__ void add(const float* __restrict__ a,
+
+ld.param.b64 %rd6, [_Z3addPKfS0_Pfm_param_0];
+ld.param.b64 %rd7, [_Z3addPKfS0_Pfm_param_1];
+ld.param.b64 %rd8, [_Z3addPKfS0_Pfm_param_2];
+ld.param.b64 %rd5, [_Z3addPKfS0_Pfm_param_3];
+.loc	1 13 5	// cuda_vector_add.cu:13:5  const size_t index = (blockIdx.x * blockDim.x + threadIdx.x) * VEC_SIZE;
+cvta.to.global.u64 %rd1, %rd8;
+cvta.to.global.u64 %rd2, %rd7;
+cvta.to.global.u64 %rd3, %rd6;
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mov.u32 %r3, %tid.x;
+mad.lo.s32 %r4, %r1, %r2, %r3;
+shl.b32 %r5, %r4, 2;
+cvt.u64.u32 %rd4, %r5;
+.loc	1 15 5	// cuda_vector_add.cu:15:5  if (index + VEC_SIZE <= n) {
+add.s64 %rd9, %rd4, 4;
+setp.le.u64 %p1, %rd9, %rd5;
+@%p1 bra $L__BB0_9;
+.loc	1 22 9	// cuda_vector_add.cu:22:9  for (size_t i = index; i < n; ++i) {
+setp.ge.u64 %p2, %rd4, %rd5;
+@%p2 bra $L__BB0_8;
+and.b64 %rd18, %rd5, 3;
+setp.eq.b64 %p3, %rd18, 0;
+mov.b64 %rd25, %rd4;
+@%p3 bra $L__BB0_5;
+shl.b64 %rd14, %rd4, 2;
+add.s64 %rd21, %rd1, %rd14;
+add.s64 %rd20, %rd2, %rd14;
+add.s64 %rd19, %rd3, %rd14;
+add.s64 %rd25, %rd4, %rd18;
+$L__BB0_4:
+.pragma "nounroll";
+.loc	1 23 13	// cuda_vector_add.cu:23:13  c[i] = a[i] + b[i];
+ld.global.nc.b32 %r18, [%rd19];
+ld.global.nc.b32 %r19, [%rd20];
+add.f32 %r20, %r18, %r19;
+st.global.b32 [%rd21], %r20;
+.loc	1 22 9	// cuda_vector_add.cu:22:9  for (size_t i = index; i < n; ++i) {
+add.s64 %rd21, %rd21, 4;
+add.s64 %rd20, %rd20, 4;
+add.s64 %rd19, %rd19, 4;
+add.s64 %rd18, %rd18, -1;
+setp.ne.b64 %p4, %rd18, 0;
+@%p4 bra $L__BB0_4;
+$L__BB0_5:
+sub.s64 %rd15, %rd4, %rd5;
+setp.gt.u64 %p5, %rd15, -4;
+@%p5 bra $L__BB0_8;
+shl.b64 %rd16, %rd25, 2;
+add.s64 %rd17, %rd16, 8;
+add.s64 %rd24, %rd3, %rd17;
+add.s64 %rd23, %rd2, %rd17;
+add.s64 %rd22, %rd1, %rd17;
+$L__BB0_7:
+.loc	1 23 13	// cuda_vector_add.cu:23:13  c[i] = a[i] + b[i];
+ld.global.nc.b32 %r21, [%rd24+-8];
+ld.global.nc.b32 %r22, [%rd23+-8];
+add.f32 %r23, %r21, %r22;
+st.global.b32 [%rd22+-8], %r23;
+ld.global.nc.b32 %r24, [%rd24+-4];
+ld.global.nc.b32 %r25, [%rd23+-4];
+add.f32 %r26, %r24, %r25;
+st.global.b32 [%rd22+-4], %r26;
+ld.global.nc.b32 %r27, [%rd24];
+ld.global.nc.b32 %r28, [%rd23];
+add.f32 %r29, %r27, %r28;
+st.global.b32 [%rd22], %r29;
+ld.global.nc.b32 %r30, [%rd24+4];
+ld.global.nc.b32 %r31, [%rd23+4];
+add.f32 %r32, %r30, %r31;
+st.global.b32 [%rd22+4], %r32;
+.loc	1 22 39	// cuda_vector_add.cu:22:39  for (size_t i = index; i < n; ++i) {
+add.s64 %rd25, %rd25, 4;
+.loc	1 22 9	// cuda_vector_add.cu:22:9  for (size_t i = index; i < n; ++i) {
+add.s64 %rd24, %rd24, 16;
+add.s64 %rd23, %rd23, 16;
+add.s64 %rd22, %rd22, 16;
+setp.lt.u64 %p6, %rd25, %rd5;
+@%p6 bra $L__BB0_7;
+$L__BB0_8:
+.loc	1 26 1	// cuda_vector_add.cu:26:1  }
+ret;
+$L__BB0_9:
+.loc	1 16 9	// cuda_vector_add.cu:16:9  const float4 av = *reinterpret_cast<const float4*>(a + index);
+shl.b64 %rd10, %rd4, 2;
+add.s64 %rd11, %rd3, %rd10;
+ld.global.nc.v4.b32 {%r6, %r7, %r8, %r9}, [%rd11];
+.loc	1 17 9	// cuda_vector_add.cu:17:9  const float4 bv = *reinterpret_cast<const float4*>(b + index);
+add.s64 %rd12, %rd2, %rd10;
+ld.global.nc.v4.b32 {%r10, %r11, %r12, %r13}, [%rd12];
+.loc	1 19 13	// cuda_vector_add.cu:19:13  av.x + bv.x, av.y + bv.y, av.z + bv.z, av.w + bv.w
+add.f32 %r14, %r6, %r10;
+add.f32 %r15, %r7, %r11;
+add.f32 %r16, %r8, %r12;
+add.f32 %r17, %r9, %r13;
+.loc	1 18 49	// cuda_vector_add.cu:18:49  *reinterpret_cast<float4*>(c + index) = make_float4(
+add.s64 %rd13, %rd1, %rd10;
+st.global.v4.b32 [%rd13], {%r14, %r15, %r16, %r17};
+bra.uni $L__BB0_8;
+
+}
+
+.visible .entry _ZN3cub17_V_300200_SM_10306detail11EmptyKernelIvEEvv()
+{
+
+.loc	2 57 0	// util_device.cuh:57:0  CUB_DETAIL_KERNEL_ATTRIBUTES void EmptyKernel()
+
+.loc	2 58 1	// util_device.cuh:58:1  {}
+ret;
+
+}
+.file	1 "/home/dkuznedelev/ysda-dsl-benches/01-vector-add/dkuznedelev/cuda_vector_add.cu"
+.file	2 "/usr/local/cuda-13.2/targets/x86_64-linux/include/cccl/cub/util_device.cuh"
+

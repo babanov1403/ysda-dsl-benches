@@ -1,0 +1,117 @@
+	.target	sm_103a
+
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0 --------------------------
+	.section	.text.kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0,"ax",@progbits
+	.align	128
+        .global         kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0
+        .type           kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0,@function
+        .size           kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0,(.L_x_2 - kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0)
+        .other          kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0,@"STO_CUDA_ENTRY STV_DEFAULT"
+kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0:
+.text.kernel_cutlass_vector_add_kernel_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_tensorptrf32gmemalign16o10485761_0:
+	// cute_vector_add.py:12  @cute.kernel
+        /*0000*/                   LDC R1, c[0x0][0x37c] ;
+	// cute_vector_add.py:14  tidx, _, _ = cute.arch.thread_idx()
+        /*0010*/                   S2R R0, SR_TID.X ;
+        /*0020*/                   LDCU.64 UR4, c[0x0][0x358] ;
+	// cute_vector_add.py:15  bidx, _, _ = cute.arch.block_idx()
+        /*0030*/                   S2R R3, SR_CTAID.X ;
+	// cute_vector_add.py:18  index = (tidx + bidx * bdim) * WIDTH
+        /*0040*/                   LEA R0, R3, R0, 0x9 ;
+        /*0050*/                   SHF.L.U32 R0, R0, 0x2, RZ ;
+	// cute_vector_add.py:21  if index + WIDTH <= n:
+        /*0060*/                   IADD3 R2, PT, PT, R0, 0x4, RZ ;
+        /*0070*/                   ISETP.GE.AND P0, PT, R2, 0x100001, PT ;
+	// cute_vector_add.py:37  @cute.jit
+        /*0080*/              @!P0 BRA `(.L_x_0) ;
+	// cute_vector_add.py:31  out[i] = a[i] + b[i]
+        /*0090*/                   LDC.64 R2, c[0x0][0x380] ;
+	// cute_vector_add.py:30  if i < n:
+        /*00a0*/                   ISETP.GE.U32.AND P0, PT, R0, 0x100000, PT ;
+	// cute_vector_add.py:31  out[i] = a[i] + b[i]
+        /*00b0*/                   LDC.64 R4, c[0x0][0x388] ;
+        /*00c0*/              @!P0 LDC.64 R6, c[0x0][0x390] ;
+        /*00d0*/              @!P0 IMAD.WIDE.U32 R2, R0, 0x4, R2 ;
+        /*00e0*/                   LDC.64 R8, c[0x0][0x380] ;
+        /*00f0*/              @!P0 LDG.E R2, desc[UR4][R2.64] ;
+        /*0100*/              @!P0 IMAD.WIDE.U32 R4, R0, 0x4, R4 ;
+        /*0110*/                   LDC.64 R10, c[0x0][0x388] ;
+        /*0120*/              @!P0 LDG.E R5, desc[UR4][R4.64] ;
+	// cute_vector_add.py:30  if i < n:
+        /*0130*/                   ISETP.GT.U32.AND P1, PT, R0.reuse, 0xffffe, PT ;
+	// cute_vector_add.py:31  out[i] = a[i] + b[i]
+        /*0140*/              @!P0 IMAD.WIDE.U32 R6, R0, 0x4, R6 ;
+        /*0150*/              @!P1 IMAD.WIDE.U32 R8, R0, 0x4, R8 ;
+        /*0160*/              @!P1 IMAD.WIDE.U32 R10, R0, 0x4, R10 ;
+        /*0170*/              @!P0 FADD R13, R2, R5 ;
+        /*0180*/              @!P1 LDC.64 R2, c[0x0][0x390] ;
+        /*0190*/              @!P0 STG.E desc[UR4][R6.64], R13 ;
+        /*01a0*/              @!P1 LDG.E R8, desc[UR4][R8.64+0x4] ;
+        /*01b0*/              @!P1 LDG.E R11, desc[UR4][R10.64+0x4] ;
+	// cute_vector_add.py:30  if i < n:
+        /*01c0*/                   ISETP.GT.U32.AND P0, PT, R0.reuse, 0xffffd, PT ;
+	// cute_vector_add.py:31  out[i] = a[i] + b[i]
+        /*01d0*/              @!P1 IMAD.WIDE.U32 R2, R0, 0x4, R2 ;
+        /*01e0*/              @!P1 FADD R5, R8, R11 ;
+        /*01f0*/              @!P1 STG.E desc[UR4][R2.64+0x4], R5 ;
+	// cute_vector_add.py:37  @cute.jit
+        /*0200*/               @P0 EXIT ;
+	// cute_vector_add.py:31  out[i] = a[i] + b[i]
+        /*0210*/                   LDC.64 R2, c[0x0][0x380] ;
+        /*0220*/                   LDC.64 R4, c[0x0][0x388] ;
+        /*0230*/                   LDC.64 R6, c[0x0][0x390] ;
+        /*0240*/                   IMAD.WIDE.U32 R2, R0, 0x4, R2 ;
+        /*0250*/                   LDG.E R2, desc[UR4][R2.64+0x8] ;
+        /*0260*/                   IMAD.WIDE.U32 R4, R0, 0x4, R4 ;
+        /*0270*/                   LDG.E R5, desc[UR4][R4.64+0x8] ;
+        /*0280*/                   IMAD.WIDE.U32 R6, R0, 0x4, R6 ;
+        /*0290*/                   FADD R9, R2, R5 ;
+        /*02a0*/                   STG.E desc[UR4][R6.64+0x8], R9 ;
+	// cute_vector_add.py:37  @cute.jit
+        /*02b0*/                   EXIT ;
+.L_x_0:
+	// cute_vector_add.py:23  x = Vector(cute.arch.load((a.iterator + index).llvm_ptr, vector))
+        /*02c0*/                   LDC.64 R2, c[0x0][0x380] ;
+        /*02d0*/                   LDC.64 R4, c[0x0][0x388] ;
+	// cute_vector_add.py:25  cute.arch.store((out.iterator + index).llvm_ptr, (x + y).ir_value())
+        /*02e0*/                   LDC.64 R6, c[0x0][0x390] ;
+	// cute_vector_add.py:23  x = Vector(cute.arch.load((a.iterator + index).llvm_ptr, vector))
+        /*02f0*/                   IMAD.WIDE R2, R0, 0x4, R2 ;
+	// cute_vector_add.py:24  y = Vector(cute.arch.load((b.iterator + index).llvm_ptr, vector))
+        /*0300*/                   LDG.E.128 R8, desc[UR4][R2.64] ;
+        /*0310*/                   IMAD.WIDE R4, R0, 0x4, R4 ;
+	// cute_vector_add.py:25  cute.arch.store((out.iterator + index).llvm_ptr, (x + y).ir_value())
+        /*0320*/                   LDG.E.128 R12, desc[UR4][R4.64] ;
+        /*0330*/                   IMAD.WIDE R6, R0, 0x4, R6 ;
+        /*0340*/                   FADD2 R8, R8.F32x2.HI_LO, R12.F32x2.HI_LO ;
+        /*0350*/                   FADD2 R10, R10.F32x2.HI_LO, R14.F32x2.HI_LO ;
+	// cute_vector_add.py:37  @cute.jit
+        /*0360*/                   STG.E.128 desc[UR4][R6.64], R8 ;
+        /*0370*/                   EXIT ;
+.L_x_1:
+        /*0380*/                   BRA `(.L_x_1);
+        /*0390*/                   NOP;
+        /*03a0*/                   NOP;
+        /*03b0*/                   NOP;
+        /*03c0*/                   NOP;
+        /*03d0*/                   NOP;
+        /*03e0*/                   NOP;
+        /*03f0*/                   NOP;
+        /*0400*/                   NOP;
+        /*0410*/                   NOP;
+        /*0420*/                   NOP;
+        /*0430*/                   NOP;
+        /*0440*/                   NOP;
+        /*0450*/                   NOP;
+        /*0460*/                   NOP;
+        /*0470*/                   NOP;
+.L_x_2:
+
+
+//--------------------- SYMBOLS --------------------------
+
+	.type		.nv.reservedSmem.offset0,@object
+	.size		.nv.reservedSmem.offset0,0x4
