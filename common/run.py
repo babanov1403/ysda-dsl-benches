@@ -184,6 +184,35 @@ def _cute(selected):
     return selected()
 
 
+def _tilelang(kernel, specialize, name="tilelang"):
+    # specialize maps runtime inputs to the JITKernel that will be launched.
+    last = None
+
+    def call(*inputs):
+        nonlocal last
+        out = torch.empty_like(inputs[0])
+        compiled = specialize(kernel, *inputs)
+        compiled(*inputs, out)
+        last = compiled
+        return out
+
+    def asm():
+        if last is None:
+            raise RuntimeError("Call the TileLang runner before exporting assembly")
+        from tilelang.contrib import nvcc
+
+        # TileLang's export helpers recompile generated CUDA with the kernel's
+        # target and flags; this is not necessarily the binary used at launch.
+        with last.target:
+            options = nvcc.default_compile_options(last.compile_flags)
+            source = last.get_kernel_source()
+            ptx = nvcc.compile_cuda(source, target_format="ptx", options=options).decode("utf-8")
+            cubin = nvcc.compile_cuda(source, target_format="cubin", options=options)
+        return {name: cubin_asm({"ptx": ptx, "cubin": cubin})}
+
+    return call, asm
+
+
 def _cuda(source, entry):
     from torch.utils.cpp_extension import load
 
@@ -199,7 +228,8 @@ def _cuda(source, entry):
     return call, lambda: {source.stem: so_asm(module.__file__)}
 
 
-BACKENDS = {"torch": _torch, "torch_compile": _torch_compile, "triton": _triton, "cute": _cute, "cuda": _cuda}
+BACKENDS = {"torch": _torch, "torch_compile": _torch_compile, "triton": _triton, "cute": _cute, "cuda": _cuda,
+            "tilelang": _tilelang}
 
 
 def make_runner(backend, kernel, **options):

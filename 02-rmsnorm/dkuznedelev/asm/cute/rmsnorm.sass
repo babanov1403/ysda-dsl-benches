@@ -1,0 +1,208 @@
+	.target	sm_103a
+
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0 --------------------------
+	.section	.text.kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0,"ax",@progbits
+	.align	128
+        .global         kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0
+        .type           kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0,@function
+        .size           kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0,(.L_x_3 - kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0)
+        .other          kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0,@"STO_CUDA_ENTRY STV_DEFAULT"
+kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0:
+.text.kernel_cutlass_rmsnorm_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o40961_tensorptrf32gmemalign16o4096409640961_1e06_4_0:
+	// cute_rmsnorm.py:31  @cute.kernel
+        /*0000*/                   LDC R1, c[0x0][0x37c] ;
+	// cute_rmsnorm.py:33  tidx, _, _ = cute.arch.thread_idx()
+        /*0010*/                   S2R R20, SR_TID.X ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0020*/                   LDC.64 R2, c[0x0][0x380] ;
+        /*0030*/                   HFMA2 R0, -RZ, RZ, 0, 0 ;
+	// cute_rmsnorm.py:31  @cute.kernel
+        /*0040*/                   UMOV UR6, 0x400 ;
+	// cute_rmsnorm.py:34  row, _, _ = cute.arch.block_idx()
+        /*0050*/                   S2R R21, SR_CTAID.X ;
+        /*0060*/                   LDCU.64 UR4, c[0x0][0x358] ;
+	// cute_rmsnorm.py:31  @cute.kernel
+        /*0070*/                   S2UR UR7, SR_CgaCtaId ;
+        /*0080*/                   ULEA UR7, UR7, UR6, 0x18 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0090*/                   LEA R21, R21, R20, 0xc ;
+        /*00a0*/                   UMOV UR6, URZ ;
+        /*00b0*/                   IMAD.WIDE.U32 R2, R21, 0x4, R2 ;
+        /*00c0*/                   IADD3 R18, P0, PT, R2, 0x1000, RZ ;
+        /*00d0*/                   IADD3.X R19, PT, PT, RZ, R3, RZ, P0, !PT ;
+.L_x_0:
+	// cute_rmsnorm.py:40  sum_sq += x[row, col] * x[row, col]
+        /*00e0*/                   LDG.E R2, desc[UR4][R18.64+-0x1000] ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*00f0*/                   UIADD3 UR6, UPT, UPT, UR6, 0x10, URZ ;
+	// cute_rmsnorm.py:40  sum_sq += x[row, col] * x[row, col]
+        /*0100*/                   LDG.E R3, desc[UR4][R18.64+-0xe00] ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0110*/                   UISETP.NE.U32.AND UP0, UPT, UR6, 0x20, UPT ;
+	// cute_rmsnorm.py:40  sum_sq += x[row, col] * x[row, col]
+        /*0120*/                   LDG.E R4, desc[UR4][R18.64+-0xc00] ;
+        /*0130*/                   LDG.E R5, desc[UR4][R18.64+-0xa00] ;
+        /*0140*/                   LDG.E R6, desc[UR4][R18.64+-0x800] ;
+        /*0150*/                   LDG.E R7, desc[UR4][R18.64+-0x600] ;
+        /*0160*/                   LDG.E R8, desc[UR4][R18.64+-0x400] ;
+        /*0170*/                   LDG.E R9, desc[UR4][R18.64+-0x200] ;
+        /*0180*/                   LDG.E R10, desc[UR4][R18.64] ;
+        /*0190*/                   LDG.E R11, desc[UR4][R18.64+0x200] ;
+        /*01a0*/                   LDG.E R12, desc[UR4][R18.64+0x400] ;
+        /*01b0*/                   LDG.E R13, desc[UR4][R18.64+0x600] ;
+        /*01c0*/                   LDG.E R14, desc[UR4][R18.64+0x800] ;
+        /*01d0*/                   LDG.E R15, desc[UR4][R18.64+0xa00] ;
+        /*01e0*/                   LDG.E R16, desc[UR4][R18.64+0xc00] ;
+        /*01f0*/                   LDG.E R17, desc[UR4][R18.64+0xe00] ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0200*/                   IADD3 R18, P0, PT, R18, 0x2000, RZ ;
+        /*0210*/                   IADD3.X R19, PT, PT, RZ, R19, RZ, P0, !PT ;
+	// cute_rmsnorm.py:40  sum_sq += x[row, col] * x[row, col]
+        /*0220*/                   FFMA R0, R2, R2, R0 ;
+        /*0230*/                   FFMA R0, R3, R3, R0 ;
+        /*0240*/                   FFMA R0, R4, R4, R0 ;
+        /*0250*/                   FFMA R0, R5, R5, R0 ;
+        /*0260*/                   FFMA R0, R6, R6, R0 ;
+        /*0270*/                   FFMA R0, R7, R7, R0 ;
+        /*0280*/                   FFMA R0, R8, R8, R0 ;
+        /*0290*/                   FFMA R0, R9, R9, R0 ;
+        /*02a0*/                   FFMA R0, R10, R10, R0 ;
+        /*02b0*/                   FFMA R0, R11, R11, R0 ;
+        /*02c0*/                   FFMA R0, R12, R12, R0 ;
+        /*02d0*/                   FFMA R0, R13, R13, R0 ;
+        /*02e0*/                   FFMA R0, R14, R14, R0 ;
+        /*02f0*/                   FFMA R0, R15, R15, R0 ;
+        /*0300*/                   FFMA R0, R16, R16, R0 ;
+        /*0310*/                   FFMA R0, R17, R17, R0 ;
+        /*0320*/                   BRA.U UP0, `(.L_x_0) ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*0330*/                   SHFL.BFLY PT, R2, R0, 0x10, 0x1f ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0340*/                   LDC.64 R8, c[0x0][0x388] ;
+        /*0350*/                   LDCU.64 UR8, c[0x0][0x380] ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*0360*/                   FADD R2, R0, R2 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0370*/                   IMAD.WIDE.U32 R8, R20, 0x4, R8 ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*0380*/                   SHFL.BFLY PT, R0, R2, 0x8, 0x1f ;
+        /*0390*/                   FADD R0, R2, R0 ;
+        /*03a0*/                   SHFL.BFLY PT, R2, R0, 0x4, 0x1f ;
+        /*03b0*/                   FADD R2, R0, R2 ;
+	// cute_rmsnorm.py:22  if cute.arch.lane_idx() == 0:
+        /*03c0*/                   S2R R0, SR_LANEID ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*03d0*/                   SHFL.BFLY PT, R3, R2, 0x2, 0x1f ;
+        /*03e0*/                   FADD R3, R2, R3 ;
+	// cute_rmsnorm.py:22  if cute.arch.lane_idx() == 0:
+        /*03f0*/                   ISETP.NE.U32.AND P0, PT, R0, RZ, PT ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*0400*/                   SHFL.BFLY PT, R2, R3, 0x1, 0x1f ;
+	// cute_rmsnorm.py:21  warp = cute.arch.warp_idx()
+        /*0410*/                   SHF.R.U32.HI R0, RZ, 0x5, R20 ;
+	// cute_rmsnorm.py:23  partials[warp] = value
+        /*0420*/              @!P0 LEA R0, R0, UR7, 0x2 ;
+	// cute_rmsnorm.py:19  value = cute.arch.warp_reduction_sum(value)
+        /*0430*/                   FADD R2, R3, R2 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0440*/                   IADD3 R3, P2, PT, R8, 0x400, RZ ;
+	// cute_rmsnorm.py:23  partials[warp] = value
+        /*0450*/              @!P0 STS [R0], R2 ;
+	// cute_rmsnorm.py:24  cute.arch.sync_threads()
+        /*0460*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_rmsnorm.py:41  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
+        /*0470*/                   HFMA2 R0, -RZ, RZ, 0.6875, 0 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0480*/                   IADD3.X R2, PT, PT, RZ, R9, RZ, P2, !PT ;
+	// cute_rmsnorm.py:27  total += partials[w]
+        /*0490*/                   LDS.128 R4, [UR7] ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*04a0*/                   LDCU.64 UR6, c[0x0][0x390] ;
+	// cute_rmsnorm.py:27  total += partials[w]
+        /*04b0*/                   FADD R4, RZ, R4 ;
+        /*04c0*/                   FADD R4, R5, R4 ;
+        /*04d0*/                   FADD R6, R6, R4 ;
+        /*04e0*/                   FADD R6, R7, R6 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*04f0*/                   HFMA2 R7, -RZ, RZ, 0, 0 ;
+	// cute_rmsnorm.py:41  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
+        /*0500*/                   FFMA R0, R6, R0, 9.9999999747524270788e-07 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0510*/                   MOV R6, 0x400 ;
+	// cute_rmsnorm.py:41  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
+        /*0520*/                   FSETP.GEU.AND P3, PT, |R0|, 1.175494350822287508e-38, PT ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0530*/                   IMAD.WIDE.U32 R6, R21, 0x4, R6 ;
+        /*0540*/                   IADD3 R5, P1, PT, R6.reuse, UR8, RZ ;
+        /*0550*/                   IADD3 R6, P0, PT, R6, UR6, RZ ;
+        /*0560*/                   IADD3.X R4, PT, PT, R7.reuse, UR9, RZ, P1, !PT ;
+        /*0570*/                   IADD3.X R7, PT, PT, R7, UR7, RZ, P0, !PT ;
+	// cute_rmsnorm.py:41  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
+        /*0580*/              @!P3 FMUL R0, R0, 16777216 ;
+        /*0590*/                   MUFU.RSQ R0, R0 ;
+        /*05a0*/              @!P3 FMUL R0, R0, 4096 ;
+.L_x_1:
+        /*05b0*/                   MOV R8, R5 ;
+        /*05c0*/                   MOV R9, R4 ;
+        /*05d0*/                   IMAD.MOV.U32 R11, RZ, RZ, R2 ;
+        /*05e0*/                   MOV R10, R3 ;
+	// cute_rmsnorm.py:44  out[row, col] = x[row, col] * inv_rms * w[col]
+        /*05f0*/                   LDG.E R4, desc[UR4][R8.64+-0x400] ;
+        /*0600*/                   LDG.E R2, desc[UR4][R10.64+-0x400] ;
+        /*0610*/                   FMUL R4, R0, R4 ;
+        /*0620*/                   FMUL R2, R4, R2 ;
+        /*0630*/                   STG.E desc[UR4][R6.64+-0x400], R2 ;
+        /*0640*/                   LDG.E R3, desc[UR4][R8.64+-0x200] ;
+        /*0650*/                   LDG.E R2, desc[UR4][R10.64+-0x200] ;
+        /*0660*/                   FMUL R3, R0, R3 ;
+        /*0670*/                   FMUL R2, R3, R2 ;
+        /*0680*/                   STG.E desc[UR4][R6.64+-0x200], R2 ;
+        /*0690*/                   LDG.E R3, desc[UR4][R8.64] ;
+        /*06a0*/                   LDG.E R2, desc[UR4][R10.64] ;
+        /*06b0*/                   FMUL R3, R0, R3 ;
+        /*06c0*/                   FMUL R2, R3, R2 ;
+        /*06d0*/                   STG.E desc[UR4][R6.64], R2 ;
+        /*06e0*/                   LDG.E R3, desc[UR4][R8.64+0x200] ;
+        /*06f0*/                   LDG.E R2, desc[UR4][R10.64+0x200] ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0700*/                   ISETP.GE.U32.AND P3, PT, R20, 0xe00, PT ;
+        /*0710*/                   IADD3 R5, P1, PT, R8, 0x800, RZ ;
+        /*0720*/                   IADD3 R20, PT, PT, R20, 0x200, RZ ;
+        /*0730*/                   IADD3.X R4, PT, PT, RZ, R9, RZ, P1, !PT ;
+	// cute_rmsnorm.py:44  out[row, col] = x[row, col] * inv_rms * w[col]
+        /*0740*/                   FMUL R3, R0, R3 ;
+        /*0750*/                   FMUL R2, R3, R2 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0760*/                   IADD3 R3, P2, PT, R10, 0x800, RZ ;
+	// cute_rmsnorm.py:44  out[row, col] = x[row, col] * inv_rms * w[col]
+        /*0770*/                   STG.E desc[UR4][R6.64+0x200], R2 ;
+	// cute_rmsnorm.py:70  @cute.jit
+        /*0780*/                   IADD3 R6, P0, PT, R6, 0x800, RZ ;
+        /*0790*/                   IMAD.X R2, RZ, RZ, R11, P2 ;
+        /*07a0*/                   IADD3.X R7, PT, PT, RZ, R7, RZ, P0, !PT ;
+        /*07b0*/              @!P3 BRA `(.L_x_1) ;
+        /*07c0*/                   EXIT ;
+.L_x_2:
+        /*07d0*/                   BRA `(.L_x_2);
+        /*07e0*/                   NOP;
+        /*07f0*/                   NOP;
+        /*0800*/                   NOP;
+        /*0810*/                   NOP;
+        /*0820*/                   NOP;
+        /*0830*/                   NOP;
+        /*0840*/                   NOP;
+        /*0850*/                   NOP;
+        /*0860*/                   NOP;
+        /*0870*/                   NOP;
+.L_x_3:
+
+
+//--------------------- SYMBOLS --------------------------
+
+	.type		.nv.reservedSmem.offset0,@object
+	.size		.nv.reservedSmem.offset0,0x4
+	.type		.nv.reservedSmem.cap,@object
+	.size		.nv.reservedSmem.cap,0x4
