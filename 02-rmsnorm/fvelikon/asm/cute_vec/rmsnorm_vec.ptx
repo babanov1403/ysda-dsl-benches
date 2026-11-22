@@ -72,7 +72,7 @@ $L__BB0_1:
 	add.f32 	%r24, %r22, %r23;
 	shfl.sync.bfly.b32 	%r25, %r24, 1, 31, -1;
 	add.f32 	%r5, %r24, %r25;
-	.loc	1 21 11	// cute_rmsnorm.py:21:11  warp = cute.arch.warp_idx() threadIdx.x / WARP_SIZE
+	.loc	1 21 11	// cute_rmsnorm.py:21:11  warp = cute.arch.warp_idx()
 	shr.u32 	%r26, %r2, 5;
 	shfl.sync.idx.b32 	%r6, %r26, 0, 31, -1;
 	.loc	1 22 7	// cute_rmsnorm.py:22:7  if cute.arch.lane_idx() == 0:
@@ -88,7 +88,6 @@ $L__BB0_4:
 	.loc	1 24 4	// cute_rmsnorm.py:24:4  cute.arch.sync_threads()
 	bar.sync 	0;
 	.loc	1 27 17	// cute_rmsnorm.py:27:17  total += partials[w]
-	// TODO CHECK WARP COUNT HERE
 	ld.shared.v4.b32 	{%r30, %r31, %r32, %r33}, [%r1];
 	.loc	1 27 8	// cute_rmsnorm.py:27:8  total += partials[w]
 	add.f32 	%r34, %r30, 0f00000000;
@@ -102,7 +101,7 @@ $L__BB0_4:
 	add.f32 	%r43, %r42, %r39;
 	add.f32 	%r44, %r43, %r40;
 	add.f32 	%r45, %r44, %r41;
-	.loc	1 62 30	// cute_rmsnorm.py:62:30  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps) <---- (fma(a, b, c) = a * b + c)
+	.loc	1 62 30	// cute_rmsnorm.py:62:30  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
 	fma.rn.f32 	%r46, %r45, 0f39800000, 0f358637BD;
 	.loc	1 62 14	// cute_rmsnorm.py:62:14  inv_rms = cute.math.rsqrt(block_sum(sum_sq, num_warps) / n + eps)
 	rsqrt.approx.f32 	%r47, %r46;
@@ -120,31 +119,23 @@ $L__BB0_5:
 	add.s64 	%rd12, %rd1, %rd11;
 	.loc	1 55 57	// cute_rmsnorm.py:55:57  load = lambda tensor, offset: Vector(cute.arch.load((tensor.iterator + offset).llvm_ptr, vector))
 	ld.global.v4.b32 {%r48, %r49, %r50, %r51}, [%rd12];
-
 	mov.b64 	%rd14, {%r48, %r49};
 	mov.b64 	%rd15, {%r50, %r51};
-
 	.loc	1 65 12	// cute_rmsnorm.py:65:12  y = load(x, row * n + col) * load(w, col) * inv_rms
 	ld.global.v4.b32 {%r52, %r53, %r54, %r55}, [%rd24];
 	mov.b64 	%rd17, {%r52, %r53};
 	mov.b64 	%rd18, {%r54, %r55};
-
-
-	// c = x * w
 	mul.f32x2 	%rd19, %rd15, %rd18;
 	mul.f32x2 	%rd20, %rd14, %rd17;
-
-	// c * inv_rms
 	mul.f32x2 	%rd21, %rd2, %rd20;
 	mul.f32x2 	%rd22, %rd2, %rd19;
-
 	.loc	1 78 0	// cute_rmsnorm.py:78:0  @cute.jit
 	mov.b64 	{%r56, %r57}, %rd22;
 	mov.b64 	{%r58, %r59}, %rd21;
 	st.global.v4.b32 [%rd25], {%r58, %r59, %r56, %r57};
 	add.s32 	%r7, %r64, 1024;
 	add.s32 	%r63, %r63, 1024;
-	add.s64 	%rd25, %rd25, 4096; // pointer += sizeof(float) * bdim * WIDTH
+	add.s64 	%rd25, %rd25, 4096;
 	add.s64 	%rd24, %rd24, 4096;
 	setp.lt.u32 	%p3, %r64, 3072;
 	mov.b32 	%r64, %r7;

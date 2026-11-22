@@ -410,19 +410,19 @@ rmsnorm_kernel:
 	// triton_rmsnorm.py:35
         /*0df0*/                   CS2R R8, SRZ ;
         /*0e00*/                   CS2R R10, SRZ ;
-	// triton_rmsnorm.py:36
+	// triton_rmsnorm.py:36  """
         /*0e10*/                   CS2R R12, SRZ ;
 	// triton_rmsnorm.py:32  x = tl.load(x_ptr + offsets, mask=mask)
         /*0e20*/                   IMAD.WIDE R22, R5.reuse, 0x4, R24 ;
 	// triton_rmsnorm.py:31  mask = offsets < n
         /*0e30*/                   ISETP.GE.AND P0, PT, R5, UR5, PT ;
-	// triton_rmsnorm.py:36
+	// triton_rmsnorm.py:36  """
         /*0e40*/                   CS2R R14, SRZ ;
 	// triton_rmsnorm.py:35
         /*0e50*/              @!P0 LDG.E.128 R8, desc[UR6][R22.64] ;
 	// triton_rmsnorm.py:33  w = tl.load(w_ptr + offsets, mask=mask)
         /*0e60*/                   IMAD.WIDE R26, R5, 0x4, R20 ;
-	// triton_rmsnorm.py:36
+	// triton_rmsnorm.py:36  """
         /*0e70*/              @!P0 LDG.E.128 R12, desc[UR6][R26.64] ;
 	// triton_rmsnorm.py:31  mask = offsets < n
         /*0e80*/                   VIADD R3, R4, UR4 ;
@@ -434,7 +434,7 @@ rmsnorm_kernel:
         /*0eb0*/                   CS2R R22, SRZ ;
 	// triton_rmsnorm.py:32  x = tl.load(x_ptr + offsets, mask=mask)
         /*0ec0*/                   IMAD.WIDE R26, R3, 0x4, R24 ;
-	// triton_rmsnorm.py:36
+	// triton_rmsnorm.py:36  """
         /*0ed0*/                   CS2R R16, SRZ ;
         /*0ee0*/                   CS2R R18, SRZ ;
         /*0ef0*/              @!P1 LDG.E.128 R16, desc[UR6][R28.64] ;

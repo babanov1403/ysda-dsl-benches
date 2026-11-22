@@ -67,3 +67,43 @@ def plot_benchmark(results, baseline="pytorch", title="Сравнение реа
         )
         fig.subplots_adjust(left=0.12, right=0.98, top=0.79, bottom=0.23, wspace=0.22)
     return fig
+
+
+def plot_benchmark_sweep(results, baseline="torch_compile", title=None):
+    """Plot median latency, baseline-relative speedup, and throughput for each shape."""
+    shapes = list(results)
+    names = list(results[shapes[0]])
+    width = 0.82 / len(names)
+    fig, (latency, speed, throughput) = plt.subplots(
+        1, 3, figsize=(max(17, 4.5 * len(shapes)), 5), layout="constrained",
+    )
+
+    for i, name in enumerate(names):
+        positions = [j + (i - (len(names) - 1) / 2) * width for j in range(len(shapes))]
+        rows = [results[shape][name] for shape in shapes]
+        medians = [row["median_us"] for row in rows]
+        errors = [
+            [row["median_us"] - row["p20_us"] for row in rows],
+            [row["p80_us"] - row["median_us"] for row in rows],
+        ]
+        speedups = [results[shape][baseline]["median_us"] / t for shape, t in zip(shapes, medians)]
+        color = f"C{i % 10}"
+        latency.bar(positions, medians, width, label=name, color=color, yerr=errors, capsize=2)
+        speed.bar(positions, speedups, width, color=color)
+        throughput.bar(positions, [row["TFLOP/s"] for row in rows], width, color=color)
+
+    labels = [" × ".join(f"{dim:,}" for dim in shape) for shape in shapes]
+    for ax in (latency, speed, throughput):
+        ax.set_xticks(range(len(shapes)), labels)
+        ax.set_xlabel("Input shape")
+        ax.set_axisbelow(True)
+        ax.grid(axis="y", alpha=0.25)
+        ax.spines[["top", "right"]].set_visible(False)
+    latency.set_ylabel("Median time (µs)")
+    speed.set_ylabel(f"Speedup vs {baseline} (×)")
+    throughput.set_ylabel("Throughput (TFLOP/s)")
+    speed.axhline(1, color="0.3", linestyle="--", linewidth=1)
+    fig.legend(loc="outside lower center", ncols=min(len(names), 6), frameon=False)
+    if title:
+        fig.suptitle(title)
+    return fig
