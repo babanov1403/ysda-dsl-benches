@@ -244,7 +244,24 @@ def make_runner(backend, kernel, **options):
 
 
 @torch.no_grad()
-def run_benchmark(impls, inputs, reference, flops, baseline="torch_compile", warmup=25, rep=100):
+def run_benchmark(impls, inputs, reference, flops, baseline="torch_compile", warmup=25, rep=100, *, shapes=None):
+    """Time one input tuple, or sweep shapes with inputs(shape) and flops(shape) callbacks.
+
+    A sweep returns {shape: {implementation: metrics}} in the supplied order.
+    """
+    if shapes is None:
+        return _benchmark_inputs(impls, inputs, reference, flops, baseline, warmup, rep)
+
+    results = {}
+    for shape in shapes:
+        if shape in results:
+            raise ValueError(f"Duplicate benchmark shape: {shape}")
+        print(f"Shape {shape}")
+        results[shape] = _benchmark_inputs(impls, inputs(shape), reference, flops(shape), baseline, warmup, rep)
+    return results
+
+
+def _benchmark_inputs(impls, inputs, reference, flops, baseline, warmup, rep):
     expected = reference(*inputs)
     useful_bytes = sum(t.numel() * t.element_size() for t in (*inputs, expected))
     results = {}

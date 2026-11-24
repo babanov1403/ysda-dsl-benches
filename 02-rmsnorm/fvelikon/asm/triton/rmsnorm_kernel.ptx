@@ -250,7 +250,7 @@ $L__BB0_5:                              // %.lr.ph3
 	mov.u32 %r63, 0x0;
 	.loc	1 35 13	// triton_rmsnorm.py:35:13
 	mov.u32 %r64, 0x0;
-	.loc	1 36 13	// triton_rmsnorm.py:36:13
+	.loc	1 36 13	// triton_rmsnorm.py:36:13  """
 	mov.u32 %r65, 0x0;
 	@%p5 ld.global.v4.b32 { %r62, %r63, %r64, %r65 }, [ %rd18 + 0 ];
 
@@ -262,7 +262,7 @@ $L__BB0_5:                              // %.lr.ph3
 	mov.u32 %r67, 0x0;
 	.loc	1 35 13	// triton_rmsnorm.py:35:13
 	mov.u32 %r68, 0x0;
-	.loc	1 36 13	// triton_rmsnorm.py:36:13
+	.loc	1 36 13	// triton_rmsnorm.py:36:13  """
 	mov.u32 %r69, 0x0;
 	@%p6 ld.global.v4.b32 { %r66, %r67, %r68, %r69 }, [ %rd19 + 0 ];
 

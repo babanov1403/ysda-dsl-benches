@@ -51,6 +51,21 @@ output = impls["triton"](*inputs)
 results = run_benchmark(impls, inputs, reference=torch.add, flops=N)
 ```
 
+To benchmark several shapes, pass an input factory and a FLOP count function.
+Each receives one shape tuple. The harness creates the inputs for that shape,
+checks every implementation against the reference, and times it.
+
+```python
+results = run_benchmark(
+    impls,
+    inputs=lambda shape: make_inputs(shape, shape),
+    reference=torch.add,
+    flops=lambda shape: shape[0],
+    shapes=[(1 << 20,), (1 << 22,), (1 << 24,)],
+)
+results[(1 << 24,)]["triton"]["median_us"]
+```
+
 Triton, CuTe and TileLang kernels receive `(*inputs, out)`. `out` is allocated like the first input. For TileLang, `specialize` receives the JIT factory and runtime inputs and returns the specialized JIT kernel; `name` controls the exported filenames.
 
 ## PTX and SASS
