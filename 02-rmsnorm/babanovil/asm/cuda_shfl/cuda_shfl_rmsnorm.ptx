@@ -1,0 +1,336 @@
+
+Fatbin elf code:
+================
+arch = sm_86
+code version = [1,8]
+host = linux
+compile_size = 64bit
+identifier = /home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_shfl_rmsnorm.cu
+
+Fatbin ptx code:
+================
+arch = sm_86
+code version = [9,3]
+host = linux
+compile_size = 64bit
+compressed
+identifier = /home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_shfl_rmsnorm.cu
+ptxasOptions =  --generate-line-info 
+
+
+
+
+
+
+
+
+.version 9.3
+.target sm_86
+.address_size 64
+
+
+
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo6rbeginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo4rendE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo7crbeginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo5crendE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__453_GLOBAL__N__a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6ignoreE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__47nulloptE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__48in_placeE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__419piecewise_constructE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std3__420unreachable_sentinelE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4swapE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo9iter_moveE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo7advanceE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4nextE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4prevE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4dataE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5cdataE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4sizeE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5ssizeE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo8distanceE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5emptyE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo11min_elementE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d4cuda3__413in_place_fromE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8606system3cpp3parE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8608cuda_cub3parE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8608cuda_cub10par_nosyncE[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_1E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_2E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_3E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_4E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_5E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_6E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_7E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_8E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_9E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders3_10E[1];
+.global .align 1 .b8 _ZN51_INTERNAL_a36265f3_20_cuda_shfl_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8603seqE[1];
+
+.visible .entry _Z15rms_norm_kernelPKfS0_Pflf(
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_0,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_1,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_2,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_3,
+.param .f32 _Z15rms_norm_kernelPKfS0_Pflf_param_4
+)
+{
+.reg .pred %p<20>;
+.reg .f32 %f<43>;
+.reg .b32 %r<48>;
+.reg .b64 %rd<29>;
+.loc	1 46 0	// cuda_shfl_rmsnorm.cu:46:0  __global__ void rms_norm_kernel(
+
+.shared .align 4 .b8 _ZZ9block_sumfE5shmem[32];
+
+ld.param.u64 %rd15, [_Z15rms_norm_kernelPKfS0_Pflf_param_0];
+ld.param.u64 %rd12, [_Z15rms_norm_kernelPKfS0_Pflf_param_1];
+ld.param.u64 %rd13, [_Z15rms_norm_kernelPKfS0_Pflf_param_2];
+ld.param.u64 %rd14, [_Z15rms_norm_kernelPKfS0_Pflf_param_3];
+ld.param.f32 %f9, [_Z15rms_norm_kernelPKfS0_Pflf_param_4];
+.loc	1 50 5	// cuda_shfl_rmsnorm.cu:50:5  const auto tid = threadIdx.x;
+cvta.to.global.u64 %rd1, %rd15;
+.loc	1 51 5	// cuda_shfl_rmsnorm.cu:51:5  const auto bid = blockIdx.x;
+mov.u32 %r1, %ctaid.x;
+.loc	1 52 5	// cuda_shfl_rmsnorm.cu:52:5  const auto bdim = blockDim.x;
+mov.u32 %r2, %ntid.x;
+.loc	1 50 5	// cuda_shfl_rmsnorm.cu:50:5  const auto tid = threadIdx.x;
+mov.u32 %r3, %tid.x;
+.loc	1 55 5	// cuda_shfl_rmsnorm.cu:55:5  for (auto j = tid; j < n_cols; j += bdim) {
+cvt.u64.u32 %rd28, %r3;
+setp.ge.s64 %p1, %rd28, %rd14;
+mov.f32 %f41, 0f00000000;
+@%p1 bra $L__BB0_3;
+
+.loc	1 0 5	// cuda_shfl_rmsnorm.cu:0:5
+cvt.u64.u32 %rd16, %r1;
+mul.lo.s64 %rd3, %rd16, %rd14;
+mov.f32 %f41, 0f00000000;
+mov.u64 %rd27, %rd28;
+mov.u32 %r47, %r3;
+
+$L__BB0_2:
+.loc	1 56 9	// cuda_shfl_rmsnorm.cu:56:9  auto value = x[bid * n_cols + j];
+add.s64 %rd17, %rd27, %rd3;
+shl.b64 %rd18, %rd17, 2;
+add.s64 %rd19, %rd1, %rd18;
+ld.global.f32 %f12, [%rd19];
+.loc	1 57 9	// cuda_shfl_rmsnorm.cu:57:9  partial += value * value;
+fma.rn.f32 %f41, %f12, %f12, %f41;
+.loc	1 55 36	// cuda_shfl_rmsnorm.cu:55:36  for (auto j = tid; j < n_cols; j += bdim) {
+add.s32 %r47, %r47, %r2;
+.loc	1 55 5	// cuda_shfl_rmsnorm.cu:55:5  for (auto j = tid; j < n_cols; j += bdim) {
+cvt.u64.u32 %rd27, %r47;
+setp.lt.s64 %p2, %rd27, %rd14;
+@%p2 bra $L__BB0_2;
+
+$L__BB0_3:
+.loc	1 60 5	// cuda_shfl_rmsnorm.cu:60:5  auto sumRow = block_sum(partial);
+.loc	1 19 5	// cuda_shfl_rmsnorm.cu:19:5  const auto lane = tid % WARP_SIZE;
+and.b32 %r6, %r3, 31;
+shl.b32 %r10, %r3, 2;
+mov.u32 %r11, _ZZ9block_sumfE5shmem;
+add.s32 %r7, %r11, %r10;
+.loc	1 20 5	// cuda_shfl_rmsnorm.cu:20:5  const auto warpid = tid / WARP_SIZE;
+shr.u32 %r8, %r3, 5;
+shl.b32 %r12, %r8, 2;
+add.s32 %r9, %r11, %r12;
+.loc	1 26 9	// cuda_shfl_rmsnorm.cu:26:9  if (warpid < groups) {
+setp.gt.u32 %p3, %r3, 255;
+@%p3 bra $L__BB0_6;
+
+.loc	1 0 9	// cuda_shfl_rmsnorm.cu:0:9
+setp.ne.s32 %p4, %r6, 0;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r13, %f41;
+mov.u32 %r14, 2;
+mov.u32 %r15, 31;
+mov.u32 %r16, 16;
+mov.u32 %r17, -1;
+shfl.sync.down.b32 %r18|%p5, %r13, %r16, %r15, %r17;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f13, %r18;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f14, %f41, %f13;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r19, %f14;
+mov.u32 %r20, 8;
+shfl.sync.down.b32 %r21|%p6, %r19, %r20, %r15, %r17;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f15, %r21;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f16, %f14, %f15;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r22, %f16;
+mov.u32 %r23, 4;
+shfl.sync.down.b32 %r24|%p7, %r22, %r23, %r15, %r17;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f17, %r24;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f18, %f16, %f17;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r25, %f18;
+shfl.sync.down.b32 %r26|%p8, %r25, %r14, %r15, %r17;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f19, %r26;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f20, %f18, %f19;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r27, %f20;
+mov.u32 %r28, 1;
+shfl.sync.down.b32 %r29|%p9, %r27, %r28, %r15, %r17;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f21, %r29;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f4, %f20, %f21;
+.loc	1 31 13	// cuda_shfl_rmsnorm.cu:31:13  if (lane == 0) {
+@%p4 bra $L__BB0_6;
+
+.loc	1 32 17	// cuda_shfl_rmsnorm.cu:32:17  shmem[warpid] = partial;
+st.shared.f32 [%r9], %f4;
+
+$L__BB0_6:
+.loc	1 35 9	// cuda_shfl_rmsnorm.cu:35:9  __syncthreads();
+bar.sync 0;
+.loc	1 39 13	// cuda_shfl_rmsnorm.cu:39:13  partial = tid < count ? shmem[tid] : 0.0f;
+setp.gt.u32 %p10, %r3, 7;
+mov.f32 %f42, 0f00000000;
+@%p10 bra $L__BB0_8;
+
+ld.shared.f32 %f42, [%r7];
+
+$L__BB0_8:
+.loc	1 26 9	// cuda_shfl_rmsnorm.cu:26:9  if (warpid < groups) {
+setp.ne.s32 %p11, %r8, 0;
+@%p11 bra $L__BB0_11;
+
+.loc	1 0 9	// cuda_shfl_rmsnorm.cu:0:9
+setp.ne.s32 %p12, %r6, 0;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r30, %f42;
+mov.u32 %r31, 2;
+mov.u32 %r32, 31;
+mov.u32 %r33, 16;
+mov.u32 %r34, -1;
+shfl.sync.down.b32 %r35|%p13, %r30, %r33, %r32, %r34;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f23, %r35;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f24, %f42, %f23;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r36, %f24;
+mov.u32 %r37, 8;
+shfl.sync.down.b32 %r38|%p14, %r36, %r37, %r32, %r34;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f25, %r38;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f26, %f24, %f25;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r39, %f26;
+mov.u32 %r40, 4;
+shfl.sync.down.b32 %r41|%p15, %r39, %r40, %r32, %r34;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f27, %r41;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f28, %f26, %f27;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r42, %f28;
+shfl.sync.down.b32 %r43|%p16, %r42, %r31, %r32, %r34;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f29, %r43;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f30, %f28, %f29;
+.loc	2 440 9	// sm_30_intrinsics.hpp:440:9  ret = __nvvm_shfl_down_sync(mask, __float_as_int(var), delta, c);
+mov.b32 %r44, %f30;
+mov.u32 %r45, 1;
+shfl.sync.down.b32 %r46|%p17, %r44, %r45, %r32, %r34;
+.loc	2 441 2	// sm_30_intrinsics.hpp:441:2  return __int_as_float(ret);
+mov.b32 %f31, %r46;
+.loc	1 29 17	// cuda_shfl_rmsnorm.cu:29:17  partial += __shfl_down_sync(0xffffffffu, partial, offset);
+add.f32 %f7, %f30, %f31;
+.loc	1 31 13	// cuda_shfl_rmsnorm.cu:31:13  if (lane == 0) {
+@%p12 bra $L__BB0_11;
+
+.loc	1 32 17	// cuda_shfl_rmsnorm.cu:32:17  shmem[warpid] = partial;
+st.shared.f32 [%r9], %f7;
+
+$L__BB0_11:
+.loc	1 35 9	// cuda_shfl_rmsnorm.cu:35:9  __syncthreads();
+bar.sync 0;
+.loc	1 64 5	// cuda_shfl_rmsnorm.cu:64:5  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+@%p1 bra $L__BB0_14;
+
+.loc	1 43 5	// cuda_shfl_rmsnorm.cu:43:5  return shmem[0];
+ld.shared.f32 %f32, [_ZZ9block_sumfE5shmem];
+cvt.u64.u32 %rd6, %r2;
+.loc	1 50 5	// cuda_shfl_rmsnorm.cu:50:5  const auto tid = threadIdx.x;
+cvta.to.global.u64 %rd7, %rd12;
+cvta.to.global.u64 %rd8, %rd13;
+.loc	1 62 5	// cuda_shfl_rmsnorm.cu:62:5  const int64_t rowStart = static_cast<int64_t>(blockIdx.x) * n_cols;
+cvt.u64.u32 %rd20, %r1;
+mul.lo.s64 %rd9, %rd20, %rd14;
+.loc	1 61 5	// cuda_shfl_rmsnorm.cu:61:5  const float invRms = rsqrtf(sumRow / static_cast<float>(n_cols) + eps);
+cvt.rn.f32.s64 %f33, %rd14;
+div.rn.f32 %f34, %f32, %f33;
+add.f32 %f35, %f34, %f9;
+rsqrt.approx.f32 %f8, %f35;
+
+$L__BB0_13:
+.loc	1 65 9	// cuda_shfl_rmsnorm.cu:65:9  out[rowStart + j] = x[rowStart + j] * invRms * weight[j];
+add.s64 %rd21, %rd28, %rd9;
+shl.b64 %rd22, %rd21, 2;
+add.s64 %rd23, %rd1, %rd22;
+ld.global.f32 %f36, [%rd23];
+mul.f32 %f37, %f8, %f36;
+shl.b64 %rd24, %rd28, 2;
+add.s64 %rd25, %rd7, %rd24;
+ld.global.f32 %f38, [%rd25];
+mul.f32 %f39, %f37, %f38;
+add.s64 %rd26, %rd8, %rd22;
+st.global.f32 [%rd26], %f39;
+.loc	1 64 47	// cuda_shfl_rmsnorm.cu:64:47  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+add.s64 %rd28, %rd28, %rd6;
+.loc	1 64 5	// cuda_shfl_rmsnorm.cu:64:5  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+setp.lt.s64 %p19, %rd28, %rd14;
+@%p19 bra $L__BB0_13;
+
+$L__BB0_14:
+.loc	1 67 1	// cuda_shfl_rmsnorm.cu:67:1  }
+ret;
+
+}
+
+.visible .entry _ZN3cub16_V_300304_SM_8606detail11EmptyKernelIvEEvv()
+{
+
+.loc	3 61 0	// util_device.cuh:61:0  CUB_DETAIL_KERNEL_ATTRIBUTES void EmptyKernel()
+
+
+.loc	3 62 1	// util_device.cuh:62:1  {}
+ret;
+
+}
+.file	1 "/home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_shfl_rmsnorm.cu"
+.file	2 "/usr/local/cuda-13.3/include/sm_30_intrinsics.hpp"
+.file	3 "/usr/local/cuda-13.3/targets/x86_64-linux/include/cccl/cub/util_device.cuh"
+.section	.debug_str
+{
+$L__info_string0:
+.b8 95,90,57,98,108,111,99,107,95,115,117,109,102,0
+$L__info_string1:
+.b8 95,90,78,53,49,95,73,78,84,69,82,78,65,76,95,97,51,54,50,54,53,102,51,95,50,48,95,99,117,100,97,95,115,104,102,108,95,114,109,115
+.b8 110,111,114,109,95,99,117,95,102,102,55,55,102,50,54,100,49,54,95,95,115,104,102,108,95,100,111,119,110,95,115,121,110,99,69,106,102,106,105,0
+
+}
+

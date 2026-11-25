@@ -1,0 +1,335 @@
+
+Fatbin elf code:
+================
+arch = sm_86
+code version = [1,8]
+host = linux
+compile_size = 64bit
+identifier = /home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_rmsnorm.cu
+
+Fatbin ptx code:
+================
+arch = sm_86
+code version = [9,3]
+host = linux
+compile_size = 64bit
+compressed
+identifier = /home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_rmsnorm.cu
+ptxasOptions =  --generate-line-info 
+
+
+
+
+
+
+
+
+.version 9.3
+.target sm_86
+.address_size 64
+
+
+
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo6rbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo4rendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo7crbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__45__cpo5crendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__448_GLOBAL__N__ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6ignoreE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__47nulloptE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__48in_placeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__419piecewise_constructE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std3__420unreachable_sentinelE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo9iter_moveE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5beginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo3endE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo6cbeginE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4cendE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo7advanceE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo9iter_swapE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4nextE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4prevE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4dataE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5cdataE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo4sizeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5ssizeE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo8distanceE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo5emptyE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3std6ranges3__45__cpo11min_elementE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d4cuda3__413in_place_fromE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8606system3cpp3parE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8608cuda_cub3parE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8608cuda_cub10par_nosyncE[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_1E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_2E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_3E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_4E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_5E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_6E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_7E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_8E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders2_9E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_86012placeholders3_10E[1];
+.global .align 1 .b8 _ZN46_INTERNAL_ab2ce795_15_cuda_rmsnorm_cu_ff77f26d6thrust16_V_300304_SM_8603seqE[1];
+
+.visible .entry _Z15rms_norm_kernelPKfS0_Pflf(
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_0,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_1,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_2,
+.param .u64 _Z15rms_norm_kernelPKfS0_Pflf_param_3,
+.param .f32 _Z15rms_norm_kernelPKfS0_Pflf_param_4
+)
+{
+.reg .pred %p<29>;
+.reg .f32 %f<43>;
+.reg .b32 %r<18>;
+.reg .b64 %rd<29>;
+.loc	1 33 0	// cuda_rmsnorm.cu:33:0  __global__ void rms_norm_kernel(
+
+.shared .align 4 .b8 _ZZ9block_sumfE5shmem[1024];
+
+ld.param.u64 %rd15, [_Z15rms_norm_kernelPKfS0_Pflf_param_0];
+ld.param.u64 %rd12, [_Z15rms_norm_kernelPKfS0_Pflf_param_1];
+ld.param.u64 %rd13, [_Z15rms_norm_kernelPKfS0_Pflf_param_2];
+ld.param.u64 %rd14, [_Z15rms_norm_kernelPKfS0_Pflf_param_3];
+ld.param.f32 %f5, [_Z15rms_norm_kernelPKfS0_Pflf_param_4];
+.loc	1 37 5	// cuda_rmsnorm.cu:37:5  const auto tid = threadIdx.x;
+cvta.to.global.u64 %rd1, %rd15;
+.loc	1 38 5	// cuda_rmsnorm.cu:38:5  const auto bid = blockIdx.x;
+mov.u32 %r1, %ctaid.x;
+.loc	1 39 5	// cuda_rmsnorm.cu:39:5  const auto bdim = blockDim.x;
+mov.u32 %r2, %ntid.x;
+.loc	1 37 5	// cuda_rmsnorm.cu:37:5  const auto tid = threadIdx.x;
+mov.u32 %r3, %tid.x;
+.loc	1 42 5	// cuda_rmsnorm.cu:42:5  for (auto j = tid; j < n_cols; j += bdim) {
+cvt.u64.u32 %rd28, %r3;
+setp.ge.s64 %p1, %rd28, %rd14;
+mov.f32 %f42, 0f00000000;
+@%p1 bra $L__BB0_3;
+
+.loc	1 0 5	// cuda_rmsnorm.cu:0:5
+cvt.u64.u32 %rd16, %r1;
+mul.lo.s64 %rd3, %rd16, %rd14;
+mov.f32 %f42, 0f00000000;
+mov.u64 %rd27, %rd28;
+mov.u32 %r17, %r3;
+
+$L__BB0_2:
+.loc	1 43 9	// cuda_rmsnorm.cu:43:9  auto value = x[bid * n_cols + j];
+add.s64 %rd17, %rd27, %rd3;
+shl.b64 %rd18, %rd17, 2;
+add.s64 %rd19, %rd1, %rd18;
+ld.global.f32 %f8, [%rd19];
+.loc	1 44 9	// cuda_rmsnorm.cu:44:9  partial += value * value;
+fma.rn.f32 %f42, %f8, %f8, %f42;
+.loc	1 42 36	// cuda_rmsnorm.cu:42:36  for (auto j = tid; j < n_cols; j += bdim) {
+add.s32 %r17, %r17, %r2;
+.loc	1 42 5	// cuda_rmsnorm.cu:42:5  for (auto j = tid; j < n_cols; j += bdim) {
+cvt.u64.u32 %rd27, %r17;
+setp.lt.s64 %p2, %rd27, %rd14;
+@%p2 bra $L__BB0_2;
+
+$L__BB0_3:
+.loc	1 47 5	// cuda_rmsnorm.cu:47:5  auto sumRow = block_sum(partial);
+.loc	1 17 5	// cuda_rmsnorm.cu:17:5  shmem[tid] = partial;
+shl.b32 %r7, %r3, 2;
+mov.u32 %r8, _ZZ9block_sumfE5shmem;
+add.s32 %r6, %r8, %r7;
+st.shared.f32 [%r6], %f42;
+.loc	1 19 5	// cuda_rmsnorm.cu:19:5  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r9, %r3, 128;
+setp.gt.u32 %p3, %r9, 255;
+setp.gt.u32 %p4, %r3, 127;
+or.pred %p5, %p4, %p3;
+@%p5 bra $L__BB0_5;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f9, [%r6];
+ld.shared.f32 %f10, [%r6+512];
+add.f32 %f11, %f9, %f10;
+st.shared.f32 [%r6], %f11;
+
+$L__BB0_5:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r10, %r3, 64;
+setp.gt.u32 %p6, %r10, 255;
+setp.gt.u32 %p7, %r3, 63;
+or.pred %p8, %p7, %p6;
+@%p8 bra $L__BB0_7;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f12, [%r6];
+ld.shared.f32 %f13, [%r6+256];
+add.f32 %f14, %f12, %f13;
+st.shared.f32 [%r6], %f14;
+
+$L__BB0_7:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r11, %r3, 32;
+setp.gt.u32 %p9, %r11, 255;
+setp.gt.u32 %p10, %r3, 31;
+or.pred %p11, %p10, %p9;
+@%p11 bra $L__BB0_9;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f15, [%r6];
+ld.shared.f32 %f16, [%r6+128];
+add.f32 %f17, %f15, %f16;
+st.shared.f32 [%r6], %f17;
+
+$L__BB0_9:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r12, %r3, 16;
+setp.gt.u32 %p12, %r12, 255;
+setp.gt.u32 %p13, %r3, 15;
+or.pred %p14, %p13, %p12;
+@%p14 bra $L__BB0_11;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f18, [%r6];
+ld.shared.f32 %f19, [%r6+64];
+add.f32 %f20, %f18, %f19;
+st.shared.f32 [%r6], %f20;
+
+$L__BB0_11:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r13, %r3, 8;
+setp.gt.u32 %p15, %r13, 255;
+setp.gt.u32 %p16, %r3, 7;
+or.pred %p17, %p16, %p15;
+@%p17 bra $L__BB0_13;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f21, [%r6];
+ld.shared.f32 %f22, [%r6+32];
+add.f32 %f23, %f21, %f22;
+st.shared.f32 [%r6], %f23;
+
+$L__BB0_13:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r14, %r3, 4;
+setp.gt.u32 %p18, %r14, 255;
+setp.gt.u32 %p19, %r3, 3;
+or.pred %p20, %p19, %p18;
+@%p20 bra $L__BB0_15;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f24, [%r6];
+ld.shared.f32 %f25, [%r6+16];
+add.f32 %f26, %f24, %f25;
+st.shared.f32 [%r6], %f26;
+
+$L__BB0_15:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r15, %r3, 2;
+setp.gt.u32 %p21, %r15, 255;
+setp.gt.u32 %p22, %r3, 1;
+or.pred %p23, %p22, %p21;
+@%p23 bra $L__BB0_17;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f27, [%r6];
+ld.shared.f32 %f28, [%r6+8];
+add.f32 %f29, %f27, %f28;
+st.shared.f32 [%r6], %f29;
+
+$L__BB0_17:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 23 9	// cuda_rmsnorm.cu:23:9  if (tid < stride && tid + stride < GROUP_SIZE) {
+add.s32 %r16, %r3, 1;
+setp.gt.u32 %p24, %r16, 255;
+setp.ne.s32 %p25, %r3, 0;
+or.pred %p26, %p25, %p24;
+@%p26 bra $L__BB0_19;
+
+.loc	1 24 13	// cuda_rmsnorm.cu:24:13  shmem[tid] = shmem[tid] + shmem[tid + stride];
+ld.shared.f32 %f30, [%r6];
+ld.shared.f32 %f31, [%r6+4];
+add.f32 %f32, %f30, %f31;
+st.shared.f32 [%r6], %f32;
+
+$L__BB0_19:
+.loc	1 27 9	// cuda_rmsnorm.cu:27:9  __syncthreads();
+bar.sync 0;
+.loc	1 51 5	// cuda_rmsnorm.cu:51:5  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+@%p1 bra $L__BB0_22;
+
+.loc	1 30 5	// cuda_rmsnorm.cu:30:5  return shmem[0];
+ld.shared.f32 %f33, [_ZZ9block_sumfE5shmem];
+cvt.u64.u32 %rd6, %r2;
+.loc	1 37 5	// cuda_rmsnorm.cu:37:5  const auto tid = threadIdx.x;
+cvta.to.global.u64 %rd7, %rd13;
+cvta.to.global.u64 %rd8, %rd12;
+.loc	1 49 5	// cuda_rmsnorm.cu:49:5  const int64_t rowStart = static_cast<int64_t>(blockIdx.x) * n_cols;
+cvt.u64.u32 %rd20, %r1;
+mul.lo.s64 %rd9, %rd20, %rd14;
+.loc	1 48 5	// cuda_rmsnorm.cu:48:5  const float invRms = rsqrtf(sumRow / static_cast<float>(n_cols) + eps);
+cvt.rn.f32.s64 %f34, %rd14;
+div.rn.f32 %f35, %f33, %f34;
+add.f32 %f36, %f35, %f5;
+rsqrt.approx.f32 %f4, %f36;
+
+$L__BB0_21:
+.loc	1 52 9	// cuda_rmsnorm.cu:52:9  out[rowStart + j] = x[rowStart + j] * invRms * weight[j];
+add.s64 %rd21, %rd28, %rd9;
+shl.b64 %rd22, %rd21, 2;
+add.s64 %rd23, %rd1, %rd22;
+ld.global.f32 %f37, [%rd23];
+mul.f32 %f38, %f4, %f37;
+shl.b64 %rd24, %rd28, 2;
+add.s64 %rd25, %rd8, %rd24;
+ld.global.f32 %f39, [%rd25];
+mul.f32 %f40, %f38, %f39;
+add.s64 %rd26, %rd7, %rd22;
+st.global.f32 [%rd26], %f40;
+.loc	1 51 47	// cuda_rmsnorm.cu:51:47  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+add.s64 %rd28, %rd28, %rd6;
+.loc	1 51 5	// cuda_rmsnorm.cu:51:5  for (int64_t j = threadIdx.x; j < n_cols; j += blockDim.x) {
+setp.lt.s64 %p28, %rd28, %rd14;
+@%p28 bra $L__BB0_21;
+
+$L__BB0_22:
+.loc	1 54 1	// cuda_rmsnorm.cu:54:1  }
+ret;
+
+}
+
+.visible .entry _ZN3cub16_V_300304_SM_8606detail11EmptyKernelIvEEvv()
+{
+
+.loc	2 61 0	// util_device.cuh:61:0  CUB_DETAIL_KERNEL_ATTRIBUTES void EmptyKernel()
+
+
+.loc	2 62 1	// util_device.cuh:62:1  {}
+ret;
+
+}
+.file	1 "/home/babanovil/ysda-dsl/02-rmsnorm/babanovil/cuda_rmsnorm.cu"
+.file	2 "/usr/local/cuda-13.3/targets/x86_64-linux/include/cccl/cub/util_device.cuh"
+.section	.debug_str
+{
+$L__info_string0:
+.b8 95,90,57,98,108,111,99,107,95,115,117,109,102,0
+
+}
+
