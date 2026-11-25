@@ -4,7 +4,7 @@
 
 //--------------------- .text.triton_poi_fused_add_mean_mul_pow_rsqrt_0 --------------------------
 	.section	.text.triton_poi_fused_add_mean_mul_pow_rsqrt_0,"ax",@progbits
-	.sectioninfo	@"SHI_REGISTERS=13"
+	.sectioninfo	@"SHI_REGISTERS=10"
 	.align	128
         .global         triton_poi_fused_add_mean_mul_pow_rsqrt_0
         .type           triton_poi_fused_add_mean_mul_pow_rsqrt_0,@function
@@ -12,47 +12,42 @@
         .other          triton_poi_fused_add_mean_mul_pow_rsqrt_0,@"STO_CUDA_ENTRY STV_DEFAULT"
 triton_poi_fused_add_mean_mul_pow_rsqrt_0:
 .text.triton_poi_fused_add_mean_mul_pow_rsqrt_0:
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:18  def triton_poi_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, in_ptr2, out_ptr0, xnumel, XBLOCK : tl.constexpr):
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:18  def triton_poi_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, out_ptr0, xnumel, XBLOCK : tl.constexpr):
         /*0000*/                   MOV R1, c[0x0][0x28] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:24  tmp1 = tl.broadcast_to(tmp0, [XBLOCK])
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:24  tmp1 = tl.broadcast_to(tmp0, [XBLOCK])
         /*0010*/                   MOV R2, c[0x0][0x160] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:26  tmp3 = tl.broadcast_to(tmp2, [XBLOCK])
-        /*0020*/                   IMAD.MOV.U32 R5, RZ, RZ, c[0x0][0x16c] ;
-        /*0030*/                   MOV R4, c[0x0][0x168] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:24  tmp1 = tl.broadcast_to(tmp0, [XBLOCK])
-        /*0040*/                   IMAD.MOV.U32 R3, RZ, RZ, c[0x0][0x164] ;
-        /*0050*/                   ULDC.64 UR4, c[0x0][0x118] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:26  tmp3 = tl.broadcast_to(tmp2, [XBLOCK])
-        /*0060*/                   LDG.E R5, [R4.64] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:24  tmp1 = tl.broadcast_to(tmp0, [XBLOCK])
-        /*0070*/                   LDG.E R2, [R2.64] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:28  tmp13 = tl.broadcast_to(tmp12, [XBLOCK])
-        /*0080*/                   MOV R6, c[0x0][0x170] ;
-        /*0090*/                   IMAD.MOV.U32 R7, RZ, RZ, c[0x0][0x174] ;
-        /*00a0*/                   LDG.E R6, [R6.64] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:38  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp14, None)
-        /*00b0*/                   S2R R10, SR_TID.X ;
-        /*00c0*/                   LOP3.LUT P0, RZ, R10, 0x1f, RZ, 0xc0, !PT ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:29  tmp4 = tmp1 + tmp3
-        /*00d0*/                   FADD R0, R2, R5 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:34  tmp9 = tmp7 + tmp8
-        /*00e0*/                   FFMA R8, R0, R0, 9.9999999747524270788e-07 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:35  tmp10 = libdevice.rsqrt(tmp9)
-        /*00f0*/                   MUFU.RSQ R9, R8 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:36  tmp11 = tmp4 * tmp10
-        /*0100*/                   FMUL R9, R0, R9 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:38  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp14, None)
-        /*0110*/               @P0 EXIT ;
-        /*0120*/                   MOV R2, c[0x0][0x178] ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:37  tmp14 = tmp11 * tmp13
-        /*0130*/                   FMUL R9, R6, R9 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:38  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp14, None)
-        /*0140*/                   MOV R3, c[0x0][0x17c] ;
-        /*0150*/                   STG.E [R2.64], R9 ;
-	// cjt4hcbe76zox335miank4rlxrpki6fdcg7376qp72dc5gatrrbu.py:18  def triton_poi_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, in_ptr2, out_ptr0, xnumel, XBLOCK : tl.constexpr):
-        /*0160*/                   EXIT ;
+        /*0020*/                   IMAD.MOV.U32 R3, RZ, RZ, c[0x0][0x164] ;
+        /*0030*/                   ULDC.64 UR4, c[0x0][0x118] ;
+        /*0040*/                   LDG.E R2, [R2.64] ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:26  tmp10 = tl.broadcast_to(tmp9, [XBLOCK])
+        /*0050*/                   MOV R4, c[0x0][0x168] ;
+        /*0060*/                   IMAD.MOV.U32 R5, RZ, RZ, c[0x0][0x16c] ;
+        /*0070*/                   LDG.E R4, [R4.64] ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:35  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp11, None)
+        /*0080*/                   S2R R6, SR_TID.X ;
+        /*0090*/                   LOP3.LUT P0, RZ, R6, 0x1f, RZ, 0xc0, !PT ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:31  tmp6 = tmp4 + tmp5
+        /*00a0*/                   FFMA R0, R2, R2, 9.9999999747524270788e-07 ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:32  tmp7 = libdevice.rsqrt(tmp6)
+        /*00b0*/                   MUFU.RSQ R7, R0 ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:33  tmp8 = tmp1 * tmp7
+        /*00c0*/                   FMUL R7, R2, R7 ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:35  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp11, None)
+        /*00d0*/               @P0 EXIT ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:34  tmp11 = tmp8 * tmp10
+        /*00e0*/                   FMUL R7, R4, R7 ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:35  tl.store(out_ptr0 + (tl.full([XBLOCK], 0, tl.int32).broadcast_to(XBLOCK)), tmp11, None)
+        /*00f0*/                   MOV R2, c[0x0][0x170] ;
+        /*0100*/                   MOV R3, c[0x0][0x174] ;
+        /*0110*/                   STG.E [R2.64], R7 ;
+	// cciugmkginkcnikfigrlqiu27nnx5n26fmx5exrauu7nles24rrj.py:18  def triton_poi_fused_add_mean_mul_pow_rsqrt_0(in_ptr0, in_ptr1, out_ptr0, xnumel, XBLOCK : tl.constexpr):
+        /*0120*/                   EXIT ;
 .L_x_0:
-        /*0170*/                   BRA `(.L_x_0);
+        /*0130*/                   BRA `(.L_x_0);
+        /*0140*/                   NOP;
+        /*0150*/                   NOP;
+        /*0160*/                   NOP;
+        /*0170*/                   NOP;
         /*0180*/                   NOP;
         /*0190*/                   NOP;
         /*01a0*/                   NOP;
