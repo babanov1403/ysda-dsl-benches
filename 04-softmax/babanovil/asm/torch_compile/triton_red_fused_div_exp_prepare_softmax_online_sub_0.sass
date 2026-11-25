@@ -1,0 +1,982 @@
+	.headerflags	@"EF_CUDA_TEXMODE_UNIFIED EF_CUDA_64BIT_ADDRESS EF_CUDA_SM86 EF_CUDA_VIRTUAL_SM(EF_CUDA_SM86)"
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.triton_red_fused_div_exp_prepare_softmax_online_sub_0 --------------------------
+	.section	.text.triton_red_fused_div_exp_prepare_softmax_online_sub_0,"ax",@progbits
+	.sectionflags	@"SHF_BARRIERS=1"
+	.sectioninfo	@"SHI_REGISTERS=40"
+	.align	128
+        .global         triton_red_fused_div_exp_prepare_softmax_online_sub_0
+        .type           triton_red_fused_div_exp_prepare_softmax_online_sub_0,@function
+        .size           triton_red_fused_div_exp_prepare_softmax_online_sub_0,(.L_x_1 - triton_red_fused_div_exp_prepare_softmax_online_sub_0)
+        .other          triton_red_fused_div_exp_prepare_softmax_online_sub_0,@"STO_CUDA_ENTRY STV_DEFAULT"
+triton_red_fused_div_exp_prepare_softmax_online_sub_0:
+.text.triton_red_fused_div_exp_prepare_softmax_online_sub_0:
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:18  def triton_red_fused_div_exp_prepare_softmax_online_sub_0(in_ptr0, out_ptr2, xnumel, r0_numel, XBLOCK : tl.constexpr, R0_BLOCK : tl.constexpr):
+        /*0000*/                   MOV R1, c[0x0][0x28] ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:23  xoffset = tl.program_id(0) * XBLOCK
+        /*0010*/                   S2R R3, SR_CTAID.X ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:37  tmp0 = tl.load(in_ptr0 + (r0_1 + 4096*x0), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0020*/                   MOV R21, 0x4 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0030*/                   UMOV UR4, 0x0 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:26  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*0040*/                   S2R R23, SR_TID.X ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0050*/                   UMOV UR5, 0x14f00000 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:37  tmp0 = tl.load(in_ptr0 + (r0_1 + 4096*x0), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0060*/                   SHF.L.U32 R3, R3, 0xc, RZ ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:26  r0_base = tl.arange(0, R0_BLOCK)[None, :]
+        /*0070*/                   SHF.L.U32 R22, R23, 0x2, RZ ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:37  tmp0 = tl.load(in_ptr0 + (r0_1 + 4096*x0), r0_mask, eviction_policy='evict_last', other=0.0)
+        /*0080*/                   LOP3.LUT R20, R3.reuse, 0x7fc, R22.reuse, 0xf8, !PT ;
+        /*0090*/                   IADD3 R18, R3, 0x800, R22 ;
+        /*00a0*/                   IMAD.WIDE R16, R20, R21, c[0x0][0x160] ;
+        /*00b0*/                   IMAD.WIDE R12, R18, R21, c[0x0][0x160] ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*00c0*/                   LDG.E.EL.128 R8, desc[UR4][R16.64] ;
+        /*00d0*/                   LDG.E.EL.128 R4, desc[UR4][R12.64] ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*00e0*/                   MOV R19, 0x437c0000 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*00f0*/                   UMOV UR5, 0x12f00000 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0100*/                   SHF.R.U32.HI R23, RZ, 0x3, R23 ;
+        /*0110*/                   LOP3.LUT R22, R22, 0x3c, RZ, 0xc0, !PT ;
+        /*0120*/                   LOP3.LUT R23, R23, 0x3c, RZ, 0xc0, !PT ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0130*/                   FMNMX.NAN R0, R8.reuse, R9, !PT ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0140*/                   FADD R30, -R8, -INF  ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0150*/                   FMNMX.NAN R3, R10, R11, !PT ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0160*/                   FADD R32, R8, -R8 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0170*/                   FMNMX.NAN R2, R4, R5, !PT ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0180*/                   FADD R24, -R9.reuse, -INF  ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0190*/                   FMNMX.NAN R15, R6, R7, !PT ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*01a0*/                   FADD R28, R9, -R9 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*01b0*/                   FMNMX.NAN R0, R0, R3, !PT ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*01c0*/                   FADD R34, -R11, -INF  ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*01d0*/                   FMNMX.NAN R15, R2, R15, !PT ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*01e0*/                   FSETP.NEU.AND P0, PT, R9, -INF , PT ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*01f0*/                   FMNMX.NAN R15, R0, R15, !PT ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0200*/                   FSETP.NEU.AND P3, PT, R8, -INF , PT ;
+        /*0210*/                   FSETP.NEU.AND P5, PT, R11, -INF , PT ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0220*/                   SHFL.BFLY PT, R0, R15, 0x10, 0x1f ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0230*/                   FSETP.NEU.AND P2, PT, R10, -INF , PT ;
+        /*0240*/                   FSETP.NEU.AND P1, PT, R4, -INF , PT ;
+        /*0250*/                   FSETP.NEU.AND P4, PT, R5, -INF , PT ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0260*/                   FMNMX.NAN R2, R15, R0, !PT ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0270*/                   SHFL.BFLY PT, R3, R2, 0x8, 0x1f ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0280*/                   FMNMX.NAN R25, R2, R3, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0290*/                   MOV R3, 0x3bbb989d ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*02a0*/                   SHFL.BFLY PT, R0, R25, 0x4, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*02b0*/                   FFMA.FTZ R2, R32, R3, 0.5 ;
+        /*02c0*/                   FADD.FTZ.SAT R2, RZ, R2 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*02d0*/                   FMNMX.NAN R26, R25, R0, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*02e0*/                   FFMA.FTZ R0, R30, R3, 0.5 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*02f0*/                   SHFL.BFLY PT, R27, R26, 0x2, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0300*/                   FADD.FTZ.SAT R0, RZ, R0 ;
+        /*0310*/                   FFMA.FTZ.RM R15, R0, R19, 12582913 ;
+        /*0320*/                   FFMA.FTZ R0, R24, R3, 0.5 ;
+        /*0330*/                   FADD R25, R15.reuse, -12583039 ;
+        /*0340*/                   FADD.FTZ.SAT R0, RZ, R0 ;
+        /*0350*/                   SHF.L.U32 R15, R15, 0x17, RZ ;
+        /*0360*/                   FFMA.FTZ R29, R30, 1.4426950216293334961, -R25 ;
+        /*0370*/                   FFMA.FTZ R30, R30, 1.925963033500011079e-08, R29 ;
+        /*0380*/                   MUFU.EX2 R30, R30 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0390*/                   FMNMX.NAN R14, R26, R27, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*03a0*/                   FFMA.FTZ.RM R27, R2, R19, 12582913 ;
+        /*03b0*/                   FFMA.FTZ R26, R28, R3, 0.5 ;
+        /*03c0*/                   FFMA.FTZ.RM R2, R0, R19.reuse, 12582913 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*03d0*/                   SHFL.BFLY PT, R25, R14, 0x1, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*03e0*/                   FADD R31, R27.reuse, -12583039 ;
+        /*03f0*/                   FADD.FTZ.SAT R26, RZ, R26 ;
+        /*0400*/                   FADD R29, R2, -12583039 ;
+        /*0410*/                   SHF.L.U32 R27, R27, 0x17, RZ ;
+        /*0420*/                   FFMA.FTZ R31, R32, 1.4426950216293334961, -R31 ;
+        /*0430*/                   FFMA.FTZ.RM R0, R26, R19, 12582913 ;
+        /*0440*/                   FFMA.FTZ R29, R24, 1.4426950216293334961, -R29 ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0450*/                   FADD R26, R11, -R11 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0460*/                   FFMA.FTZ R32, R32, 1.925963033500011079e-08, R31 ;
+        /*0470*/                   FADD R33, R0, -12583039 ;
+        /*0480*/                   FFMA.FTZ R31, R24, 1.925963033500011079e-08, R29 ;
+        /*0490*/                   FFMA.FTZ R29, R26, R3.reuse, 0.5 ;
+        /*04a0*/                   FFMA.FTZ R24, R34, R3, 0.5 ;
+        /*04b0*/                   FFMA.FTZ R33, R28.reuse, 1.4426950216293334961, -R33 ;
+        /*04c0*/                   MUFU.EX2 R32, R32 ;
+        /*04d0*/                   FADD.FTZ.SAT R29, RZ, R29 ;
+        /*04e0*/                   FADD.FTZ.SAT R24, RZ, R24 ;
+        /*04f0*/                   FFMA.FTZ R28, R28, 1.925963033500011079e-08, R33 ;
+        /*0500*/                   FMUL R15, R30, R15 ;
+        /*0510*/                   FFMA.FTZ.RM R24, R24, R19, 12582913 ;
+        /*0520*/                   MUFU.EX2 R31, R31 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0530*/                   FMNMX.NAN R36, R14, R25, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0540*/                   FFMA.FTZ.RM R14, R29, R19, 12582913 ;
+        /*0550*/                   FADD R25, R24.reuse, -12583039 ;
+        /*0560*/                   SHF.L.U32 R24, R24, 0x17, RZ ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0570*/                   STS [R23], R36 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0580*/                   FADD R29, R14, -12583039 ;
+        /*0590*/                   MUFU.EX2 R28, R28 ;
+        /*05a0*/                   FFMA.FTZ R25, R34, 1.4426950216293334961, -R25 ;
+        /*05b0*/                   FFMA.FTZ R29, R26, 1.4426950216293334961, -R29 ;
+        /*05c0*/                   FFMA.FTZ R25, R34, 1.925963033500011079e-08, R25 ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*05d0*/                   FADD R34, -R10, -INF  ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*05e0*/                   FFMA.FTZ R26, R26, 1.925963033500011079e-08, R29 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*05f0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0600*/                   SHF.L.U32 R36, R2, 0x17, RZ ;
+        /*0610*/                   FMUL R2, R32, R27 ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0620*/                   FADD R32, R10, -R10 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0630*/                   FFMA.FTZ R33, R34, R3, 0.5 ;
+        /*0640*/                   FMUL R27, R31, R36 ;
+        /*0650*/                   SHF.L.U32 R31, R0, 0x17, RZ ;
+        /*0660*/                   FADD.FTZ.SAT R33, RZ, R33 ;
+        /*0670*/                   MUFU.EX2 R25, R25 ;
+        /*0680*/                   FMUL R0, R28, R31 ;
+        /*0690*/                   FFMA.FTZ R28, R32, R3, 0.5 ;
+        /*06a0*/                   FFMA.FTZ.RM R30, R33, R19, 12582913 ;
+        /*06b0*/                   FADD.FTZ.SAT R28, RZ, R28 ;
+        /*06c0*/                   FADD R33, R30.reuse, -12583039 ;
+        /*06d0*/                   MUFU.EX2 R26, R26 ;
+        /*06e0*/                   SHF.L.U32 R30, R30, 0x17, RZ ;
+        /*06f0*/                   FFMA.FTZ.RM R31, R28, R19, 12582913 ;
+        /*0700*/                   FFMA.FTZ R33, R34.reuse, 1.4426950216293334961, -R33 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0710*/                   LDS R29, [R22] ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0720*/                   FADD R35, R31, -12583039 ;
+        /*0730*/                   FFMA.FTZ R33, R34, 1.925963033500011079e-08, R33 ;
+        /*0740*/                   FMUL R24, R25, R24 ;
+        /*0750*/                   SHF.L.U32 R25, R14, 0x17, RZ ;
+        /*0760*/                   FFMA.FTZ R35, R32.reuse, 1.4426950216293334961, -R35 ;
+        /*0770*/                   SHF.L.U32 R37, R31, 0x17, RZ ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0780*/                   FFMA R14, RZ, R15, R2 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0790*/                   MUFU.EX2 R33, R33 ;
+        /*07a0*/                   FFMA.FTZ R35, R32, 1.925963033500011079e-08, R35 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*07b0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*07c0*/                   FMUL R31, R26, R25 ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*07d0*/                   FADD R26, -R4, -INF  ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*07e0*/                   FFMA R25, RZ, R27, R0 ;
+        /*07f0*/                   FSEL R14, R14, 1, P3 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0800*/                   MUFU.EX2 R32, R35 ;
+        /*0810*/                   FFMA.FTZ R2, R26, R3, 0.5 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0820*/                   FSEL R25, R25, 1, P0 ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0830*/                   FSETP.NEU.AND P0, PT, R6, -INF , PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0840*/                   FADD.FTZ.SAT R2, RZ, R2 ;
+        /*0850*/                   FMUL R33, R33, R30 ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0860*/                   FADD R30, R4, -R4 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0870*/                   FFMA.FTZ.RM R2, R2, R19, 12582913 ;
+        /*0880*/                   FFMA.FTZ R15, R30, R3, 0.5 ;
+        /*0890*/                   FADD R27, R2, -12583039 ;
+        /*08a0*/                   FMUL R32, R32, R37 ;
+        /*08b0*/                   FADD.FTZ.SAT R34, RZ, R15 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*08c0*/                   FFMA R15, RZ, R24, R31 ;
+        /*08d0*/                   FFMA R24, RZ, R33, R32 ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*08e0*/                   FADD R32, -R5.reuse, -INF  ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*08f0*/                   FFMA.FTZ R33, R26, 1.4426950216293334961, -R27 ;
+        /*0900*/                   FFMA.FTZ.RM R0, R34, R19, 12582913 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0910*/                   SHFL.BFLY PT, R28, R29, 0x8, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0920*/                   FFMA.FTZ R27, R32, R3.reuse, 0.5 ;
+        /*0930*/                   FFMA.FTZ R33, R26, 1.925963033500011079e-08, R33 ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0940*/                   FADD R34, R5, -R5 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0950*/                   FADD R31, R0.reuse, -12583039 ;
+        /*0960*/                   FADD.FTZ.SAT R26, RZ, R27 ;
+        /*0970*/                   SHF.L.U32 R0, R0, 0x17, RZ ;
+        /*0980*/                   FFMA.FTZ R27, R34, R3, 0.5 ;
+        /*0990*/                   FFMA.FTZ R31, R30, 1.4426950216293334961, -R31 ;
+        /*09a0*/                   FFMA.FTZ.RM R26, R26, R19, 12582913 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*09b0*/                   FSEL R15, R15, 1, P5 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*09c0*/                   FFMA.FTZ R31, R30, 1.925963033500011079e-08, R31 ;
+        /*09d0*/                   MUFU.EX2 R30, R33 ;
+        /*09e0*/                   MUFU.EX2 R31, R31 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*09f0*/                   FMNMX.NAN R28, R29, R28, !PT ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0a00*/                   SHFL.BFLY PT, R29, R28, 0x4, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0a10*/                   FMUL R0, R31, R0 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0a20*/                   FMNMX.NAN R29, R28, R29, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0a30*/                   FADD.FTZ.SAT R28, RZ, R27 ;
+        /*0a40*/                   FADD R27, R26, -12583039 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0a50*/                   SHFL.BFLY PT, R36, R29, 0x2, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0a60*/                   FFMA.FTZ R35, R32, 1.4426950216293334961, -R27 ;
+        /*0a70*/                   FFMA.FTZ.RM R27, R28, R19, 12582913 ;
+        /*0a80*/                   FFMA.FTZ R28, R32, 1.925963033500011079e-08, R35 ;
+        /*0a90*/                   SHF.L.U32 R35, R2, 0x17, RZ ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0aa0*/                   FADD R32, -R6, -INF  ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0ab0*/                   FADD R37, R27.reuse, -12583039 ;
+        /*0ac0*/                   SHF.L.U32 R27, R27, 0x17, RZ ;
+        /*0ad0*/                   MUFU.EX2 R28, R28 ;
+        /*0ae0*/                   FFMA.FTZ R37, R34, 1.4426950216293334961, -R37 ;
+        /*0af0*/                   FFMA.FTZ R34, R34, 1.925963033500011079e-08, R37 ;
+        /*0b00*/                   MUFU.EX2 R34, R34 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0b10*/                   FMNMX.NAN R2, R29, R36, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0b20*/                   FMUL R29, R30, R35 ;
+        /*0b30*/                   FFMA.FTZ R30, R32, R3, 0.5 ;
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0b40*/                   SHFL.BFLY PT, R33, R2, 0x1, 0x1f ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0b50*/                   FADD.FTZ.SAT R30, RZ, R30 ;
+        /*0b60*/                   FFMA.FTZ.RM R30, R30, R19, 12582913 ;
+        /*0b70*/                   FADD R31, R30, -12583039 ;
+        /*0b80*/                   FMUL R27, R34, R27 ;
+        /*0b90*/                   SHF.L.U32 R30, R30, 0x17, RZ ;
+        /*0ba0*/                   FFMA.FTZ R31, R32, 1.4426950216293334961, -R31 ;
+        /*0bb0*/                   FFMA.FTZ R31, R32, 1.925963033500011079e-08, R31 ;
+        /*0bc0*/                   MUFU.EX2 R31, R31 ;
+	// triton_helpers.py:245  return tl.maximum(a, b, propagate_nan=tl.PropagateNan.ALL)  (inlined at triton_helpers.py:276  return tl.reduce(a, dim, maximum))
+	// triton_helpers.py:276  return tl.reduce(a, dim, maximum)  (inlined at triton_helpers.py:355  out_max = max2(lhs_max, dim))
+	// triton_helpers.py:355  out_max = max2(lhs_max, dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0bd0*/                   FMNMX.NAN R2, R2, R33, !PT ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0be0*/                   SHF.L.U32 R33, R26, 0x17, RZ ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0bf0*/                   FSETP.NEU.AND P6, PT, R2, -INF , PT ;
+        /*0c00*/                   FADD R9, R9, -R2.reuse ;
+        /*0c10*/                   FADD R32, R8, -R2.reuse ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0c20*/                   FMUL R26, R28, R33 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0c30*/                   FADD R34, R11, -R2.reuse ;
+        /*0c40*/                   FADD R10, R10, -R2.reuse ;
+        /*0c50*/                   FSEL R28, R9, RZ, P6 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0c60*/                   FFMA R26, RZ, R26, R27 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0c70*/                   FSEL R32, R32, RZ, P6 ;
+        /*0c80*/                   FADD R4, R4, -R2 ;
+        /*0c90*/                   FSEL R34, R34, RZ, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0ca0*/                   FFMA.FTZ R8, R28, R3.reuse, 0.5 ;
+        /*0cb0*/                   FMUL R31, R31, R30 ;
+        /*0cc0*/                   FFMA.FTZ R11, R32, R3.reuse, 0.5 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0cd0*/                   FSEL R10, R10, RZ, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0ce0*/                   FADD.FTZ.SAT R8, RZ, R8 ;
+        /*0cf0*/                   FFMA.FTZ R27, R34, R3, 0.5 ;
+        /*0d00*/                   FFMA.FTZ.RM R9, R8, R19, 12582913 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0d10*/                   FFMA R8, RZ, R29, R0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0d20*/                   FADD.FTZ.SAT R0, RZ, R11 ;
+        /*0d30*/                   FADD.FTZ.SAT R30, RZ, R27 ;
+        /*0d40*/                   FADD R29, R9.reuse, -12583039 ;
+        /*0d50*/                   SHF.L.U32 R9, R9, 0x17, RZ ;
+        /*0d60*/                   FFMA.FTZ.RM R11, R0, R19.reuse, 12582913 ;
+        /*0d70*/                   FFMA.FTZ.RM R30, R30, R19, 12582913 ;
+        /*0d80*/                   FFMA.FTZ R29, R28, 1.4426950216293334961, -R29 ;
+        /*0d90*/                   FFMA.FTZ R0, R10, R3, 0.5 ;
+        /*0da0*/                   FADD R27, R11.reuse, -12583039 ;
+        /*0db0*/                   SHF.L.U32 R11, R11, 0x17, RZ ;
+        /*0dc0*/                   FFMA.FTZ R33, R28, 1.925963033500011079e-08, R29 ;
+        /*0dd0*/                   FADD R29, R30, -12583039 ;
+        /*0de0*/                   FFMA.FTZ R27, R32, 1.4426950216293334961, -R27 ;
+        /*0df0*/                   SHF.L.U32 R30, R30, 0x17, RZ ;
+        /*0e00*/                   FFMA.FTZ R28, R32, 1.925963033500011079e-08, R27 ;
+        /*0e10*/                   FADD.FTZ.SAT R32, RZ, R0 ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0e20*/                   FADD R0, R6, -R6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0e30*/                   FFMA.FTZ R27, R34, 1.4426950216293334961, -R29 ;
+        /*0e40*/                   FFMA.FTZ.RM R29, R32, R19, 12582913 ;
+        /*0e50*/                   FFMA.FTZ R32, R0, R3, 0.5 ;
+        /*0e60*/                   FFMA.FTZ R27, R34, 1.925963033500011079e-08, R27 ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0e70*/                   FADD R34, -R7, -INF  ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0e80*/                   FADD R35, R29.reuse, -12583039 ;
+        /*0e90*/                   FADD.FTZ.SAT R32, RZ, R32 ;
+        /*0ea0*/                   MUFU.EX2 R28, R28 ;
+        /*0eb0*/                   SHF.L.U32 R37, R29, 0x17, RZ ;
+        /*0ec0*/                   FFMA.FTZ R35, R10, 1.4426950216293334961, -R35 ;
+        /*0ed0*/                   FFMA.FTZ.RM R32, R32, R19, 12582913 ;
+        /*0ee0*/                   FFMA.FTZ R10, R10, 1.925963033500011079e-08, R35 ;
+        /*0ef0*/                   FADD R35, R32, -12583039 ;
+        /*0f00*/                   MUFU.EX2 R27, R27 ;
+        /*0f10*/                   FFMA.FTZ R35, R0, 1.4426950216293334961, -R35 ;
+        /*0f20*/                   FFMA.FTZ R36, R0, 1.925963033500011079e-08, R35 ;
+        /*0f30*/                   SHF.L.U32 R35, R32, 0x17, RZ ;
+        /*0f40*/                   FFMA.FTZ R32, R34, R3, 0.5 ;
+        /*0f50*/                   FMUL R11, R28, R11 ;
+        /*0f60*/                   MUFU.EX2 R0, R36 ;
+        /*0f70*/                   FADD.FTZ.SAT R32, RZ, R32 ;
+        /*0f80*/                   FFMA.FTZ.RM R32, R32, R19, 12582913 ;
+        /*0f90*/                   MUFU.EX2 R10, R10 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*0fa0*/                   FADD R36, R5, -R2.reuse ;
+        /*0fb0*/                   FADD R5, R7, -R2 ;
+        /*0fc0*/                   FSEL R36, R36, RZ, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0fd0*/                   FMUL R0, R0, R35 ;
+        /*0fe0*/                   FADD R35, R32, -12583039 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*0ff0*/                   FFMA R31, RZ, R31, R0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1000*/                   FFMA.FTZ R35, R34, 1.4426950216293334961, -R35 ;
+        /*1010*/                   FMUL R10, R10, R37 ;
+        /*1020*/                   FFMA.FTZ R0, R34, 1.925963033500011079e-08, R35 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1030*/                   FADD R34, R6, -R2 ;
+        /*1040*/                   FSEL R6, R4, RZ, P6 ;
+        /*1050*/                   FSEL R4, R5, RZ, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1060*/                   MUFU.EX2 R0, R0 ;
+	// triton_helpers.py:357  delta = tl.where(out_max_keepdim == float("-inf"), 0, lhs_max - out_max_keepdim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1070*/                   FSEL R34, R34, RZ, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math))
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1080*/                   SHF.L.U32 R35, R32, 0x17, RZ ;
+	// triton_helpers.py:382  out_max == float("-inf"), 1.0, exp(lhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1090*/                   FSETP.NEU.AND P6, PT, R7.reuse, -INF , PT ;
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*10a0*/                   FADD R7, R7, -R7 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*10b0*/                   MUFU.EX2 R32, R33 ;
+        /*10c0*/                   FMUL R35, R35, R0 ;
+        /*10d0*/                   FFMA.FTZ R0, R7, R3, 0.5 ;
+        /*10e0*/                   FADD.FTZ.SAT R0, RZ, R0 ;
+        /*10f0*/                   FMUL R32, R32, R9 ;
+        /*1100*/                   FFMA.FTZ.RM R0, R0, R19, 12582913 ;
+        /*1110*/                   FFMA.FTZ R9, R6, R3, 0.5 ;
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1120*/                   FMUL R25, R25, R32 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1130*/                   FADD R5, R0.reuse, -12583039 ;
+        /*1140*/                   SHF.L.U32 R0, R0, 0x17, RZ ;
+        /*1150*/                   FADD.FTZ.SAT R9, RZ, R9 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1160*/                   FFMA R11, R14, R11, R25 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math))
+	// triton_helpers.py:385  out_max == float("-inf"), 1.0, exp(rhs_max - out_max, use_fast_math)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1170*/                   FFMA.FTZ R5, R7, 1.4426950216293334961, -R5 ;
+        /*1180*/                   FFMA.FTZ R7, R7, 1.925963033500011079e-08, R5 ;
+        /*1190*/                   FFMA.FTZ R5, R36, R3, 0.5 ;
+        /*11a0*/                   FADD.FTZ.SAT R5, RZ, R5 ;
+        /*11b0*/                   MUFU.EX2 R7, R7 ;
+        /*11c0*/                   FFMA.FTZ.RM R5, R5, R19, 12582913 ;
+        /*11d0*/                   FADD R33, R5.reuse, -12583039 ;
+        /*11e0*/                   SHF.L.U32 R5, R5, 0x17, RZ ;
+        /*11f0*/                   FFMA.FTZ R33, R36, 1.4426950216293334961, -R33 ;
+        /*1200*/                   FFMA.FTZ R36, R36, 1.925963033500011079e-08, R33 ;
+        /*1210*/                   FMUL R0, R0, R7 ;
+        /*1220*/                   FFMA.FTZ.RM R7, R9, R19, 12582913 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1230*/                   FFMA R0, RZ, R35, R0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1240*/                   FADD R9, R7.reuse, -12583039 ;
+        /*1250*/                   MUFU.EX2 R36, R36 ;
+        /*1260*/                   SHF.L.U32 R7, R7, 0x17, RZ ;
+        /*1270*/                   FFMA.FTZ R9, R6, 1.4426950216293334961, -R9 ;
+        /*1280*/                   FFMA.FTZ R6, R6, 1.925963033500011079e-08, R9 ;
+        /*1290*/                   FFMA.FTZ R9, R4, R3, 0.5 ;
+        /*12a0*/                   FADD.FTZ.SAT R9, RZ, R9 ;
+        /*12b0*/                   MUFU.EX2 R6, R6 ;
+        /*12c0*/                   FFMA.FTZ.RM R9, R9, R19, 12582913 ;
+        /*12d0*/                   FMUL R36, R36, R5 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*12e0*/                   FSEL R5, R26, 1, P4 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*12f0*/                   FADD R33, R9, -12583039 ;
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1300*/                   FMUL R36, R5, R36 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1310*/                   FFMA.FTZ R33, R4, 1.4426950216293334961, -R33 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1320*/                   FSEL R5, R8, 1, P1 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1330*/                   FFMA.FTZ R33, R4, 1.925963033500011079e-08, R33 ;
+        /*1340*/                   FFMA.FTZ R4, R34, R3, 0.5 ;
+        /*1350*/                   FMUL R6, R6, R7 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1360*/                   FSEL R7, R24, 1, P2 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1370*/                   FADD.FTZ.SAT R28, RZ, R4 ;
+        /*1380*/                   FMUL R4, R27, R30 ;
+        /*1390*/                   SHF.L.U32 R30, R9, 0x17, RZ ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*13a0*/                   FFMA R5, R5, R6, R36 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*13b0*/                   FFMA.FTZ.RM R28, R28, R19, 12582913 ;
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*13c0*/                   FMUL R26, R15, R4 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*13d0*/                   FSEL R4, R0, 1, P6 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*13e0*/                   FADD R27, R28.reuse, -12583039 ;
+        /*13f0*/                   SHF.L.U32 R28, R28, 0x17, RZ ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1400*/                   FFMA R10, R7, R10, R26 ;
+	// triton_helpers.py:391  out_sum = lhs_sum * lhs_scale + rhs_scale  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:40  _tmp2_max_next, _tmp2_sum_next = triton_helpers.online_softmax_combine(
+        /*1410*/                   FSEL R0, R31, 1, P0 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1420*/                   FFMA.FTZ R35, R34.reuse, 1.4426950216293334961, -R27 ;
+        /*1430*/                   MUFU.EX2 R27, R33 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1440*/                   FADD R10, R11, R10 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1450*/                   FFMA.FTZ R35, R34, 1.925963033500011079e-08, R35 ;
+        /*1460*/                   MUFU.EX2 R29, R35 ;
+        /*1470*/                   FMUL R27, R30, R27 ;
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1480*/                   FMUL R27, R4, R27 ;
+	// triton_helpers.py:341  return libdevice.exp(x)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1490*/                   FMUL R29, R29, R28 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*14a0*/                   FFMA R0, R0, R29, R27 ;
+        /*14b0*/                   FADD R5, R5, R0 ;
+        /*14c0*/                   FADD R5, R10, R5 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*14d0*/                   SHFL.BFLY PT, R0, R5, 0x10, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*14e0*/                   FADD R0, R5, R0 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*14f0*/                   SHFL.BFLY PT, R7, R0, 0x8, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1500*/                   FADD R8, R0, R7 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1510*/                   SHFL.BFLY PT, R7, R8, 0x4, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1520*/                   FADD R9, R8, R7 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1530*/                   SHFL.BFLY PT, R4, R9, 0x2, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1540*/                   FADD R10, R9, R4 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1550*/                   SHFL.BFLY PT, R7, R10, 0x1, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1560*/                   FADD R24, R10, R7 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1570*/                   STS [R23], R24 ;
+        /*1580*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1590*/                   LDG.E.EF.128 R4, desc[UR4][R16.64] ;
+        /*15a0*/                   LDG.E.EF.128 R12, desc[UR4][R12.64] ;
+        /*15b0*/                   ULDC.64 UR4, c[0x0][0x118] ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*15c0*/                   LDS R22, [R22] ;
+        /*15d0*/                   SHFL.BFLY PT, R9, R22, 0x8, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*15e0*/                   FADD R9, R22, R9 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*15f0*/                   SHFL.BFLY PT, R0, R9, 0x4, 0x1f ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1600*/                   FADD R10, R9, R0 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1610*/                   SHFL.BFLY PT, R11, R10, 0x2, 0x1f ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:60  tmp5 = tmp4 - tmp2
+        /*1620*/                   FADD R26, -R2.reuse, R4 ;
+        /*1630*/                   FADD R8, -R2.reuse, R5 ;
+        /*1640*/                   FADD R16, -R2, R6 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1650*/                   FFMA.FTZ R0, R26, R3.reuse, 0.5 ;
+        /*1660*/                   FFMA.FTZ R4, R8, R3.reuse, 0.5 ;
+        /*1670*/                   FFMA.FTZ R5, R16, R3, 0.5 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:60  tmp5 = tmp4 - tmp2
+        /*1680*/                   FADD R12, -R2, R12 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1690*/                   FADD.FTZ.SAT R0, RZ, R0 ;
+        /*16a0*/                   FADD.FTZ.SAT R4, RZ, R4 ;
+        /*16b0*/                   FADD.FTZ.SAT R6, RZ, R5 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*16c0*/                   FADD R5, R10, R11 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*16d0*/                   FFMA.FTZ.RM R0, R0, R19.reuse, 12582913 ;
+        /*16e0*/                   FFMA.FTZ.RM R4, R4, R19.reuse, 12582913 ;
+        /*16f0*/                   FFMA.FTZ.RM R6, R6, R19, 12582913 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:60  tmp5 = tmp4 - tmp2
+        /*1700*/                   FADD R10, -R2, R7 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1710*/                   FADD R9, R0, -12583039 ;
+        /*1720*/                   FADD R11, R4, -12583039 ;
+        /*1730*/                   FADD R17, R6, -12583039 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:60  tmp5 = tmp4 - tmp2
+        /*1740*/                   FADD R14, -R2, R14 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1750*/                   FFMA.FTZ R9, R26, 1.4426950216293334961, -R9 ;
+        /*1760*/                   FFMA.FTZ R11, R8, 1.4426950216293334961, -R11 ;
+        /*1770*/                   FFMA.FTZ R17, R16, 1.4426950216293334961, -R17 ;
+        /*1780*/                   SHF.L.U32 R0, R0, 0x17, RZ ;
+        /*1790*/                   FFMA.FTZ R7, R26, 1.925963033500011079e-08, R9 ;
+        /*17a0*/                   FFMA.FTZ R9, R10, R3.reuse, 0.5 ;
+        /*17b0*/                   FFMA.FTZ R25, R16, 1.925963033500011079e-08, R17 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:60  tmp5 = tmp4 - tmp2
+        /*17c0*/                   FADD R16, -R2.reuse, R13 ;
+        /*17d0*/                   FADD R2, -R2, R15 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*17e0*/                   FADD.FTZ.SAT R22, RZ, R9 ;
+        /*17f0*/                   FFMA.FTZ R9, R8, 1.925963033500011079e-08, R11 ;
+        /*1800*/                   FFMA.FTZ R11, R12, R3.reuse, 0.5 ;
+        /*1810*/                   FFMA.FTZ R17, R16, R3, 0.5 ;
+        /*1820*/                   FFMA.FTZ.RM R8, R22, R19, 12582913 ;
+        /*1830*/                   FFMA.FTZ R15, R2, R3, 0.5 ;
+        /*1840*/                   FADD.FTZ.SAT R22, RZ, R11 ;
+        /*1850*/                   MUFU.EX2 R7, R7 ;
+        /*1860*/                   FADD R13, R8.reuse, -12583039 ;
+        /*1870*/                   SHF.L.U32 R8, R8, 0x17, RZ ;
+        /*1880*/                   FFMA.FTZ.RM R11, R22, R19.reuse, 12582913 ;
+        /*1890*/                   FADD.FTZ.SAT R22, RZ, R17 ;
+        /*18a0*/                   FFMA.FTZ R23, R10, 1.4426950216293334961, -R13 ;
+        /*18b0*/                   SHF.L.U32 R4, R4, 0x17, RZ ;
+        /*18c0*/                   FADD R27, R11.reuse, -12583039 ;
+        /*18d0*/                   MUFU.EX2 R13, R25 ;
+        /*18e0*/                   FFMA.FTZ R17, R10, 1.925963033500011079e-08, R23 ;
+        /*18f0*/                   FFMA.FTZ.RM R10, R22, R19, 12582913 ;
+        /*1900*/                   FFMA.FTZ R23, R14, R3, 0.5 ;
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1910*/                   SHFL.BFLY PT, R22, R5, 0x1, 0x1f ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1920*/                   FFMA.FTZ R27, R12, 1.4426950216293334961, -R27 ;
+        /*1930*/                   SHF.L.U32 R11, R11, 0x17, RZ ;
+        /*1940*/                   FADD.FTZ.SAT R24, RZ, R23 ;
+        /*1950*/                   FADD R23, R10, -12583039 ;
+        /*1960*/                   FFMA.FTZ R12, R12, 1.925963033500011079e-08, R27 ;
+        /*1970*/                   MUFU.EX2 R17, R17 ;
+        /*1980*/                   FFMA.FTZ.RM R3, R24, R19.reuse, 12582913 ;
+        /*1990*/                   FADD.FTZ.SAT R24, RZ, R15 ;
+        /*19a0*/                   FFMA.FTZ R23, R16, 1.4426950216293334961, -R23 ;
+        /*19b0*/                   SHF.L.U32 R6, R6, 0x17, RZ ;
+        /*19c0*/                   FADD R25, R3, -12583039 ;
+        /*19d0*/                   FFMA.FTZ.RM R19, R24, R19, 12582913 ;
+        /*19e0*/                   FFMA.FTZ R15, R16, 1.925963033500011079e-08, R23 ;
+        /*19f0*/                   MUFU.EX2 R12, R12 ;
+        /*1a00*/                   FFMA.FTZ R25, R14, 1.4426950216293334961, -R25 ;
+        /*1a10*/                   FADD R23, R19, -12583039 ;
+        /*1a20*/                   FMUL R16, R7, R0 ;
+        /*1a30*/                   SHF.L.U32 R10, R10, 0x17, RZ ;
+        /*1a40*/                   FFMA.FTZ R25, R14, 1.925963033500011079e-08, R25 ;
+        /*1a50*/                   FFMA.FTZ R23, R2.reuse, 1.4426950216293334961, -R23 ;
+        /*1a60*/                   SHF.L.U32 R0, R3, 0x17, RZ ;
+        /*1a70*/                   MUFU.EX2 R9, R9 ;
+        /*1a80*/                   FMUL R7, R17, R8 ;
+	// standard.py:263  return a + b  (inlined at standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims))
+	// standard.py:293  return core.reduce(input, axis, _sum_combine, keep_dims=keep_dims)  (inlined at triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim))
+	// triton_helpers.py:358  out_sum = tl.sum(lhs_sum * exp(delta, use_fast_math), dim)  (inlined at cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce()
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:48  tmp2, tmp3 = triton_helpers.online_softmax_reduce(
+        /*1a90*/                   FADD R5, R5, R22 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1aa0*/                   FFMA.FTZ R23, R2, 1.925963033500011079e-08, R23 ;
+        /*1ab0*/                   SHF.L.U32 R19, R19, 0x17, RZ ;
+        /*1ac0*/                   FMUL R6, R13, R6 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1ad0*/                   FSETP.GT.AND P0, PT, |R5|.reuse, 8.50705917302346158658e+37, PT ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1ae0*/                   MUFU.EX2 R15, R15 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1af0*/                   FSETP.GEU.AND P1, PT, |R5|, 1.175494350822287508e-38, PT ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1b00*/                   FMUL R8, R12, R11 ;
+        /*1b10*/                   MUFU.EX2 R25, R25 ;
+        /*1b20*/                   FMUL R14, R9, R4 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1b30*/               @P0 FMUL R5, R5, 0.25 ;
+        /*1b40*/               @P0 FMUL R16, R16, 0.25 ;
+        /*1b50*/               @P0 FMUL R14, R14, 0.25 ;
+        /*1b60*/               @P0 FMUL R6, R6, 0.25 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1b70*/                   MUFU.EX2 R2, R23 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1b80*/              @!P1 FMUL R5, R5, 16777216 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1b90*/                   FMUL R9, R15, R10 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1ba0*/               @P0 FMUL R7, R7, 0.25 ;
+        /*1bb0*/               @P0 FMUL R8, R8, 0.25 ;
+        /*1bc0*/              @!P1 FMUL R16, R16, 16777216 ;
+        /*1bd0*/               @P0 FMUL R9, R9, 0.25 ;
+        /*1be0*/              @!P1 FMUL R14, R14, 16777216 ;
+        /*1bf0*/                   MUFU.RCP R11, R5 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1c00*/                   FMUL R0, R25, R0 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1c10*/              @!P1 FMUL R6, R6, 16777216 ;
+        /*1c20*/              @!P1 FMUL R7, R7, 16777216 ;
+        /*1c30*/              @!P1 FMUL R8, R8, 16777216 ;
+        /*1c40*/               @P0 FMUL R0, R0, 0.25 ;
+        /*1c50*/              @!P1 FMUL R9, R9, 16777216 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:61  tmp6 = libdevice.exp(tmp5)
+        /*1c60*/                   FMUL R2, R19, R2 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1c70*/              @!P1 FMUL R0, R0, 16777216 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:63  tl.store(out_ptr2 + (r0_1 + 4096*x0), tmp7, r0_mask)
+        /*1c80*/                   IMAD.WIDE R18, R18, R21, c[0x0][0x168] ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:62  tmp7 = (tmp6 / tmp3)
+        /*1c90*/               @P0 FMUL R2, R2, 0.25 ;
+        /*1ca0*/              @!P1 FMUL R2, R2, 16777216 ;
+        /*1cb0*/                   FMUL R4, R11.reuse, R16 ;
+        /*1cc0*/                   FMUL R5, R11.reuse, R14 ;
+        /*1cd0*/                   FMUL R6, R11.reuse, R6 ;
+        /*1ce0*/                   FMUL R7, R11.reuse, R7 ;
+        /*1cf0*/                   FMUL R8, R11.reuse, R8 ;
+        /*1d00*/                   FMUL R9, R11.reuse, R9 ;
+        /*1d10*/                   FMUL R10, R11.reuse, R0 ;
+        /*1d20*/                   FMUL R11, R11, R2 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:63  tl.store(out_ptr2 + (r0_1 + 4096*x0), tmp7, r0_mask)
+        /*1d30*/                   IMAD.WIDE R2, R20, R21, c[0x0][0x168] ;
+        /*1d40*/                   STG.E.128 [R2.64], R4 ;
+        /*1d50*/                   STG.E.128 [R18.64], R8 ;
+	// cn6kfuyvggxc27mkgasiw57actjf4kwlyrcbd35nqgjvixxt7bsz.py:18  def triton_red_fused_div_exp_prepare_softmax_online_sub_0(in_ptr0, out_ptr2, xnumel, r0_numel, XBLOCK : tl.constexpr, R0_BLOCK : tl.constexpr):
+        /*1d60*/                   EXIT ;
+.L_x_0:
+        /*1d70*/                   BRA `(.L_x_0);
+        /*1d80*/                   NOP;
+        /*1d90*/                   NOP;
+        /*1da0*/                   NOP;
+        /*1db0*/                   NOP;
+        /*1dc0*/                   NOP;
+        /*1dd0*/                   NOP;
+        /*1de0*/                   NOP;
+        /*1df0*/                   NOP;
+.L_x_1:

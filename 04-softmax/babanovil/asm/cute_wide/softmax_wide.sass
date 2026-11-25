@@ -1,0 +1,809 @@
+	.target	sm_86
+
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0 --------------------------
+	.section	.text.kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0,"ax",@progbits
+	.sectioninfo	@"SHI_REGISTERS=40"
+	.align	128
+        .global         kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0
+        .type           kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0,@function
+        .size           kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0,(.L_x_44 - kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0)
+        .other          kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0,@"STO_CUDA_ENTRY STV_DEFAULT"
+kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0:
+.text.kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0:
+	// cute_softmax.py:34  @cute.kernel
+        /*0000*/                   MOV R1, c[0x0][0x28] ;
+	// cute_softmax.py:37  bid, _, _ = cute.arch.block_idx()
+        /*0010*/                   S2R R0, SR_CTAID.X ;
+	// cute_softmax.py:40  if bid < x.shape[0]:
+        /*0020*/                   ISETP.GT.U32.AND P0, PT, R0, 0xfff, PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0030*/               @P0 EXIT ;
+	// cute_softmax.py:36  tid, _, _ = cute.arch.thread_idx()
+        /*0040*/                   S2R R9, SR_TID.X ;
+	// cute_softmax.py:44  xVec = xRow[tidx:V]
+        /*0050*/                   MOV R2, 0x4 ;
+        /*0060*/                   ULDC.64 UR4, c[0x0][0x118] ;
+        /*0070*/                   LEA R21, R0, R9, 0x8 ;
+        /*0080*/                   SHF.L.U32 R21, R21, 0x4, RZ ;
+        /*0090*/                   IMAD.WIDE.U32 R2, R21, R2, c[0x0][0x160] ;
+        /*00a0*/                   LDG.E.128 R24, [R2.64+0x30] ;
+        /*00b0*/                   LDG.E.128 R4, [R2.64+0x20] ;
+        /*00c0*/                   LDG.E.128 R12, [R2.64+0x10] ;
+        /*00d0*/                   LDG.E.128 R16, [R2.64] ;
+	// cute_softmax.py:23  if tid < stride and tid + stride < GROUP_SIZE:
+        /*00e0*/                   ISETP.GT.U32.AND P1, PT, R9.reuse, 0x7f, PT ;
+	// cute_softmax.py:54  xExpVec /= sum
+        /*00f0*/                   BSSY B2, `(.L_x_0) ;
+	// cute_softmax.py:23  if tid < stride and tid + stride < GROUP_SIZE:
+        /*0100*/                   ISETP.GT.U32.AND P0, PT, R9, 0x3f, PT ;
+        /*0110*/                   ISETP.GT.U32.AND P2, PT, R9.reuse, 0xf, PT ;
+        /*0120*/                   ISETP.GT.U32.AND P3, PT, R9.reuse, 0x7, PT ;
+        /*0130*/                   ISETP.GT.U32.AND P4, PT, R9.reuse, 0x3, PT ;
+        /*0140*/                   ISETP.GT.U32.AND P5, PT, R9.reuse, 0x1, PT ;
+        /*0150*/                   ISETP.NE.U32.AND P6, PT, R9, RZ, PT ;
+	// cute_softmax.py:47  max = block_max(xVec.reduce("max"))
+        /*0160*/                   FMNMX R0, R26, R27, !PT ;
+        /*0170*/                   FMNMX R11, R24, R25, !PT ;
+        /*0180*/                   FMNMX R8, R6, R7, !PT ;
+        /*0190*/                   FMNMX R23, R4, R5, !PT ;
+        /*01a0*/                   FMNMX R10, R14, R15, !PT ;
+        /*01b0*/                   FMNMX R29, R12, R13, !PT ;
+        /*01c0*/                   FMNMX R20, R18, R19, !PT ;
+        /*01d0*/                   FMNMX R31, R16, R17, !PT ;
+        /*01e0*/                   FMNMX R0, R0, R11, !PT ;
+        /*01f0*/                   FMNMX R23, R8, R23, !PT ;
+        /*0200*/                   FMNMX R10, R10, R29, !PT ;
+        /*0210*/                   FMNMX R31, R20, R31, !PT ;
+        /*0220*/                   FMNMX R0, R0, R23, !PT ;
+        /*0230*/                   FMNMX R31, R10, R31, !PT ;
+        /*0240*/                   P2R R10, PR, RZ, 0x1 ;
+        /*0250*/                   FMNMX R0, R0, R31, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0260*/                   STS [R9.X4], R0 ;
+	// cute_softmax.py:19  cute.arch.sync_threads()
+        /*0270*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0280*/              @!P1 LDS R2, [R9.X4] ;
+        /*0290*/              @!P1 LDS R3, [R9.X4+0x200] ;
+        /*02a0*/              @!P1 FMNMX R2, R2, R3, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*02b0*/              @!P1 STS [R9.X4], R2 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*02c0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:23  if tid < stride and tid + stride < GROUP_SIZE:
+        /*02d0*/                   ISETP.GT.U32.AND P1, PT, R9, 0x1f, PT ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*02e0*/              @!P0 LDS R3, [R9.X4] ;
+        /*02f0*/              @!P0 LDS R8, [R9.X4+0x100] ;
+        /*0300*/              @!P0 FMNMX R8, R3, R8, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0310*/              @!P0 STS [R9.X4], R8 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0320*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:23  if tid < stride and tid + stride < GROUP_SIZE:
+        /*0330*/                   ISETP.GT.U32.AND P0, PT, R9, 0x7f, PT ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0340*/              @!P1 LDS R0, [R9.X4] ;
+        /*0350*/              @!P1 LDS R3, [R9.X4+0x80] ;
+        /*0360*/              @!P1 FMNMX R0, R0, R3, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0370*/              @!P1 STS [R9.X4], R0 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0380*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0390*/              @!P2 LDS R2, [R9.X4] ;
+        /*03a0*/              @!P2 LDS R3, [R9.X4+0x40] ;
+        /*03b0*/              @!P2 FMNMX R2, R2, R3, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*03c0*/              @!P2 STS [R9.X4], R2 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*03d0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*03e0*/              @!P3 LDS R3, [R9.X4] ;
+        /*03f0*/              @!P3 LDS R8, [R9.X4+0x20] ;
+        /*0400*/              @!P3 FMNMX R8, R3, R8, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0410*/              @!P3 STS [R9.X4], R8 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0420*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0430*/              @!P4 LDS R0, [R9.X4] ;
+        /*0440*/              @!P4 LDS R3, [R9.X4+0x10] ;
+        /*0450*/              @!P4 FMNMX R0, R0, R3, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*0460*/              @!P4 STS [R9.X4], R0 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0470*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0480*/              @!P5 LDS R2, [R9.X4] ;
+        /*0490*/              @!P5 LDS R3, [R9.X4+0x8] ;
+        /*04a0*/              @!P5 FMNMX R2, R2, R3, !PT ;
+	// cute_softmax.py:90  @cute.jit
+        /*04b0*/              @!P5 STS [R9.X4], R2 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*04c0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*04d0*/              @!P6 LDS R3, [R9.X4] ;
+        /*04e0*/              @!P6 LDS R8, [R9.X4+0x4] ;
+        /*04f0*/              @!P6 FMNMX R20, R3, R8, !PT ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0500*/                   MOV R3, 0x437c0000 ;
+	// cute_softmax.py:90  @cute.jit
+        /*0510*/              @!P6 STS [R9.X4], R20 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0520*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:27  return shmem[0]
+        /*0530*/                   LDS R8, [RZ] ;
+	// cute_softmax.py:49  xVec -= max
+        /*0540*/                   FADD R0, R27, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0550*/                   MOV R27, 0x3bbb989d ;
+	// cute_softmax.py:49  xVec -= max
+        /*0560*/                   FADD R20, R16, -R8.reuse ;
+        /*0570*/                   FADD R32, R6, -R8.reuse ;
+        /*0580*/                   FADD R28, R17, -R8.reuse ;
+        /*0590*/                   FADD R30, R5, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*05a0*/                   FFMA.SAT R6, R20, R27.reuse, 0.5 ;
+	// cute_softmax.py:49  xVec -= max
+        /*05b0*/                   FADD R36, R18, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*05c0*/                   FFMA.SAT R34, R28, R27, 0.5 ;
+	// cute_softmax.py:49  xVec -= max
+        /*05d0*/                   FADD R19, R19, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*05e0*/                   FFMA.RM R11, R6, R3.reuse, 12582913 ;
+	// cute_softmax.py:49  xVec -= max
+        /*05f0*/                   FADD R22, R24, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0600*/                   FFMA.RM R6, R34, R3, 12582913 ;
+	// cute_softmax.py:49  xVec -= max
+        /*0610*/                   FADD R2, R7, -R8.reuse ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0620*/                   FADD R5, R11, -12583039 ;
+	// cute_softmax.py:49  xVec -= max
+        /*0630*/                   FADD R16, R14, -R8.reuse ;
+        /*0640*/                   FADD R26, R26, -R8.reuse ;
+        /*0650*/                   FADD R25, R25, -R8.reuse ;
+        /*0660*/                   FADD R4, R4, -R8.reuse ;
+        /*0670*/                   FADD R24, R15, -R8.reuse ;
+        /*0680*/                   FADD R14, R13, -R8.reuse ;
+        /*0690*/                   FADD R12, R12, -R8 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*06a0*/                   FADD R7, R6, -12583039 ;
+        /*06b0*/                   FFMA.SAT R34, R36, R27.reuse, 0.5 ;
+        /*06c0*/                   FFMA R5, R20, 1.4426950216293334961, -R5 ;
+        /*06d0*/                   FFMA.SAT R8, R19, R27, 0.5 ;
+        /*06e0*/                   FFMA R7, R28, 1.4426950216293334961, -R7 ;
+        /*06f0*/                   FFMA.RM R34, R34, R3.reuse, 12582913 ;
+        /*0700*/                   FFMA R18, R20, 1.925963033500011079e-08, R5 ;
+        /*0710*/                   FFMA.RM R20, R8, R3, 12582913 ;
+        /*0720*/                   FFMA R8, R28, 1.925963033500011079e-08, R7 ;
+        /*0730*/                   FADD R5, R34, -12583039 ;
+        /*0740*/                   FFMA.SAT R17, R12, R27.reuse, 0.5 ;
+        /*0750*/                   FADD R28, R20, -12583039 ;
+        /*0760*/                   FFMA.SAT R7, R14, R27, 0.5 ;
+        /*0770*/                   FFMA R5, R36.reuse, 1.4426950216293334961, -R5 ;
+        /*0780*/                   FFMA.RM R17, R17, R3.reuse, 12582913 ;
+        /*0790*/                   FFMA R33, R19, 1.4426950216293334961, -R28 ;
+        /*07a0*/                   FFMA.RM R28, R7, R3, 12582913 ;
+        /*07b0*/                   FFMA R36, R36, 1.925963033500011079e-08, R5 ;
+        /*07c0*/                   FADD R5, R17, -12583039 ;
+        /*07d0*/                   FFMA.SAT R13, R16, R27.reuse, 0.5 ;
+        /*07e0*/                   FADD R7, R28, -12583039 ;
+        /*07f0*/                   FFMA R33, R19, 1.925963033500011079e-08, R33 ;
+        /*0800*/                   FFMA R5, R12, 1.4426950216293334961, -R5 ;
+        /*0810*/                   FFMA.SAT R19, R24, R27, 0.5 ;
+        /*0820*/                   FFMA R7, R14, 1.4426950216293334961, -R7 ;
+        /*0830*/                   FFMA.RM R13, R13, R3.reuse, 12582913 ;
+        /*0840*/                   FFMA R31, R12, 1.925963033500011079e-08, R5 ;
+        /*0850*/                   FFMA.RM R19, R19, R3, 12582913 ;
+        /*0860*/                   FFMA R12, R14, 1.925963033500011079e-08, R7 ;
+        /*0870*/                   FADD R5, R13, -12583039 ;
+        /*0880*/                   FFMA.SAT R14, R4, R27, 0.5 ;
+        /*0890*/                   FADD R7, R19, -12583039 ;
+        /*08a0*/                   MUFU.EX2 R18, R18 ;
+        /*08b0*/                   FFMA R5, R16, 1.4426950216293334961, -R5 ;
+        /*08c0*/                   FFMA.RM R14, R14, R3, 12582913 ;
+        /*08d0*/                   FFMA R7, R24, 1.4426950216293334961, -R7 ;
+        /*08e0*/                   SHF.L.U32 R11, R11, 0x17, RZ ;
+        /*08f0*/                   FFMA R23, R16, 1.925963033500011079e-08, R5 ;
+        /*0900*/                   FADD R5, R14, -12583039 ;
+        /*0910*/                   FFMA.SAT R16, R30, R27, 0.5 ;
+        /*0920*/                   FFMA R24, R24, 1.925963033500011079e-08, R7 ;
+        /*0930*/                   MUFU.EX2 R8, R8 ;
+        /*0940*/                   FFMA R7, R4, 1.4426950216293334961, -R5 ;
+        /*0950*/                   FFMA.RM R5, R16, R3, 12582913 ;
+        /*0960*/                   SHF.L.U32 R20, R20, 0x17, RZ ;
+        /*0970*/                   FFMA R16, R4, 1.925963033500011079e-08, R7 ;
+        /*0980*/                   FADD R7, R5, -12583039 ;
+        /*0990*/                   FFMA.SAT R4, R32, R27, 0.5 ;
+        /*09a0*/                   FMUL R18, R11, R18 ;
+        /*09b0*/                   MUFU.EX2 R33, R33 ;
+        /*09c0*/                   FFMA R35, R30, 1.4426950216293334961, -R7 ;
+        /*09d0*/                   FFMA.RM R7, R4, R3, 12582913 ;
+        /*09e0*/                   FFMA.SAT R4, R2, R27, 0.5 ;
+        /*09f0*/                   SHF.L.U32 R19, R19, 0x17, RZ ;
+        /*0a00*/                   FFMA R35, R30, 1.925963033500011079e-08, R35 ;
+        /*0a10*/                   FADD R15, R7.reuse, -12583039 ;
+        /*0a20*/                   SHF.L.U32 R7, R7, 0x17, RZ ;
+        /*0a30*/                   MUFU.EX2 R30, R36 ;
+        /*0a40*/                   FFMA R29, R32, 1.4426950216293334961, -R15 ;
+        /*0a50*/                   FFMA.RM R15, R4, R3, 12582913 ;
+        /*0a60*/                   FFMA.SAT R4, R22, R27, 0.5 ;
+        /*0a70*/                   FFMA R32, R32, 1.925963033500011079e-08, R29 ;
+        /*0a80*/                   FADD R29, R15, -12583039 ;
+        /*0a90*/                   FFMA.RM R4, R4, R3, 12582913 ;
+        /*0aa0*/                   FFMA.SAT R36, R0, R27, 0.5 ;
+        /*0ab0*/                   MUFU.EX2 R31, R31 ;
+        /*0ac0*/                   FFMA R29, R2, 1.4426950216293334961, -R29 ;
+        /*0ad0*/                   FADD R37, R4, -12583039 ;
+        /*0ae0*/                   FMUL R20, R20, R33 ;
+        /*0af0*/                   FFMA R29, R2, 1.925963033500011079e-08, R29 ;
+        /*0b00*/                   FFMA.SAT R2, R25, R27, 0.5 ;
+        /*0b10*/                   FFMA R37, R22, 1.4426950216293334961, -R37 ;
+        /*0b20*/                   MUFU.EX2 R12, R12 ;
+        /*0b30*/                   FFMA.RM R11, R2, R3, 12582913 ;
+        /*0b40*/                   FFMA R22, R22, 1.925963033500011079e-08, R37 ;
+        /*0b50*/                   FADD R2, R11, -12583039 ;
+        /*0b60*/                   MUFU.EX2 R23, R23 ;
+        /*0b70*/                   FFMA R2, R25, 1.4426950216293334961, -R2 ;
+        /*0b80*/                   FFMA R25, R25, 1.925963033500011079e-08, R2 ;
+        /*0b90*/                   FFMA.SAT R2, R26, R27, 0.5 ;
+        /*0ba0*/                   SHF.L.U32 R27, R6, 0x17, RZ ;
+        /*0bb0*/                   MUFU.EX2 R16, R16 ;
+        /*0bc0*/                   FFMA.RM R2, R2, R3.reuse, 12582913 ;
+        /*0bd0*/                   FFMA.RM R3, R36, R3, 12582913 ;
+        /*0be0*/                   FMUL R8, R27, R8 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0bf0*/                   FADD R27, RZ, R18 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0c00*/                   FADD R37, R2, -12583039 ;
+        /*0c10*/                   MUFU.EX2 R24, R24 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0c20*/                   FADD R33, R8, R27 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0c30*/                   FFMA R36, R26, 1.4426950216293334961, -R37 ;
+        /*0c40*/                   SHF.L.U32 R37, R34, 0x17, RZ ;
+        /*0c50*/                   SHF.L.U32 R34, R17, 0x17, RZ ;
+        /*0c60*/                   FFMA R26, R26, 1.925963033500011079e-08, R36 ;
+        /*0c70*/                   SHF.L.U32 R27, R28, 0x17, RZ ;
+        /*0c80*/                   FMUL R30, R37, R30 ;
+        /*0c90*/                   SHF.L.U32 R28, R13, 0x17, RZ ;
+        /*0ca0*/                   FMUL R17, R34, R31 ;
+        /*0cb0*/                   MUFU.EX2 R6, R35 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0cc0*/                   FADD R33, R30, R33 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0cd0*/                   FMUL R12, R27, R12 ;
+        /*0ce0*/                   SHF.L.U32 R27, R14, 0x17, RZ ;
+        /*0cf0*/                   FMUL R13, R28, R23 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0d00*/                   FADD R34, R20, R33 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0d10*/                   SHF.L.U32 R23, R5, 0x17, RZ ;
+        /*0d20*/                   FMUL R14, R19, R24 ;
+        /*0d30*/                   MUFU.EX2 R32, R32 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0d40*/                   FADD R31, R17, R34 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0d50*/                   FMUL R5, R27, R16 ;
+        /*0d60*/                   FADD R19, R3, -12583039 ;
+        /*0d70*/                   SHF.L.U32 R16, R15, 0x17, RZ ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0d80*/                   FADD R28, R12, R31 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0d90*/                   FFMA R19, R0.reuse, 1.4426950216293334961, -R19 ;
+        /*0da0*/                   MUFU.EX2 R29, R29 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0db0*/                   FADD R27, R13, R28 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0dc0*/                   FMUL R6, R23, R6 ;
+        /*0dd0*/                   FFMA R19, R0, 1.925963033500011079e-08, R19 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0de0*/                   FADD R24, R14, R27 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0df0*/                   MUFU.EX2 R22, R22 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0e00*/                   FADD R15, R5, R24 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0e10*/                   FMUL R7, R7, R32 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0e20*/                   FADD R0, R6, R15 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0e30*/                   SHF.L.U32 R15, R4, 0x17, RZ ;
+        /*0e40*/                   MUFU.EX2 R25, R25 ;
+        /*0e50*/                   FMUL R16, R16, R29 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0e60*/                   FADD R23, R7, R0 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0e70*/                   SHF.L.U32 R4, R11, 0x17, RZ ;
+        /*0e80*/                   SHF.L.U32 R11, R2, 0x17, RZ ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0e90*/                   FADD R23, R16, R23 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0ea0*/                   MUFU.EX2 R26, R26 ;
+        /*0eb0*/                   FMUL R0, R15, R22 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0ec0*/                   FADD R23, R0, R23 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0ed0*/                   MUFU.EX2 R19, R19 ;
+        /*0ee0*/                   FMUL R2, R4, R25 ;
+        /*0ef0*/                   SHF.L.U32 R4, R3, 0x17, RZ ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0f00*/                   FADD R22, R2, R23 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0f10*/                   FMUL R3, R11, R26 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0f20*/                   FADD R11, R3, R22 ;
+	// cute_softmax.py:50  xExpVec = cute.math.exp(xVec)
+        /*0f30*/                   FMUL R4, R4, R19 ;
+	// cute_softmax.py:52  sum = block_sum(xExpVec.reduce("add"))
+        /*0f40*/                   FADD R22, R4, R11 ;
+	// cute_softmax.py:90  @cute.jit
+        /*0f50*/                   STS [R9.X4+0x400], R22 ;
+	// cute_softmax.py:19  cute.arch.sync_threads()
+        /*0f60*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0f70*/              @!P0 LDS R11, [R9.X4+0x400] ;
+        /*0f80*/              @!P0 LDS R24, [R9.X4+0x600] ;
+        /*0f90*/              @!P0 FADD R24, R11, R24 ;
+	// cute_softmax.py:90  @cute.jit
+        /*0fa0*/              @!P0 STS [R9.X4+0x400], R24 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*0fb0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+        /*0fc0*/                   ISETP.NE.AND P0, PT, R10, RZ, PT ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*0fd0*/              @!P0 LDS R10, [R9.X4+0x400] ;
+        /*0fe0*/              @!P0 LDS R11, [R9.X4+0x500] ;
+        /*0ff0*/              @!P0 FADD R10, R10, R11 ;
+	// cute_softmax.py:90  @cute.jit
+        /*1000*/              @!P0 STS [R9.X4+0x400], R10 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*1010*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*1020*/              @!P1 LDS R11, [R9.X4+0x400] ;
+        /*1030*/              @!P1 LDS R22, [R9.X4+0x480] ;
+        /*1040*/              @!P1 FADD R22, R11, R22 ;
+	// cute_softmax.py:90  @cute.jit
+        /*1050*/              @!P1 STS [R9.X4+0x400], R22 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*1060*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*1070*/              @!P2 LDS R11, [R9.X4+0x400] ;
+        /*1080*/              @!P2 LDS R24, [R9.X4+0x440] ;
+        /*1090*/              @!P2 FADD R24, R11, R24 ;
+	// cute_softmax.py:90  @cute.jit
+        /*10a0*/              @!P2 STS [R9.X4+0x400], R24 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*10b0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*10c0*/              @!P3 LDS R10, [R9.X4+0x400] ;
+        /*10d0*/              @!P3 LDS R11, [R9.X4+0x420] ;
+        /*10e0*/              @!P3 FADD R10, R10, R11 ;
+	// cute_softmax.py:90  @cute.jit
+        /*10f0*/              @!P3 STS [R9.X4+0x400], R10 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*1100*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*1110*/              @!P4 LDS R11, [R9.X4+0x400] ;
+        /*1120*/              @!P4 LDS R22, [R9.X4+0x410] ;
+        /*1130*/              @!P4 FADD R22, R11, R22 ;
+	// cute_softmax.py:90  @cute.jit
+        /*1140*/              @!P4 STS [R9.X4+0x400], R22 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*1150*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*1160*/              @!P5 LDS R11, [R9.X4+0x400] ;
+        /*1170*/              @!P5 LDS R24, [R9.X4+0x408] ;
+        /*1180*/              @!P5 FADD R24, R11, R24 ;
+	// cute_softmax.py:90  @cute.jit
+        /*1190*/              @!P5 STS [R9.X4+0x400], R24 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*11a0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:24  shmem[tid] = binary_operand(shmem[tid], shmem[tid + stride])
+        /*11b0*/              @!P6 LDS R10, [R9.X4+0x400] ;
+        /*11c0*/              @!P6 LDS R11, [R9.X4+0x404] ;
+        /*11d0*/              @!P6 FADD R10, R10, R11 ;
+	// cute_softmax.py:90  @cute.jit
+        /*11e0*/              @!P6 STS [R9.X4+0x400], R10 ;
+	// cute_softmax.py:25  cute.arch.sync_threads()
+        /*11f0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// cute_softmax.py:27  return shmem[0]
+        /*1200*/                   LDS R23, [0x400] ;
+	// cute_softmax.py:54  xExpVec /= sum
+        /*1210*/                   MUFU.RCP R22, R23 ;
+        /*1220*/                   FCHK P0, R20, R23 ;
+        /*1230*/                   FFMA R11, -R23, R22, 1 ;
+        /*1240*/                   FFMA R11, R22, R11, R22 ;
+        /*1250*/                   FFMA R22, R20, R11, RZ ;
+        /*1260*/                   FFMA R15, -R23, R22, R20 ;
+        /*1270*/                   FFMA R11, R11, R15, R22 ;
+        /*1280*/              @!P0 BRA `(.L_x_1) ;
+        /*1290*/                   MOV R22, 0x12b0 ;
+        /*12a0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*12b0*/                   MOV R11, R20 ;
+.L_x_1:
+        /*12c0*/                   BSYNC B2 ;
+.L_x_0:
+        /*12d0*/                   MUFU.RCP R10, R23 ;
+        /*12e0*/                   BSSY B2, `(.L_x_2) ;
+        /*12f0*/                   FCHK P0, R30, R23 ;
+        /*1300*/                   FFMA R9, -R23, R10, 1 ;
+        /*1310*/                   FFMA R15, R10, R9, R10 ;
+        /*1320*/                   FFMA R10, R30, R15, RZ ;
+        /*1330*/                   FFMA R9, -R23, R10, R30 ;
+        /*1340*/                   FFMA R10, R15, R9, R10 ;
+        /*1350*/              @!P0 BRA `(.L_x_3) ;
+        /*1360*/                   MOV R20, R30 ;
+        /*1370*/                   MOV R22, 0x1390 ;
+        /*1380*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1390*/                   MOV R10, R20 ;
+.L_x_3:
+        /*13a0*/                   BSYNC B2 ;
+.L_x_2:
+        /*13b0*/                   MUFU.RCP R20, R23 ;
+        /*13c0*/                   BSSY B2, `(.L_x_4) ;
+        /*13d0*/                   FCHK P0, R8, R23 ;
+        /*13e0*/                   FFMA R9, -R23, R20, 1 ;
+        /*13f0*/                   FFMA R22, R20, R9, R20 ;
+        /*1400*/                   FFMA R9, R8, R22, RZ ;
+        /*1410*/                   FFMA R20, -R23, R9, R8 ;
+        /*1420*/                   FFMA R9, R22, R20, R9 ;
+        /*1430*/              @!P0 BRA `(.L_x_5) ;
+        /*1440*/                   MOV R20, R8 ;
+        /*1450*/                   MOV R22, 0x1470 ;
+        /*1460*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1470*/                   MOV R9, R20 ;
+.L_x_5:
+        /*1480*/                   BSYNC B2 ;
+.L_x_4:
+        /*1490*/                   MUFU.RCP R8, R23 ;
+        /*14a0*/                   BSSY B2, `(.L_x_6) ;
+        /*14b0*/                   FCHK P0, R18, R23 ;
+        /*14c0*/                   FFMA R15, -R23, R8, 1 ;
+        /*14d0*/                   FFMA R19, R8, R15, R8 ;
+        /*14e0*/                   FFMA R8, R18, R19, RZ ;
+        /*14f0*/                   FFMA R15, -R23, R8, R18 ;
+        /*1500*/                   FFMA R8, R19, R15, R8 ;
+        /*1510*/              @!P0 BRA `(.L_x_7) ;
+        /*1520*/                   MOV R20, R18 ;
+        /*1530*/                   MOV R22, 0x1550 ;
+        /*1540*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1550*/                   MOV R8, R20 ;
+.L_x_7:
+        /*1560*/                   BSYNC B2 ;
+.L_x_6:
+        /*1570*/                   MUFU.RCP R18, R23 ;
+        /*1580*/                   BSSY B2, `(.L_x_8) ;
+        /*1590*/                   FCHK P0, R14, R23 ;
+        /*15a0*/                   FFMA R15, -R23, R18, 1 ;
+        /*15b0*/                   FFMA R20, R18, R15, R18 ;
+        /*15c0*/                   FFMA R15, R14, R20, RZ ;
+        /*15d0*/                   FFMA R18, -R23, R15, R14 ;
+        /*15e0*/                   FFMA R15, R20, R18, R15 ;
+        /*15f0*/              @!P0 BRA `(.L_x_9) ;
+        /*1600*/                   MOV R20, R14 ;
+        /*1610*/                   MOV R22, 0x1630 ;
+        /*1620*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1630*/                   MOV R15, R20 ;
+.L_x_9:
+        /*1640*/                   BSYNC B2 ;
+.L_x_8:
+        /*1650*/                   MUFU.RCP R14, R23 ;
+        /*1660*/                   BSSY B2, `(.L_x_10) ;
+        /*1670*/                   FCHK P0, R13, R23 ;
+        /*1680*/                   FFMA R19, -R23, R14, 1 ;
+        /*1690*/                   FFMA R25, R14, R19, R14 ;
+        /*16a0*/                   FFMA R14, R13, R25, RZ ;
+        /*16b0*/                   FFMA R19, -R23, R14, R13 ;
+        /*16c0*/                   FFMA R14, R25, R19, R14 ;
+        /*16d0*/              @!P0 BRA `(.L_x_11) ;
+        /*16e0*/                   MOV R20, R13 ;
+        /*16f0*/                   MOV R22, 0x1710 ;
+        /*1700*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1710*/                   MOV R14, R20 ;
+.L_x_11:
+        /*1720*/                   BSYNC B2 ;
+.L_x_10:
+        /*1730*/                   MUFU.RCP R18, R23 ;
+        /*1740*/                   BSSY B2, `(.L_x_12) ;
+        /*1750*/                   FCHK P0, R12, R23 ;
+        /*1760*/                   FFMA R13, -R23, R18, 1 ;
+        /*1770*/                   FFMA R20, R18, R13, R18 ;
+        /*1780*/                   FFMA R13, R12, R20, RZ ;
+        /*1790*/                   FFMA R18, -R23, R13, R12 ;
+        /*17a0*/                   FFMA R13, R20, R18, R13 ;
+        /*17b0*/              @!P0 BRA `(.L_x_13) ;
+        /*17c0*/                   MOV R20, R12 ;
+        /*17d0*/                   MOV R22, 0x17f0 ;
+        /*17e0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*17f0*/                   MOV R13, R20 ;
+.L_x_13:
+        /*1800*/                   BSYNC B2 ;
+.L_x_12:
+        /*1810*/                   MUFU.RCP R12, R23 ;
+        /*1820*/                   BSSY B2, `(.L_x_14) ;
+        /*1830*/                   FCHK P0, R17, R23 ;
+        /*1840*/                   FFMA R19, -R23, R12, 1 ;
+        /*1850*/                   FFMA R25, R12, R19, R12 ;
+        /*1860*/                   FFMA R12, R17, R25, RZ ;
+        /*1870*/                   FFMA R19, -R23, R12, R17 ;
+        /*1880*/                   FFMA R12, R25, R19, R12 ;
+        /*1890*/              @!P0 BRA `(.L_x_15) ;
+        /*18a0*/                   MOV R20, R17 ;
+        /*18b0*/                   MOV R22, 0x18d0 ;
+        /*18c0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*18d0*/                   MOV R12, R20 ;
+.L_x_15:
+        /*18e0*/                   BSYNC B2 ;
+.L_x_14:
+        /*18f0*/                   MUFU.RCP R18, R23 ;
+        /*1900*/                   BSSY B2, `(.L_x_16) ;
+        /*1910*/                   FCHK P0, R16, R23 ;
+        /*1920*/                   FFMA R17, -R23, R18, 1 ;
+        /*1930*/                   FFMA R20, R18, R17, R18 ;
+        /*1940*/                   FFMA R19, R16, R20, RZ ;
+        /*1950*/                   FFMA R18, -R23, R19, R16 ;
+        /*1960*/                   FFMA R19, R20, R18, R19 ;
+        /*1970*/              @!P0 BRA `(.L_x_17) ;
+        /*1980*/                   MOV R20, R16 ;
+        /*1990*/                   MOV R22, 0x19b0 ;
+        /*19a0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*19b0*/                   MOV R19, R20 ;
+.L_x_17:
+        /*19c0*/                   BSYNC B2 ;
+.L_x_16:
+        /*19d0*/                   MUFU.RCP R16, R23 ;
+        /*19e0*/                   BSSY B2, `(.L_x_18) ;
+        /*19f0*/                   FCHK P0, R7, R23 ;
+        /*1a00*/                   FFMA R17, -R23, R16, 1 ;
+        /*1a10*/                   FFMA R25, R16, R17, R16 ;
+        /*1a20*/                   FFMA R18, R7, R25, RZ ;
+        /*1a30*/                   FFMA R17, -R23, R18, R7 ;
+        /*1a40*/                   FFMA R18, R25, R17, R18 ;
+        /*1a50*/              @!P0 BRA `(.L_x_19) ;
+        /*1a60*/                   MOV R20, R7 ;
+        /*1a70*/                   MOV R22, 0x1a90 ;
+        /*1a80*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1a90*/                   MOV R18, R20 ;
+.L_x_19:
+        /*1aa0*/                   BSYNC B2 ;
+.L_x_18:
+        /*1ab0*/                   MUFU.RCP R16, R23 ;
+        /*1ac0*/                   BSSY B2, `(.L_x_20) ;
+        /*1ad0*/                   FCHK P0, R6, R23 ;
+        /*1ae0*/                   FFMA R7, -R23, R16, 1 ;
+        /*1af0*/                   FFMA R20, R16, R7, R16 ;
+        /*1b00*/                   FFMA R17, R6, R20, RZ ;
+        /*1b10*/                   FFMA R16, -R23, R17, R6 ;
+        /*1b20*/                   FFMA R17, R20, R16, R17 ;
+        /*1b30*/              @!P0 BRA `(.L_x_21) ;
+        /*1b40*/                   MOV R20, R6 ;
+        /*1b50*/                   MOV R22, 0x1b70 ;
+        /*1b60*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1b70*/                   MOV R17, R20 ;
+.L_x_21:
+        /*1b80*/                   BSYNC B2 ;
+.L_x_20:
+        /*1b90*/                   MUFU.RCP R6, R23 ;
+        /*1ba0*/                   BSSY B2, `(.L_x_22) ;
+        /*1bb0*/                   FCHK P0, R5, R23 ;
+        /*1bc0*/                   FFMA R7, -R23, R6, 1 ;
+        /*1bd0*/                   FFMA R25, R6, R7, R6 ;
+        /*1be0*/                   FFMA R16, R5, R25, RZ ;
+        /*1bf0*/                   FFMA R7, -R23, R16, R5 ;
+        /*1c00*/                   FFMA R16, R25, R7, R16 ;
+        /*1c10*/              @!P0 BRA `(.L_x_23) ;
+        /*1c20*/                   MOV R20, R5 ;
+        /*1c30*/                   MOV R22, 0x1c50 ;
+        /*1c40*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1c50*/                   MOV R16, R20 ;
+.L_x_23:
+        /*1c60*/                   BSYNC B2 ;
+.L_x_22:
+        /*1c70*/                   MUFU.RCP R6, R23 ;
+        /*1c80*/                   BSSY B2, `(.L_x_24) ;
+        /*1c90*/                   FCHK P0, R4, R23 ;
+        /*1ca0*/                   FFMA R5, -R23, R6, 1 ;
+        /*1cb0*/                   FFMA R20, R6, R5, R6 ;
+        /*1cc0*/                   FFMA R7, R4, R20, RZ ;
+        /*1cd0*/                   FFMA R6, -R23, R7, R4 ;
+        /*1ce0*/                   FFMA R7, R20, R6, R7 ;
+        /*1cf0*/              @!P0 BRA `(.L_x_25) ;
+        /*1d00*/                   MOV R20, R4 ;
+        /*1d10*/                   MOV R22, 0x1d30 ;
+        /*1d20*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1d30*/                   MOV R7, R20 ;
+.L_x_25:
+        /*1d40*/                   BSYNC B2 ;
+.L_x_24:
+        /*1d50*/                   MUFU.RCP R4, R23 ;
+        /*1d60*/                   BSSY B2, `(.L_x_26) ;
+        /*1d70*/                   FCHK P0, R3, R23 ;
+        /*1d80*/                   FFMA R5, -R23, R4, 1 ;
+        /*1d90*/                   FFMA R25, R4, R5, R4 ;
+        /*1da0*/                   FFMA R6, R3, R25, RZ ;
+        /*1db0*/                   FFMA R5, -R23, R6, R3 ;
+        /*1dc0*/                   FFMA R6, R25, R5, R6 ;
+        /*1dd0*/              @!P0 BRA `(.L_x_27) ;
+        /*1de0*/                   MOV R20, R3 ;
+        /*1df0*/                   MOV R22, 0x1e10 ;
+        /*1e00*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1e10*/                   MOV R6, R20 ;
+.L_x_27:
+        /*1e20*/                   BSYNC B2 ;
+.L_x_26:
+        /*1e30*/                   MUFU.RCP R4, R23 ;
+        /*1e40*/                   BSSY B2, `(.L_x_28) ;
+        /*1e50*/                   FCHK P0, R2, R23 ;
+        /*1e60*/                   FFMA R3, -R23, R4, 1 ;
+        /*1e70*/                   FFMA R20, R4, R3, R4 ;
+        /*1e80*/                   FFMA R5, R2, R20, RZ ;
+        /*1e90*/                   FFMA R4, -R23, R5, R2 ;
+        /*1ea0*/                   FFMA R5, R20, R4, R5 ;
+        /*1eb0*/              @!P0 BRA `(.L_x_29) ;
+        /*1ec0*/                   MOV R20, R2 ;
+        /*1ed0*/                   MOV R22, 0x1ef0 ;
+        /*1ee0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1ef0*/                   MOV R5, R20 ;
+.L_x_29:
+        /*1f00*/                   BSYNC B2 ;
+.L_x_28:
+        /*1f10*/                   MUFU.RCP R2, R23 ;
+        /*1f20*/                   BSSY B2, `(.L_x_30) ;
+        /*1f30*/                   FCHK P0, R0, R23 ;
+        /*1f40*/                   FFMA R3, -R23, R2, 1 ;
+        /*1f50*/                   FFMA R25, R2, R3, R2 ;
+        /*1f60*/                   FFMA R4, R0, R25, RZ ;
+        /*1f70*/                   FFMA R3, -R23, R4, R0 ;
+        /*1f80*/                   FFMA R4, R25, R3, R4 ;
+        /*1f90*/              @!P0 BRA `(.L_x_31) ;
+        /*1fa0*/                   MOV R20, R0 ;
+        /*1fb0*/                   MOV R22, 0x1fd0 ;
+        /*1fc0*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath) ;
+        /*1fd0*/                   MOV R4, R20 ;
+.L_x_31:
+        /*1fe0*/                   BSYNC B2 ;
+.L_x_30:
+	// cute_softmax.py:90  @cute.jit
+        /*1ff0*/                   MOV R2, 0x4 ;
+        /*2000*/                   IMAD.WIDE.U32 R2, R21, R2, c[0x0][0x168] ;
+        /*2010*/                   STG.E.128 [R2.64+0x30], R4 ;
+        /*2020*/                   STG.E.128 [R2.64+0x20], R16 ;
+        /*2030*/                   STG.E.128 [R2.64+0x10], R12 ;
+        /*2040*/                   STG.E.128 [R2.64], R8 ;
+        /*2050*/                   EXIT ;
+        .type           $__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath,@function
+        .size           $__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath,(.L_x_44 - $__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath)
+$__internal_0_$__cuda_sm3x_div_rn_noftz_f32_slowpath:
+        /*2060*/                   SHF.R.U32.HI R24, RZ, 0x17, R23 ;
+        /*2070*/                   BSSY B0, `(.L_x_32) ;
+        /*2080*/                   SHF.R.U32.HI R26, RZ, 0x17, R20 ;
+        /*2090*/                   LOP3.LUT R24, R24, 0xff, RZ, 0xc0, !PT ;
+        /*20a0*/                   LOP3.LUT R26, R26, 0xff, RZ, 0xc0, !PT ;
+        /*20b0*/                   IADD3 R27, R24, -0x1, RZ ;
+        /*20c0*/                   IADD3 R28, R26, -0x1, RZ ;
+        /*20d0*/                   ISETP.GT.U32.AND P0, PT, R27, 0xfd, PT ;
+        /*20e0*/                   MOV R29, R23 ;
+        /*20f0*/                   ISETP.GT.U32.OR P0, PT, R28, 0xfd, P0 ;
+        /*2100*/              @!P0 MOV R25, RZ ;
+        /*2110*/              @!P0 BRA `(.L_x_33) ;
+        /*2120*/                   FSETP.GTU.FTZ.AND P0, PT, |R20|, +INF , PT ;
+        /*2130*/                   FSETP.GTU.FTZ.AND P1, PT, |R23|, +INF , PT ;
+        /*2140*/                   PLOP3.LUT P0, PT, P0, P1, PT, 0xa8, 0x0 ;
+        /*2150*/               @P0 BRA `(.L_x_34) ;
+        /*2160*/                   LOP3.LUT P0, RZ, R29, 0x7fffffff, R20, 0xc8, !PT ;
+        /*2170*/              @!P0 BRA `(.L_x_35) ;
+        /*2180*/                   FSETP.NEU.FTZ.AND P0, PT, |R20|.reuse, +INF , PT ;
+        /*2190*/                   FSETP.NEU.FTZ.AND P2, PT, |R23|, +INF , PT ;
+        /*21a0*/                   FSETP.NEU.FTZ.AND P1, PT, |R20|, +INF , PT ;
+        /*21b0*/              @!P2 BRA !P0, `(.L_x_35) ;
+        /*21c0*/                   LOP3.LUT P0, RZ, R20, 0x7fffffff, RZ, 0xc0, !PT ;
+        /*21d0*/                   PLOP3.LUT P0, PT, P2, P0, PT, 0x2a, 0x0 ;
+        /*21e0*/               @P0 BRA `(.L_x_36) ;
+        /*21f0*/                   LOP3.LUT P0, RZ, R29, 0x7fffffff, RZ, 0xc0, !PT ;
+        /*2200*/                   PLOP3.LUT P0, PT, P1, P0, PT, 0x2a, 0x0 ;
+        /*2210*/               @P0 BRA `(.L_x_37) ;
+        /*2220*/                   ISETP.GE.AND P0, PT, R28, RZ, PT ;
+        /*2230*/                   ISETP.GE.AND P1, PT, R27, RZ, PT ;
+        /*2240*/               @P0 MOV R25, RZ ;
+        /*2250*/              @!P0 FFMA R20, R20, 1.84467440737095516160e+19, RZ ;
+        /*2260*/              @!P0 MOV R25, 0xffffffc0 ;
+        /*2270*/              @!P1 FFMA R29, R23, 1.84467440737095516160e+19, RZ ;
+        /*2280*/              @!P1 IADD3 R25, R25, 0x40, RZ ;
+.L_x_33:
+        /*2290*/                   LEA R32, R24, 0xc0800000, 0x17 ;
+        /*22a0*/                   BSSY B1, `(.L_x_38) ;
+        /*22b0*/                   IADD3 R32, -R32, R29, RZ ;
+        /*22c0*/                   IADD3 R29, R26, -0x7f, RZ ;
+        /*22d0*/                   MUFU.RCP R28, R32 ;
+        /*22e0*/                   FADD.FTZ R27, -R32, -RZ ;
+        /*22f0*/                   IMAD R20, R29, -0x800000, R20 ;
+        /*2300*/                   FFMA R31, R28, R27, 1 ;
+        /*2310*/                   FFMA R31, R28, R31, R28 ;
+        /*2320*/                   FFMA R26, R20, R31, RZ ;
+        /*2330*/                   FFMA R28, R27, R26, R20 ;
+        /*2340*/                   FFMA R28, R31, R28, R26 ;
+        /*2350*/                   IADD3 R26, R29, 0x7f, -R24 ;
+        /*2360*/                   FFMA R27, R27, R28, R20 ;
+        /*2370*/                   IADD3 R25, R26, R25, RZ ;
+        /*2380*/                   FFMA R20, R31, R27, R28 ;
+        /*2390*/                   SHF.R.U32.HI R24, RZ, 0x17, R20 ;
+        /*23a0*/                   LOP3.LUT R24, R24, 0xff, RZ, 0xc0, !PT ;
+        /*23b0*/                   IADD3 R24, R24, R25, RZ ;
+        /*23c0*/                   IADD3 R26, R24, -0x1, RZ ;
+        /*23d0*/                   ISETP.GE.U32.AND P0, PT, R26, 0xfe, PT ;
+        /*23e0*/              @!P0 BRA `(.L_x_39) ;
+        /*23f0*/                   ISETP.GT.AND P0, PT, R24, 0xfe, PT ;
+        /*2400*/               @P0 BRA `(.L_x_40) ;
+        /*2410*/                   ISETP.GE.AND P0, PT, R24, 0x1, PT ;
+        /*2420*/               @P0 BRA `(.L_x_41) ;
+        /*2430*/                   ISETP.GE.AND P0, PT, R24, -0x18, PT ;
+        /*2440*/                   LOP3.LUT R20, R20, 0x80000000, RZ, 0xc0, !PT ;
+        /*2450*/              @!P0 BRA `(.L_x_41) ;
+        /*2460*/                   FFMA.RZ R25, R31.reuse, R27.reuse, R28.reuse ;
+        /*2470*/                   FFMA.RP R26, R31.reuse, R27.reuse, R28.reuse ;
+        /*2480*/                   FFMA.RM R31, R31, R27, R28 ;
+        /*2490*/                   IADD3 R27, R24.reuse, 0x20, RZ ;
+        /*24a0*/                   LOP3.LUT R25, R25, 0x7fffff, RZ, 0xc0, !PT ;
+        /*24b0*/                   ISETP.NE.AND P2, PT, R24.reuse, RZ, PT ;
+        /*24c0*/                   LOP3.LUT R28, R25, 0x800000, RZ, 0xfc, !PT ;
+        /*24d0*/                   ISETP.NE.AND P1, PT, R24, RZ, PT ;
+        /*24e0*/                   IADD3 R24, -R24, RZ, RZ ;
+        /*24f0*/                   SHF.L.U32 R27, R28, R27, RZ ;
+        /*2500*/                   FSETP.NEU.FTZ.AND P0, PT, R26, R31, PT ;
+        /*2510*/                   SEL R25, R24, RZ, P2 ;
+        /*2520*/                   ISETP.NE.AND P1, PT, R27, RZ, P1 ;
+        /*2530*/                   SHF.R.U32.HI R28, RZ, R25, R28 ;
+        /*2540*/                   PLOP3.LUT P0, PT, P0, P1, PT, 0xa8, 0x0 ;
+        /*2550*/                   SHF.R.U32.HI R24, RZ, 0x1, R28 ;
+        /*2560*/                   SEL R25, RZ, 0x1, !P0 ;
+        /*2570*/                   LOP3.LUT R25, R25, 0x1, R24, 0xf8, !PT ;
+        /*2580*/                   LOP3.LUT R25, R25, R28, RZ, 0xc0, !PT ;
+        /*2590*/                   IADD3 R25, R24, R25, RZ ;
+        /*25a0*/                   LOP3.LUT R20, R25, R20, RZ, 0xfc, !PT ;
+        /*25b0*/                   BRA `(.L_x_41) ;
+.L_x_40:
+        /*25c0*/                   LOP3.LUT R20, R20, 0x80000000, RZ, 0xc0, !PT ;
+        /*25d0*/                   LOP3.LUT R20, R20, 0x7f800000, RZ, 0xfc, !PT ;
+        /*25e0*/                   BRA `(.L_x_41) ;
+.L_x_39:
+        /*25f0*/                   LEA R20, R25, R20, 0x17 ;
+.L_x_41:
+        /*2600*/                   BSYNC B1 ;
+.L_x_38:
+        /*2610*/                   BRA `(.L_x_42) ;
+.L_x_37:
+        /*2620*/                   LOP3.LUT R20, R29, 0x80000000, R20, 0x48, !PT ;
+        /*2630*/                   LOP3.LUT R20, R20, 0x7f800000, RZ, 0xfc, !PT ;
+        /*2640*/                   BRA `(.L_x_42) ;
+.L_x_36:
+        /*2650*/                   LOP3.LUT R20, R29, 0x80000000, R20, 0x48, !PT ;
+        /*2660*/                   BRA `(.L_x_42) ;
+.L_x_35:
+        /*2670*/                   MUFU.RSQ R20, -QNAN  ;
+        /*2680*/                   BRA `(.L_x_42) ;
+.L_x_34:
+        /*2690*/                   FADD.FTZ R20, R20, R23 ;
+.L_x_42:
+        /*26a0*/                   BSYNC B0 ;
+.L_x_32:
+        /*26b0*/                   MOV R24, R22 ;
+        /*26c0*/                   MOV R25, 0x0 ;
+        /*26d0*/                   RET.REL.NODEC R24 `(kernel_cutlass_softmax_wide_kernel_tensorptrf32gmemalign16o4096409640961_tensorptrf32gmemalign16o4096409640961_16_0) ;
+.L_x_43:
+        /*26e0*/                   BRA `(.L_x_43);
+        /*26f0*/                   NOP;
+        /*2700*/                   NOP;
+        /*2710*/                   NOP;
+        /*2720*/                   NOP;
+        /*2730*/                   NOP;
+        /*2740*/                   NOP;
+        /*2750*/                   NOP;
+        /*2760*/                   NOP;
+        /*2770*/                   NOP;
+.L_x_44:

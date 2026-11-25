@@ -19,7 +19,7 @@ def block_sum(partial: cutlass.Float32) -> cutlass.Float32:
     for k in cutlass.range_constexpr(REDUCE_STEPS):
         stride = 1 << (REDUCE_STEPS - k - 1)
         if tid < stride and tid + stride < GROUP_SIZE:
-            shmem[tid] += shmem[tid + stride]
+            shmem[tid] = shmem[tid] + shmem[tid + stride]
         cute.arch.sync_threads()
 
     return shmem[0]
