@@ -1,0 +1,919 @@
+	.target	sm_103a
+
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.softmax_kernel_kernel --------------------------
+	.section	.text.softmax_kernel_kernel,"ax",@progbits
+	.align	128
+        .global         softmax_kernel_kernel
+        .type           softmax_kernel_kernel,@function
+        .size           softmax_kernel_kernel,(.L_x_8 - softmax_kernel_kernel)
+        .other          softmax_kernel_kernel,@"STO_CUDA_ENTRY STV_DEFAULT"
+softmax_kernel_kernel:
+.text.softmax_kernel_kernel:
+	// tvm_kernels.cu:22
+        /*0000*/                   LDC R1, c[0x0][0x37c] ;
+        /*0010*/                   S2R R5, SR_CTAID.X ;
+	// tvm_kernels.cu:32
+        /*0020*/                   LDC.64 R2, c[0x0][0x380] ;
+        /*0030*/                   LDCU.64 UR6, c[0x0][0x358] ;
+	// tvm_kernels.cu:22
+        /*0040*/                   S2R R36, SR_TID.X ;
+        /*0050*/                   LEA R0, R5, R36, 0x9 ;
+        /*0060*/                   SHF.L.U32 R0, R0, 0x3, RZ ;
+	// tvm_kernels.cu:32
+        /*0070*/                   IMAD.WIDE.U32 R2, R0, 0x4, R2 ;
+	// copy_sm100.h:39  "l"(D.w));  (inlined at copy_sm100.h:80  global_load_256(ret, ptr, true);)
+	// copy_sm100.h:80  global_load_256(ret, ptr, true);  (inlined at tvm_kernels.cu:32)
+	// tvm_kernels.cu:32
+        /*0080*/                   LDG.E.ENL2.256 R24, R20, desc[UR6][R2.64] ;
+        /*0090*/                   LDG.E.ENL2.256 R28, R8, desc[UR6][R2.64+0x1000] ;
+        /*00a0*/                   LDG.E.ENL2.256 R12, R16, desc[UR6][R2.64+0x2000] ;
+        /*00b0*/                   LDG.E.ENL2.256 R32, R4, desc[UR6][R2.64+0x3000] ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*00c0*/                   S2UR UR5, SR_CgaCtaId ;
+        /*00d0*/                   UMOV UR4, 0x400 ;
+        /*00e0*/                   SHF.L.U32 R36, R36, 0x2, RZ ;
+	// tvm_kernels.cu:51
+        /*00f0*/                   BSSY.RECONVERGENT B0, `(.L_x_0) ;
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0100*/                   LOP3.LUT R3, R36, 0x100, RZ, 0x3c, !PT ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0110*/                   ULEA UR4, UR5, UR4, 0x18 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:283  Barrier::template sync<1>();)
+	// reduce.h:283  Barrier::template sync<1>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0120*/                   BAR.SYNC.DEFER_BLOCKING 0x1, 0x80 ;
+	// math_functions.hpp:1133  return fmaxf(a, b);  (inlined at tvm_kernels.cu:37)
+	// tvm_kernels.cu:37
+        /*0130*/                   FMNMX3 R37, R20, -INF , R8, !PT ;
+        /*0140*/                   FMNMX3 R37, R37, R16, R4, !PT ;
+        /*0150*/                   FMNMX3 R37, R37, R21, R9, !PT ;
+        /*0160*/                   FMNMX3 R37, R37, R17, R5, !PT ;
+        /*0170*/                   FMNMX3 R37, R37, R22, R10, !PT ;
+        /*0180*/                   FMNMX3 R37, R37, R18, R6, !PT ;
+        /*0190*/                   FMNMX3 R37, R37, R23, R11, !PT ;
+        /*01a0*/                   FMNMX3 R37, R37, R19, R7, !PT ;
+        /*01b0*/                   FMNMX3 R37, R37, R24, R28, !PT ;
+        /*01c0*/                   FMNMX3 R37, R37, R12, R32, !PT ;
+        /*01d0*/                   FMNMX3 R37, R37, R25, R29, !PT ;
+        /*01e0*/                   FMNMX3 R37, R37, R13, R33, !PT ;
+        /*01f0*/                   FMNMX3 R37, R37, R26, R30, !PT ;
+        /*0200*/                   FMNMX3 R37, R37, R14, R34, !PT ;
+        /*0210*/                   FMNMX3 R37, R37, R27, R31, !PT ;
+        /*0220*/                   FMNMX3 R37, R37, R15, R35, !PT ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0230*/                   STS [R36+UR4], R37 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:285  Barrier::template sync<2>();)
+	// reduce.h:285  Barrier::template sync<2>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0240*/                   BAR.SYNC.DEFER_BLOCKING 0x2, 0x80 ;
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0250*/                   LDS R2, [R3+UR4] ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0260*/                   FMNMX R39, R37, R2, !PT ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:283  Barrier::template sync<1>();)
+	// reduce.h:283  Barrier::template sync<1>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0270*/                   BAR.SYNC.DEFER_BLOCKING 0x1, 0x80 ;
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0280*/                   LOP3.LUT R2, R36, 0x80, RZ, 0x3c, !PT ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0290*/                   STS [R36+UR4], R39 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:285  Barrier::template sync<2>();)
+	// reduce.h:285  Barrier::template sync<2>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*02a0*/                   BAR.SYNC.DEFER_BLOCKING 0x2, 0x80 ;
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*02b0*/                   LDS R38, [R2+UR4] ;
+	// tvm_kernels.cu:49
+        /*02c0*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:283  Barrier::template sync<1>();)
+	// reduce.h:283  Barrier::template sync<1>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*02d0*/                   BAR.SYNC.DEFER_BLOCKING 0x1, 0x80 ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*02e0*/                   FMNMX R38, R39, R38, !PT ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*02f0*/                   SHFL.BFLY PT, R41, R38, 0x10, 0x1f ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0300*/                   FMNMX R41, R38, R41, !PT ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0310*/                   SHFL.BFLY PT, R40, R41, 0x8, 0x1f ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0320*/                   FMNMX R40, R41, R40, !PT ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0330*/                   SHFL.BFLY PT, R37, R40, 0x4, 0x1f ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0340*/                   FMNMX R42, R40, R37, !PT ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0350*/                   SHFL.BFLY PT, R37, R42, 0x2, 0x1f ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0360*/                   FMNMX R39, R42, R37, !PT ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0370*/                   SHFL.BFLY PT, R44, R39, 0x1, 0x1f ;
+	// common.h:1334  template <> TL_DEVICE float fast_max(float a, float b) { return fmaxf(a, b); }  (inlined at reduce.h:37  return tl::fast_max(x, y);)
+	// reduce.h:37  return tl::fast_max(x, y);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:39)
+	// tvm_kernels.cu:39
+        /*0380*/                   FMNMX R37, R39, R44, !PT ;
+	// tvm_kernels.cu:42
+        /*0390*/                   FADD R20, R20, -R37.reuse ;
+        /*03a0*/                   FADD R38, R21, -R37.reuse ;
+        /*03b0*/                   FADD R21, R22, -R37.reuse ;
+        /*03c0*/                   FADD R22, R24, -R37.reuse ;
+        /*03d0*/                   FMUL R20, R20, 1.4426950216293334961 ;
+        /*03e0*/                   FADD R43, R6, -R37.reuse ;
+        /*03f0*/                   FADD R8, R8, -R37.reuse ;
+        /*0400*/                   FADD R6, R32, -R37.reuse ;
+        /*0410*/                   FMUL R32, R21, 1.4426950216293334961 ;
+        /*0420*/                   FSETP.GEU.AND P2, PT, R20, -126, PT ;
+        /*0430*/                   FADD R24, R25, -R37.reuse ;
+        /*0440*/                   FMUL R21, R22, 1.4426950216293334961 ;
+        /*0450*/                   FADD R25, R26, -R37.reuse ;
+        /*0460*/                   FADD R26, R27, -R37.reuse ;
+        /*0470*/                   FADD R10, R10, -R37.reuse ;
+        /*0480*/                   FMUL R44, R8, 1.4426950216293334961 ;
+        /*0490*/                   FADD R27, R11, -R37.reuse ;
+        /*04a0*/                   FADD R11, R14, -R37.reuse ;
+        /*04b0*/                   FADD R41, R4, -R37.reuse ;
+        /*04c0*/                   FADD R39, R29, -R37.reuse ;
+        /*04d0*/                   FADD R40, R17, -R37.reuse ;
+        /*04e0*/                   FADD R14, R15, -R37.reuse ;
+        /*04f0*/              @!P2 FMUL R20, R20, 0.5 ;
+        /*0500*/                   FADD R4, R34, -R37.reuse ;
+        /*0510*/                   FSETP.GEU.AND P3, PT, R32, -126, PT ;
+        /*0520*/                   FADD R28, R28, -R37.reuse ;
+        /*0530*/                   FSETP.GEU.AND P4, PT, R21, -126, PT ;
+        /*0540*/                   FADD R29, R30, -R37.reuse ;
+        /*0550*/                   FADD R17, R18, -R37.reuse ;
+        /*0560*/                   FADD R15, R5, -R37.reuse ;
+        /*0570*/                   FMUL R10, R10, 1.4426950216293334961 ;
+        /*0580*/                   MUFU.EX2 R34, R20 ;
+        /*0590*/                   FADD R23, R23, -R37.reuse ;
+        /*05a0*/                   FADD R9, R9, -R37.reuse ;
+        /*05b0*/                   FADD R31, R31, -R37.reuse ;
+        /*05c0*/                   FADD R30, R16, -R37.reuse ;
+        /*05d0*/                   FADD R18, R19, -R37.reuse ;
+        /*05e0*/                   FADD R12, R12, -R37.reuse ;
+        /*05f0*/                   FADD R13, R13, -R37.reuse ;
+        /*0600*/                   FADD R7, R7, -R37.reuse ;
+        /*0610*/                   FADD R5, R33, -R37.reuse ;
+        /*0620*/                   FSETP.GEU.AND P6, PT, R44, -126, PT ;
+        /*0630*/                   FADD R37, R35, -R37 ;
+        /*0640*/                   FMUL R35, R38, 1.4426950216293334961 ;
+        /*0650*/                   FMUL R38, R25, 1.4426950216293334961 ;
+        /*0660*/                   FMUL R28, R28, 1.4426950216293334961 ;
+        /*0670*/                   FSETP.GEU.AND P0, PT, R10, -126, PT ;
+        /*0680*/                   FMUL R33, R9, 1.4426950216293334961 ;
+        /*0690*/                   FMUL R9, R29, 1.4426950216293334961 ;
+        /*06a0*/                   FSETP.GEU.AND P5, PT, R38, -126, PT ;
+        /*06b0*/                   FMUL R29, R30, 1.4426950216293334961 ;
+        /*06c0*/                   FSETP.GEU.AND P1, PT, R28, -126, PT ;
+        /*06d0*/              @!P3 FMUL R32, R32, 0.5 ;
+        /*06e0*/              @!P4 FMUL R21, R21, 0.5 ;
+        /*06f0*/              @!P2 FMUL R34, R34, R34 ;
+        /*0700*/              @!P6 FMUL R44, R44, 0.5 ;
+        /*0710*/                   FMUL R19, R24, 1.4426950216293334961 ;
+        /*0720*/                   FSETP.GEU.AND P2, PT, R29, -126, PT ;
+        /*0730*/                   MUFU.EX2 R24, R21 ;
+        /*0740*/              @!P0 FMUL R10, R10, 0.5 ;
+        /*0750*/                   FMUL R16, R26, 1.4426950216293334961 ;
+        /*0760*/                   FMUL R41, R41, 1.4426950216293334961 ;
+        /*0770*/                   MUFU.EX2 R22, R32 ;
+        /*0780*/              @!P5 FMUL R38, R38, 0.5 ;
+        /*0790*/              @!P1 FMUL R28, R28, 0.5 ;
+        /*07a0*/                   FMUL R17, R17, 1.4426950216293334961 ;
+        /*07b0*/                   MUFU.EX2 R32, R44 ;
+        /*07c0*/                   FMUL R25, R40, 1.4426950216293334961 ;
+        /*07d0*/                   FMUL R43, R43, 1.4426950216293334961 ;
+        /*07e0*/                   FMUL R15, R15, 1.4426950216293334961 ;
+        /*07f0*/                   MUFU.EX2 R30, R10 ;
+        /*0800*/              @!P2 FMUL R29, R29, 0.5 ;
+        /*0810*/              @!P4 FMUL R24, R24, R24 ;
+        /*0820*/                   FSETP.GEU.AND P4, PT, R41, -126, PT ;
+        /*0830*/                   MUFU.EX2 R26, R38 ;
+        /*0840*/                   FMUL R21, R11, 1.4426950216293334961 ;
+        /*0850*/              @!P3 FMUL R22, R22, R22 ;
+        /*0860*/                   FSETP.GEU.AND P3, PT, R17, -126, PT ;
+        /*0870*/                   MUFU.EX2 R28, R28 ;
+	// tvm_kernels.cu:47
+        /*0880*/                   FADD R11, RZ, R34 ;
+	// tvm_kernels.cu:42
+        /*0890*/              @!P6 FMUL R32, R32, R32 ;
+        /*08a0*/                   FSETP.GEU.AND P6, PT, R35, -126, PT ;
+        /*08b0*/                   MUFU.EX2 R40, R29 ;
+        /*08c0*/                   FMUL R8, R39, 1.4426950216293334961 ;
+        /*08d0*/              @!P0 FMUL R30, R30, R30 ;
+        /*08e0*/                   FSETP.GEU.AND P0, PT, R33, -126, PT ;
+        /*08f0*/              @!P4 FMUL R41, R41, 0.5 ;
+        /*0900*/                   FMUL R39, R18, 1.4426950216293334961 ;
+        /*0910*/              @!P5 FMUL R26, R26, R26 ;
+        /*0920*/                   FSETP.GEU.AND P5, PT, R43, -126, PT ;
+        /*0930*/              @!P3 FMUL R17, R17, 0.5 ;
+        /*0940*/                   MUFU.EX2 R10, R41 ;
+        /*0950*/              @!P1 FMUL R28, R28, R28 ;
+        /*0960*/                   FSETP.GEU.AND P1, PT, R25, -126, PT ;
+        /*0970*/              @!P6 FMUL R35, R35, 0.5 ;
+        /*0980*/                   MUFU.EX2 R38, R17 ;
+        /*0990*/              @!P2 FMUL R40, R40, R40 ;
+        /*09a0*/                   FSETP.GEU.AND P2, PT, R15, -126, PT ;
+        /*09b0*/              @!P0 FMUL R33, R33, 0.5 ;
+        /*09c0*/                   FMUL R20, R12, 1.4426950216293334961 ;
+        /*09d0*/                   MUFU.EX2 R35, R35 ;
+        /*09e0*/                   FMUL R18, R13, 1.4426950216293334961 ;
+        /*09f0*/              @!P5 FMUL R43, R43, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0a00*/                   FADD R13, R32, R11 ;
+	// tvm_kernels.cu:42
+        /*0a10*/                   MUFU.EX2 R33, R33 ;
+        /*0a20*/                   FMUL R23, R23, 1.4426950216293334961 ;
+        /*0a30*/              @!P1 FMUL R25, R25, 0.5 ;
+        /*0a40*/              @!P4 FMUL R10, R10, R10 ;
+        /*0a50*/                   MUFU.EX2 R12, R43 ;
+	// tvm_kernels.cu:47
+        /*0a60*/                   FADD R13, R40, R13 ;
+	// tvm_kernels.cu:42
+        /*0a70*/              @!P2 FMUL R15, R15, 0.5 ;
+        /*0a80*/                   FMUL R17, R14, 1.4426950216293334961 ;
+        /*0a90*/                   MUFU.EX2 R41, R25 ;
+        /*0aa0*/              @!P3 FMUL R38, R38, R38 ;
+        /*0ab0*/                   FSETP.GEU.AND P3, PT, R23, -126, PT ;
+        /*0ac0*/                   FMUL R14, R6, 1.4426950216293334961 ;
+        /*0ad0*/                   MUFU.EX2 R11, R15 ;
+        /*0ae0*/                   FMUL R27, R27, 1.4426950216293334961 ;
+        /*0af0*/              @!P6 FMUL R35, R35, R35 ;
+	// tvm_kernels.cu:47
+        /*0b00*/                   FADD R6, R10, R13 ;
+	// tvm_kernels.cu:42
+        /*0b10*/              @!P0 FMUL R33, R33, R33 ;
+        /*0b20*/                   FMUL R7, R7, 1.4426950216293334961 ;
+        /*0b30*/                   FSETP.GEU.AND P4, PT, R27, -126, PT ;
+	// tvm_kernels.cu:47
+        /*0b40*/                   FADD R6, R35, R6 ;
+	// tvm_kernels.cu:42
+        /*0b50*/              @!P5 FMUL R12, R12, R12 ;
+        /*0b60*/                   FSETP.GEU.AND P5, PT, R39, -126, PT ;
+        /*0b70*/              @!P1 FMUL R41, R41, R41 ;
+	// tvm_kernels.cu:47
+        /*0b80*/                   FADD R6, R33, R6 ;
+	// tvm_kernels.cu:42
+        /*0b90*/              @!P3 FMUL R23, R23, 0.5 ;
+        /*0ba0*/                   FSETP.GEU.AND P0, PT, R7, -126, PT ;
+        /*0bb0*/              @!P2 FMUL R11, R11, R11 ;
+	// tvm_kernels.cu:47
+        /*0bc0*/                   FADD R6, R41, R6 ;
+	// tvm_kernels.cu:42
+        /*0bd0*/                   FMUL R42, R31, 1.4426950216293334961 ;
+        /*0be0*/                   FSETP.GEU.AND P6, PT, R20, -126, PT ;
+        /*0bf0*/                   MUFU.EX2 R23, R23 ;
+	// tvm_kernels.cu:47
+        /*0c00*/                   FADD R13, R11, R6 ;
+	// tvm_kernels.cu:42
+        /*0c10*/              @!P4 FMUL R27, R27, 0.5 ;
+        /*0c20*/                   FSETP.GEU.AND P2, PT, R14, -126, PT ;
+        /*0c30*/              @!P5 FMUL R39, R39, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0c40*/                   FADD R13, R22, R13 ;
+	// tvm_kernels.cu:42
+        /*0c50*/                   MUFU.EX2 R31, R27 ;
+        /*0c60*/                   FSETP.GEU.AND P1, PT, R19, -126, PT ;
+        /*0c70*/              @!P0 FMUL R7, R7, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0c80*/                   FADD R13, R30, R13 ;
+	// tvm_kernels.cu:42
+        /*0c90*/                   MUFU.EX2 R39, R39 ;
+        /*0ca0*/                   FMUL R5, R5, 1.4426950216293334961 ;
+        /*0cb0*/              @!P6 FMUL R20, R20, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0cc0*/                   FADD R15, R38, R13 ;
+	// tvm_kernels.cu:42
+        /*0cd0*/              @!P3 FMUL R23, R23, R23 ;
+        /*0ce0*/                   MUFU.EX2 R13, R7 ;
+        /*0cf0*/                   FSETP.GEU.AND P3, PT, R8, -126, PT ;
+	// tvm_kernels.cu:47
+        /*0d00*/                   FADD R44, R12, R15 ;
+	// tvm_kernels.cu:42
+        /*0d10*/              @!P2 FMUL R14, R14, 0.5 ;
+        /*0d20*/                   MUFU.EX2 R6, R20 ;
+        /*0d30*/              @!P4 FMUL R31, R31, R31 ;
+	// tvm_kernels.cu:47
+        /*0d40*/                   FADD R44, R23, R44 ;
+	// tvm_kernels.cu:42
+        /*0d50*/                   FSETP.GEU.AND P4, PT, R18, -126, PT ;
+        /*0d60*/              @!P1 FMUL R19, R19, 0.5 ;
+        /*0d70*/              @!P5 FMUL R39, R39, R39 ;
+	// tvm_kernels.cu:47
+        /*0d80*/                   FADD R44, R31, R44 ;
+	// tvm_kernels.cu:42
+        /*0d90*/                   FSETP.GEU.AND P5, PT, R5, -126, PT ;
+        /*0da0*/                   MUFU.EX2 R14, R14 ;
+        /*0db0*/                   FMUL R4, R4, 1.4426950216293334961 ;
+        /*0dc0*/              @!P0 FMUL R13, R13, R13 ;
+	// tvm_kernels.cu:47
+        /*0dd0*/                   FADD R44, R39, R44 ;
+	// tvm_kernels.cu:42
+        /*0de0*/              @!P3 FMUL R8, R8, 0.5 ;
+        /*0df0*/                   MUFU.EX2 R25, R19 ;
+        /*0e00*/                   FSETP.GEU.AND P0, PT, R9, -126, PT ;
+	// tvm_kernels.cu:47
+        /*0e10*/                   FADD R15, R13, R44 ;
+	// tvm_kernels.cu:42
+        /*0e20*/              @!P4 FMUL R18, R18, 0.5 ;
+        /*0e30*/                   MUFU.EX2 R29, R8 ;
+        /*0e40*/              @!P6 FMUL R6, R6, R6 ;
+        /*0e50*/                   FSETP.GEU.AND P6, PT, R21, -126, PT ;
+        /*0e60*/              @!P5 FMUL R5, R5, 0.5 ;
+        /*0e70*/                   MUFU.EX2 R7, R18 ;
+	// tvm_kernels.cu:47
+        /*0e80*/                   FADD R19, R24, R15 ;
+	// tvm_kernels.cu:42
+        /*0e90*/              @!P2 FMUL R14, R14, R14 ;
+        /*0ea0*/                   FSETP.GEU.AND P2, PT, R4, -126, PT ;
+        /*0eb0*/                   MUFU.EX2 R15, R5 ;
+	// tvm_kernels.cu:47
+        /*0ec0*/                   FADD R19, R28, R19 ;
+	// tvm_kernels.cu:42
+        /*0ed0*/              @!P1 FMUL R25, R25, R25 ;
+        /*0ee0*/                   FSETP.GEU.AND P1, PT, R16, -126, PT ;
+        /*0ef0*/              @!P0 FMUL R9, R9, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0f00*/                   FADD R19, R6, R19 ;
+	// tvm_kernels.cu:42
+        /*0f10*/              @!P3 FMUL R29, R29, R29 ;
+        /*0f20*/                   FSETP.GEU.AND P3, PT, R42, -126, PT ;
+        /*0f30*/              @!P6 FMUL R21, R21, 0.5 ;
+	// tvm_kernels.cu:47
+        /*0f40*/                   FADD R8, R14, R19 ;
+	// tvm_kernels.cu:42
+        /*0f50*/                   MUFU.EX2 R18, R9 ;
+        /*0f60*/                   FMUL R37, R37, 1.4426950216293334961 ;
+        /*0f70*/              @!P4 FMUL R7, R7, R7 ;
+	// tvm_kernels.cu:47
+        /*0f80*/                   FADD R8, R25, R8 ;
+	// tvm_kernels.cu:42
+        /*0f90*/                   FSETP.GEU.AND P4, PT, R17, -126, PT ;
+        /*0fa0*/              @!P2 FMUL R4, R4, 0.5 ;
+        /*0fb0*/              @!P5 FMUL R15, R15, R15 ;
+	// tvm_kernels.cu:47
+        /*0fc0*/                   FADD R20, R29, R8 ;
+	// tvm_kernels.cu:42
+        /*0fd0*/                   FSETP.GEU.AND P5, PT, R37, -126, PT ;
+        /*0fe0*/                   MUFU.EX2 R8, R21 ;
+        /*0ff0*/              @!P1 FMUL R16, R16, 0.5 ;
+	// tvm_kernels.cu:47
+        /*1000*/                   FADD R44, R7, R20 ;
+	// tvm_kernels.cu:42
+        /*1010*/              @!P3 FMUL R42, R42, 0.5 ;
+        /*1020*/                   MUFU.EX2 R20, R4 ;
+        /*1030*/              @!P0 FMUL R18, R18, R18 ;
+	// tvm_kernels.cu:47
+        /*1040*/                   FADD R5, R15, R44 ;
+	// tvm_kernels.cu:42
+        /*1050*/                   MUFU.EX2 R27, R16 ;
+        /*1060*/              @!P4 FMUL R17, R17, 0.5 ;
+	// tvm_kernels.cu:47
+        /*1070*/                   FADD R5, R26, R5 ;
+	// tvm_kernels.cu:42
+        /*1080*/                   MUFU.EX2 R19, R42 ;
+        /*1090*/              @!P5 FMUL R37, R37, 0.5 ;
+        /*10a0*/              @!P6 FMUL R8, R8, R8 ;
+	// tvm_kernels.cu:47
+        /*10b0*/                   FADD R5, R18, R5 ;
+	// tvm_kernels.cu:42
+        /*10c0*/                   MUFU.EX2 R9, R17 ;
+        /*10d0*/              @!P2 FMUL R20, R20, R20 ;
+	// tvm_kernels.cu:47
+        /*10e0*/                   FADD R5, R8, R5 ;
+	// tvm_kernels.cu:42
+        /*10f0*/                   MUFU.EX2 R21, R37 ;
+        /*1100*/              @!P1 FMUL R27, R27, R27 ;
+	// tvm_kernels.cu:47
+        /*1110*/                   FADD R4, R20, R5 ;
+	// tvm_kernels.cu:42
+        /*1120*/              @!P3 FMUL R19, R19, R19 ;
+	// tvm_kernels.cu:47
+        /*1130*/                   FADD R4, R27, R4 ;
+	// tvm_kernels.cu:42
+        /*1140*/              @!P4 FMUL R9, R9, R9 ;
+	// tvm_kernels.cu:47
+        /*1150*/                   FADD R4, R19, R4 ;
+	// tvm_kernels.cu:42
+        /*1160*/              @!P5 FMUL R21, R21, R21 ;
+	// tvm_kernels.cu:47
+        /*1170*/                   FADD R4, R9, R4 ;
+        /*1180*/                   FADD R5, R21, R4 ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1190*/                   STS [R36+UR4], R5 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:285  Barrier::template sync<2>();)
+	// reduce.h:285  Barrier::template sync<2>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*11a0*/                   BAR.SYNC.DEFER_BLOCKING 0x2, 0x80 ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*11b0*/                   LDS R4, [R3+UR4] ;
+        /*11c0*/                   FADD R17, R5, R4 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:283  Barrier::template sync<1>();)
+	// reduce.h:283  Barrier::template sync<1>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*11d0*/                   BAR.SYNC.DEFER_BLOCKING 0x1, 0x80 ;
+	// reduce.h:284  red_buf[threadIdx.x - thread_offset] = x;  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*11e0*/                   STS [R36+UR4], R17 ;
+	// reduce.h:207  asm volatile("bar.sync %0, %1;" : : "r"(phase), "r"(all_threads));  (inlined at reduce.h:285  Barrier::template sync<2>();)
+	// reduce.h:285  Barrier::template sync<2>();  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*11f0*/                   BAR.SYNC.DEFER_BLOCKING 0x2, 0x80 ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);)
+	// reduce.h:286  x = Reducer()(x, red_buf[(threadIdx.x - thread_offset) ^ offset]);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1200*/                   LDS R2, [R2+UR4] ;
+        /*1210*/                   FADD R4, R17, R2 ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1220*/                   SHFL.BFLY PT, R37, R4, 0x10, 0x1f ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1230*/                   FADD R37, R4, R37 ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1240*/                   SHFL.BFLY PT, R16, R37, 0x8, 0x1f ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1250*/                   FADD R16, R37, R16 ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1260*/                   SHFL.BFLY PT, R3, R16, 0x4, 0x1f ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1270*/                   FADD R3, R16, R3 ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1280*/                   SHFL.BFLY PT, R42, R3, 0x2, 0x1f ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*1290*/                   FADD R42, R3, R42 ;
+	// sm_30_intrinsics.hpp:449  ret = __nvvm_shfl_bfly_sync(mask, __float_as_int(var), laneMask, c);  (inlined at common.h:1517  return __shfl_xor_sync(mask, val, laneMask);)
+	// common.h:1517  return __shfl_xor_sync(mask, val, laneMask);  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*12a0*/                   SHFL.BFLY PT, R5, R42, 0x1, 0x1f ;
+	// reduce.h:31  return x + y;  (inlined at reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));)
+	// reduce.h:288  x = Reducer()(x, tl::shfl_xor_sync(uint32_t(-1), x, offset));  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at reduce.h:293  return Next::run(x, red_buf);)
+	// reduce.h:293  return Next::run(x, red_buf);  (inlined at reduce.h:260  return butterfly_reduce_scalar(x, red_buf);)
+	// reduce.h:260  return butterfly_reduce_scalar(x, red_buf);  (inlined at tvm_kernels.cu:50)
+	// tvm_kernels.cu:50
+        /*12b0*/                   FADD R2, R42, R5 ;
+	// tvm_kernels.cu:51
+        /*12c0*/                   IADD3 R5, PT, PT, R2, 0x1800000, RZ ;
+        /*12d0*/                   LOP3.LUT R5, R5, 0x7f800000, RZ, 0xc0, !PT ;
+        /*12e0*/                   ISETP.GT.U32.AND P0, PT, R5, 0x1ffffff, PT ;
+        /*12f0*/               @P0 BRA `(.L_x_1) ;
+        /*1300*/                   MOV R4, 0x1320 ;
+        /*1310*/                   CALL.REL.NOINC `($__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath) ;
+        /*1320*/                   BRA `(.L_x_2) ;
+.L_x_1:
+        /*1330*/                   MUFU.RCP R3, R2 ;
+        /*1340*/                   FFMA R4, R2, R3, -1 ;
+        /*1350*/                   FADD.FTZ R4, -R4, -RZ ;
+        /*1360*/                   FFMA R16, R3, R4, R3 ;
+.L_x_2:
+        /*1370*/                   BSYNC.RECONVERGENT B0 ;
+.L_x_0:
+	// tvm_kernels.cu:61
+        /*1380*/                   LDC.64 R36, c[0x0][0x388] ;
+	// sm_100_rt.hpp:134  return __fmul2_rn_impl(x, y);  (inlined at common.h:1277  return __fmul2_rn(a, b);)
+	// common.h:1277  return __fmul2_rn(a, b);  (inlined at tvm_kernels.cu:57)
+	// tvm_kernels.cu:57
+        /*1390*/                   FMUL2 R34, R34.F32x2.HI_LO, R16.reuse.F32 ;
+        /*13a0*/                   FMUL2 R22, R22.F32x2.HI_LO, R16.reuse.F32 ;
+        /*13b0*/                   FMUL2 R24, R24.F32x2.HI_LO, R16.reuse.F32 ;
+        /*13c0*/                   FMUL2 R26, R26.F32x2.HI_LO, R16.reuse.F32 ;
+        /*13d0*/                   FMUL2 R32, R32.F32x2.HI_LO, R16.reuse.F32 ;
+        /*13e0*/                   FMUL2 R30, R30.F32x2.HI_LO, R16.F32 ;
+        /*13f0*/                   FMUL2 R28, R28.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1400*/                   FMUL2 R18, R18.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1410*/                   FMUL2 R2, R40.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1420*/                   FMUL2 R4, R38.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1430*/                   FMUL2 R6, R6.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1440*/                   FMUL2 R8, R8.F32x2.HI_LO, R16.F32 ;
+	// tvm_kernels.cu:61
+        /*1450*/                   IMAD.WIDE.U32 R36, R0, 0x4, R36 ;
+	// sm_100_rt.hpp:134  return __fmul2_rn_impl(x, y);  (inlined at common.h:1277  return __fmul2_rn(a, b);)
+	// common.h:1277  return __fmul2_rn(a, b);  (inlined at tvm_kernels.cu:60)
+	// tvm_kernels.cu:60
+        /*1460*/                   FMUL2 R10, R10.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1470*/                   FMUL2 R12, R12.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1480*/                   FMUL2 R14, R14.F32x2.HI_LO, R16.reuse.F32 ;
+        /*1490*/                   FMUL2 R16, R20.F32x2.HI_LO, R16.F32 ;
+        /*14a0*/                   MOV R20, R34 ;
+        /*14b0*/                   MOV R21, R35 ;
+	// copy_sm100.h:136  "r"((int)pred_guard));  (inlined at copy_sm100.h:158  global_store_256(val_u64, ptr, true);)
+	// copy_sm100.h:158  global_store_256(val_u64, ptr, true);  (inlined at tvm_kernels.cu:61)
+	// tvm_kernels.cu:61
+        /*14c0*/                   STG.E.ENL2.256 desc[UR6][R36.64], R20, R24 ;
+	// sm_100_rt.hpp:134  return __fmul2_rn_impl(x, y);  (inlined at common.h:1277  return __fmul2_rn(a, b);)
+	// common.h:1277  return __fmul2_rn(a, b);  (inlined at tvm_kernels.cu:60)
+	// tvm_kernels.cu:60
+        /*14d0*/                   MOV R20, R32 ;
+        /*14e0*/                   MOV R21, R33 ;
+        /*14f0*/                   MOV R22, R30 ;
+        /*1500*/                   MOV R23, R31 ;
+        /*1510*/                   MOV R24, R28 ;
+        /*1520*/                   MOV R25, R29 ;
+        /*1530*/                   MOV R26, R18 ;
+        /*1540*/                   MOV R27, R19 ;
+	// copy_sm100.h:136  "r"((int)pred_guard));  (inlined at copy_sm100.h:158  global_store_256(val_u64, ptr, true);)
+	// copy_sm100.h:158  global_store_256(val_u64, ptr, true);  (inlined at tvm_kernels.cu:61)
+	// tvm_kernels.cu:61
+        /*1550*/                   STG.E.ENL2.256 desc[UR6][R36.64+0x1000], R20, R24 ;
+	// sm_100_rt.hpp:134  return __fmul2_rn_impl(x, y);  (inlined at common.h:1277  return __fmul2_rn(a, b);)
+	// common.h:1277  return __fmul2_rn(a, b);  (inlined at tvm_kernels.cu:60)
+	// tvm_kernels.cu:60
+        /*1560*/                   MOV R22, R4 ;
+        /*1570*/                   MOV R23, R5 ;
+        /*1580*/                   MOV R4, R6 ;
+        /*1590*/                   MOV R5, R7 ;
+        /*15a0*/                   MOV R20, R2 ;
+        /*15b0*/                   MOV R21, R3 ;
+        /*15c0*/                   MOV R6, R8 ;
+        /*15d0*/                   MOV R7, R9 ;
+        /*15e0*/                   MOV R8, R14 ;
+        /*15f0*/                   MOV R9, R15 ;
+	// copy_sm100.h:136  "r"((int)pred_guard));  (inlined at copy_sm100.h:158  global_store_256(val_u64, ptr, true);)
+	// copy_sm100.h:158  global_store_256(val_u64, ptr, true);  (inlined at tvm_kernels.cu:61)
+	// tvm_kernels.cu:61
+        /*1600*/                   STG.E.ENL2.256 desc[UR6][R36.64+0x2000], R20, R4 ;
+	// sm_100_rt.hpp:134  return __fmul2_rn_impl(x, y);  (inlined at common.h:1277  return __fmul2_rn(a, b);)
+	// common.h:1277  return __fmul2_rn(a, b);  (inlined at tvm_kernels.cu:60)
+	// tvm_kernels.cu:60
+        /*1610*/                   MOV R4, R10 ;
+        /*1620*/                   MOV R5, R11 ;
+        /*1630*/                   MOV R6, R12 ;
+        /*1640*/                   MOV R7, R13 ;
+        /*1650*/                   MOV R10, R16 ;
+        /*1660*/                   MOV R11, R17 ;
+	// copy_sm100.h:136  "r"((int)pred_guard));  (inlined at copy_sm100.h:158  global_store_256(val_u64, ptr, true);)
+	// copy_sm100.h:158  global_store_256(val_u64, ptr, true);  (inlined at tvm_kernels.cu:61)
+	// tvm_kernels.cu:61
+        /*1670*/                   STG.E.ENL2.256 desc[UR6][R36.64+0x3000], R4, R8 ;
+	// tvm_kernels.cu:63
+        /*1680*/                   EXIT ;
+        .type           $__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath,@function
+        .size           $__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath,(.L_x_8 - $__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath)
+$__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath:
+        /*1690*/                   SHF.L.U32 R3, R2, 0x1, RZ ;
+        /*16a0*/                   BSSY.RECONVERGENT B1, `(.L_x_3) ;
+        /*16b0*/                   SHF.R.U32.HI R3, RZ, 0x18, R3 ;
+        /*16c0*/                   ISETP.NE.U32.AND P0, PT, R3, RZ, PT ;
+        /*16d0*/               @P0 BRA `(.L_x_4) ;
+        /*16e0*/                   SHF.L.U32 R3, R2, 0x1, RZ ;
+        /*16f0*/                   ISETP.NE.AND P0, PT, R3, RZ, PT ;
+        /*1700*/               @P0 FFMA R16, R2, 1.84467440737095516160e+19, RZ ;
+        /*1710*/              @!P0 MUFU.RCP R5, R2 ;
+        /*1720*/               @P0 MUFU.RCP R3, R16 ;
+        /*1730*/               @P0 FFMA R17, R16, R3, -1 ;
+        /*1740*/               @P0 FADD.FTZ R36, -R17, -RZ ;
+        /*1750*/               @P0 FFMA R3, R3, R36, R3 ;
+        /*1760*/               @P0 FFMA R5, R3, 1.84467440737095516160e+19, RZ ;
+        /*1770*/                   BRA `(.L_x_5) ;
+.L_x_4:
+        /*1780*/                   IADD3 R5, PT, PT, R3, -0xfd, RZ ;
+        /*1790*/                   ISETP.GT.U32.AND P0, PT, R5, 0x1, PT ;
+        /*17a0*/               @P0 BRA `(.L_x_6) ;
+        /*17b0*/                   LOP3.LUT R16, R2, 0x7fffff, RZ, 0xc0, !PT ;
+        /*17c0*/                   HFMA2 R42, -RZ, RZ, 0, 1.78813934326171875e-07 ;
+        /*17d0*/                   IADD3 R3, PT, PT, R3, -0xfc, RZ ;
+        /*17e0*/                   LOP3.LUT R17, R16, 0x3f800000, RZ, 0xfc, !PT ;
+        /*17f0*/                   SHF.L.U32 R43, R42, R5, RZ ;
+        /*1800*/                   MUFU.RCP R16, R17 ;
+        /*1810*/                   FFMA R36, R17, R16, -1 ;
+        /*1820*/                   FADD.FTZ R37, -R36, -RZ ;
+        /*1830*/                   FFMA.RM R36, R16.reuse, R37.reuse, R16.reuse ;
+        /*1840*/                   FFMA.RP R37, R16, R37, R16 ;
+        /*1850*/                   LOP3.LUT R16, R36.reuse, 0x7fffff, RZ, 0xc0, !PT ;
+        /*1860*/                   FSETP.NEU.FTZ.AND P0, PT, R36, R37, PT ;
+        /*1870*/                   LOP3.LUT R16, R16, 0x800000, RZ, 0xfc, !PT ;
+        /*1880*/                   SEL R36, RZ, 0xffffffff, !P0 ;
+        /*1890*/                   LOP3.LUT R42, R43, R16, RZ, 0xc0, !PT ;
+        /*18a0*/                   IADD3 R36, PT, PT, -R36, RZ, RZ ;
+        /*18b0*/                   SHF.R.U32.HI R42, RZ, R5.reuse, R42 ;
+        /*18c0*/                   LOP3.LUT P1, RZ, R36, R5, R16.reuse, 0xf8, !PT ;
+        /*18d0*/                   LOP3.LUT P0, RZ, R42.reuse, 0x1, RZ, 0xc0, !PT ;
+        /*18e0*/                   LOP3.LUT P2, RZ, R42, 0x2, RZ, 0xc0, !PT ;
+        /*18f0*/                   SHF.R.U32.HI R3, RZ, R3, R16 ;
+        /*1900*/                   PLOP3.LUT P0, PT, P0, P1, P2, 0xe0, 0x0 ;
+        /*1910*/                   LOP3.LUT P1, RZ, R2, 0x7fffff, RZ, 0xc0, !PT ;
+        /*1920*/                   SEL R5, RZ, 0x1, !P0 ;
+        /*1930*/                   IADD3 R5, PT, PT, -R5, RZ, RZ ;
+        /*1940*/                   ISETP.GE.AND P0, PT, R5, RZ, PT ;
+        /*1950*/              @!P0 IADD3 R3, PT, PT, R3, 0x1, RZ ;
+        /*1960*/              @!P1 SHF.L.U32 R3, R3, 0x1, RZ ;
+        /*1970*/                   LOP3.LUT R5, R3, 0x80000000, R2, 0xf8, !PT ;
+        /*1980*/                   BRA `(.L_x_5) ;
+.L_x_6:
+        /*1990*/                   MUFU.RCP R5, R2 ;
+.L_x_5:
+        /*19a0*/                   BSYNC.RECONVERGENT B1 ;
+.L_x_3:
+        /*19b0*/                   MOV R16, R5 ;
+        /*19c0*/                   HFMA2 R5, -RZ, RZ, 0, 0 ;
+        /*19d0*/                   RET.REL.NODEC R4 `(softmax_kernel_kernel) ;
+.L_x_7:
+        /*19e0*/                   BRA `(.L_x_7);
+        /*19f0*/                   NOP;
+        /*1a00*/                   NOP;
+        /*1a10*/                   NOP;
+        /*1a20*/                   NOP;
+        /*1a30*/                   NOP;
+        /*1a40*/                   NOP;
+        /*1a50*/                   NOP;
+        /*1a60*/                   NOP;
+        /*1a70*/                   NOP;
+.L_x_8:
+
+
+//--------------------- SYMBOLS --------------------------
+
+	.type		.nv.reservedSmem.offset0,@object
+	.size		.nv.reservedSmem.offset0,0x4
+	.type		.nv.reservedSmem.cap,@object
+	.size		.nv.reservedSmem.cap,0x4
