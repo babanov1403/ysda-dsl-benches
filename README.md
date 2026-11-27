@@ -12,6 +12,19 @@ CUDA_VISIBLE_DEVICES=<free gpu> uv run --frozen jupyter lab
 
 Start Jupyter with `uv run`: the CUDA build needs `ninja` from `.venv/bin` on PATH.
 
+If CUDA initialization reports `cudaErrorMpsConnectionFailed` (error 805), check
+whether the host's NVIDIA MPS daemon is accessible to your user. On a GPU that
+allows direct CUDA access, and only if the host does not require MPS, launch
+Jupyter with a private, empty MPS pipe directory so it does not use the shared daemon:
+
+```bash
+CUDA_MPS_PIPE_DIRECTORY="$(mktemp -d)" CUDA_VISIBLE_DEVICES=<free gpu> uv run --frozen jupyter lab
+```
+
+Start a fresh notebook kernel from that server; changing the environment after
+CUDA initialization fails does not repair the running kernel. If your host
+requires MPS, ask the host administrator for the correct pipe directory instead.
+
 ## Layout
 
 ```
